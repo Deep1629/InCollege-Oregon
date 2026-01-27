@@ -1,78 +1,144 @@
 IDENTIFICATION DIVISION.
-       PROGRAM-ID. INCOLLEGE.
+       PROGRAM-ID. InCollege.
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT INPUT-FILE ASSIGN TO "input/InCollege-Input.txt"
+           SELECT InputFile ASSIGN TO "input/InCollege-Input.txt"
                ORGANIZATION IS LINE SEQUENTIAL.
-           SELECT OUTPUT-FILE ASSIGN TO "output/InCollege-Output.txt"
+           SELECT OutputFile ASSIGN TO "output/InCollege-Output.txt"
+               ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT UserDataFile ASSIGN TO "users.dat"
                ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
+       FD InputFile.
+       01 InputRecord PIC X(100).
 
-       FD INPUT-FILE.
-       01 INPUT-REC PIC X(100).
+       FD OutputFile.
+       01 OutputRecord PIC X(100).
 
-       FD OUTPUT-FILE.
-       01 OUTPUT-REC PIC X(200).
+       FD UserDataFile.
+       01 UserRecord.
+           05 Username PIC X(20).
+           05 Password PIC X(20).
 
        WORKING-STORAGE SECTION.
-       01 WS-CHOICE-X PIC X(1).
-       01 WS-CHOICE   PIC 9.
-       01 WS-LINE     PIC X(200).
-       01 WS-EOF      PIC X VALUE 'N'.
+       01 UserCount PIC 9(3) VALUE 0.
+       01 MaxUsers PIC 9(3) VALUE 100.
+       01 CurrentUsername PIC X(20).
+       01 CurrentPassword PIC X(20).
+       01 MenuOption PIC 9 VALUE 0.
+       01 LoginSuccess PIC X VALUE 'N'.
+       01 EOF-UserData PIC X VALUE 'N'.
+       01 SkillOption PIC 9 VALUE 0.
 
        PROCEDURE DIVISION.
-       MAIN.
-           OPEN INPUT INPUT-FILE
-           OPEN OUTPUT OUTPUT-FILE
-
-           PERFORM UNTIL WS-EOF = 'Y'
-               PERFORM DISPLAY-MENU
-               READ INPUT-FILE INTO INPUT-REC
-                   AT END MOVE 'Y' TO WS-EOF
-                   NOT AT END
-                       MOVE INPUT-REC(1:1) TO WS-CHOICE-X
-                       MOVE FUNCTION NUMVAL(WS-CHOICE-X) TO WS-CHOICE
-                       PERFORM PROCESS-CHOICE
-               END-READ
-           END-PERFORM
-
-           CLOSE INPUT-FILE
-           CLOSE OUTPUT-FILE
+       MainSection.
+           OPEN INPUT InputFile
+           OPEN I-O UserDataFile
+           PERFORM CountExistingUsers
+           PERFORM DisplayWelcome
+           PERFORM MainMenu UNTIL MenuOption = 9
+           CLOSE InputFile
+           CLOSE UserDataFile
            STOP RUN.
 
-       DISPLAY-MENU.
-           MOVE "Welcome to InCollege!" TO WS-LINE
-           PERFORM WRITE-LINE
+       WriteOutput.
+           OPEN OUTPUT OutputFile
+           WRITE OutputRecord
+           CLOSE OutputFile.
 
-           MOVE "1. Log In" TO WS-LINE
-           PERFORM WRITE-LINE
+       CountExistingUsers.
+           PERFORM UNTIL EOF-UserData = 'Y'
+               READ UserDataFile INTO UserRecord
+               AT END
+                   MOVE 'Y' TO EOF-UserData
+               NOT AT END
+                   ADD 1 TO UserCount
+           END-PERFORM.
 
-           MOVE "2. Create New Account" TO WS-LINE
-           PERFORM WRITE-LINE
+       DisplayWelcome.
+           DISPLAY "Welcome to InCollege!".
 
-           MOVE "Enter your choice:" TO WS-LINE
-           PERFORM WRITE-LINE.
+       MainMenu.
+           DISPLAY "1. Register"
+           DISPLAY "2. Login"
+           DISPLAY "3. Learn a Skill"
+           DISPLAY "9. Exit"
+           ACCEPT MenuOption
+           EVALUATE MenuOption
+               WHEN 1
+                   PERFORM RegisterUser
+               WHEN 2
+                   PERFORM LoginUser
+               WHEN 3
+                   PERFORM LearnSkill
+               WHEN 9
+                   DISPLAY "Exiting the program. Goodbye!"
+               WHEN OTHER
+                   DISPLAY "Invalid option. Please try again."
+           END-EVALUATE.
 
-       PROCESS-CHOICE.
-           IF WS-CHOICE = 1
-               MOVE "Login selected." TO WS-LINE
-               PERFORM WRITE-LINE
+       RegisterUser.
+           IF UserCount >= MaxUsers THEN
+               DISPLAY "User limit reached. Cannot register more users."
            ELSE
-               IF WS-CHOICE = 2
-                   MOVE "Create account selected." TO WS-LINE
-                   PERFORM WRITE-LINE
-               ELSE
-                   MOVE "Invalid choice." TO WS-LINE
-                   PERFORM WRITE-LINE
-               END-IF
+               DISPLAY "Enter username:"
+               ACCEPT CurrentUsername
+               DISPLAY "Enter password:"
+               ACCEPT CurrentPassword
+               MOVE CurrentUsername TO Username
+               MOVE CurrentPassword TO Password
+               WRITE UserRecord
+               ADD 1 TO UserCount
+               DISPLAY "Registration successful!"
            END-IF.
 
-       WRITE-LINE.
-           DISPLAY WS-LINE
-           MOVE WS-LINE TO OUTPUT-REC
-           WRITE OUTPUT-REC.
+       LoginUser.
+           MOVE 'N' TO LoginSuccess
+           MOVE 'N' TO EOF-UserData
+           DISPLAY "Enter username:"
+           ACCEPT CurrentUsername
+           DISPLAY "Enter password:"
+           ACCEPT CurrentPassword
+           OPEN INPUT UserDataFile
+           PERFORM UNTIL LoginSuccess = 'Y' OR EOF-UserData = 'Y'
+               READ UserDataFile INTO UserRecord
+               AT END
+                   MOVE 'Y' TO EOF-UserData
+               NOT AT END
+                   IF Username = CurrentUsername AND Password = CurrentPassword THEN
+                       DISPLAY "Login successful!"
+                       MOVE 'Y' TO LoginSuccess
+                   END-IF
+           END-PERFORM
+           CLOSE UserDataFile
+           IF LoginSuccess = 'N' THEN
+               DISPLAY "Invalid credentials. Please try again."
+           END-IF.
+
+       LearnSkill.
+           DISPLAY "Choose a skill to learn:"
+           DISPLAY "1. Time Management"
+           DISPLAY "2. Public Speaking"
+           DISPLAY "3. Leadership"
+           DISPLAY "4. Communication"
+           DISPLAY "5. Technical Skills"
+           ACCEPT SkillOption
+           EVALUATE SkillOption
+               WHEN 1
+                   DISPLAY "You have chosen to learn Time Management."
+               WHEN 2
+                   DISPLAY "You have chosen to learn Public Speaking."
+               WHEN 3
+                   DISPLAY "You have chosen to learn Leadership."
+               WHEN 4
+                   DISPLAY "You have chosen to learn Communication."
+               WHEN 5
+                   DISPLAY "You have chosen to learn Technical Skills."
+               WHEN OTHER
+                   DISPLAY "Invalid option. Please try again."
+           END-EVALUATE.
 

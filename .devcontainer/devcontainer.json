@@ -1,17 +1,19 @@
 {
-  "name": "InCollege COBOL Dev Container",
+  "name": "GNU COBOL Dev",
   "build": {
     "dockerfile": "Dockerfile"
   },
   "workspaceFolder": "/workspace",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.cpptools",
-        "jeff-hykin.better-cobol"
-      ]
-    }
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "remoteUser": "root",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true
   },
-  "postCreateCommand": "echo 'Dev container ready.'"
+  "extensions": [
+    "bitlang.cobol",
+    "ms-vscode.makefile-tools"
+  ],
+  "postCreateCommand": "mkdir -p bin src && echo 'Devcontainer ready.'"
 }
-

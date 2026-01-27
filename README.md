@@ -1,18 +1,31 @@
 # InCollege – Epic 1
 
-## Overview
+## Quick Start (Docker)
+
+1. **Build the Docker image:**
+   ```sh
+   docker build -t incollege-cobol .
+   ```
+2. **Run the container and open a shell:**
+   ```sh
+   docker run -it --rm -v "$PWD":/workspace incollege-cobol
+   ```
+3. **Inside the container, build and run the program:**
+   ```sh
+   ./build_and_run.sh
+   ```
+
+---
+
+## Project Overview
 COBOL-based login and account creation system.
 
-## How to Run
-1. Compile:
-   cobc -x InCollege.cob
-2. Run:
-   ./InCollege
-
 ## Files
-- src/InCollege.cob
-- input/InCollege-Input.txt
-- output/InCollege-Output.txt
-- test/
-- docs/Roles.txt
+- `src/InCollege.cob` – main COBOL source
+- `test/Epic1-Test-Input/InCollege-Input.txt` – program input
+- `test/Epic1-Test-Output/InCollege-Output.txt` – program output
+- `build_and_run.sh` – script to build and run the program
+- `Dockerfile` – for containerized development
+- `users.dat` – user data file (created at runtime)
+- `docs/`, `test/`, `input/`, `output/` – supporting files
 
