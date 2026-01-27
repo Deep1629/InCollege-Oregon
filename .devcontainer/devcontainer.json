@@ -1,0 +1,9 @@
+{
+  "name": "InCollege COBOL",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "echo Dev container ready"
+}
+
