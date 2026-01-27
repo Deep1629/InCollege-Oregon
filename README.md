@@ -29,3 +29,23 @@ COBOL-based login and account creation system.
 - `users.dat` – user data file (created at runtime)
 - `docs/`, `test/`, `input/`, `output/` – supporting files
 
+## Build and Run
+
+Compile the COBOL source from the workspace root:
+
+```bash
+cobc -x -free src/InCollege.cob
+```
+
+Then run the program:
+
+```bash
+./InCollege
+```
+
+Behavior notes:
+- The program reads menu choices, usernames, and passwords from `input/InCollege-Input.txt` using `READ InputFile`.
+- All terminal output is appended to `output/InCollege-Output.txt`.
+- The Job Search/Internships and "Find someone you know" options display "This feature is under construction.".
+- The Learn-a-Skill options are present, but selecting any skill currently results in an "under construction" message.
+
