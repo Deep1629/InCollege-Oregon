@@ -1,9 +1,17 @@
 {
-  "name": "InCollege COBOL",
+  "name": "InCollege COBOL Dev Container",
   "build": {
     "dockerfile": "Dockerfile"
   },
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "echo Dev container ready"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "jeff-hykin.better-cobol"
+      ]
+    }
+  },
+  "postCreateCommand": "echo 'Dev container ready.'"
 }
 

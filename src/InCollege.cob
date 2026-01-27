@@ -1,4 +1,4 @@
-       IDENTIFICATION DIVISION.
+IDENTIFICATION DIVISION.
        PROGRAM-ID. INCOLLEGE.
 
        ENVIRONMENT DIVISION.
@@ -8,157 +8,71 @@
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT OUTPUT-FILE ASSIGN TO "output/InCollege-Output.txt"
                ORGANIZATION IS LINE SEQUENTIAL.
-           SELECT USER-FILE ASSIGN TO "users.dat"
-               ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
 
        FD INPUT-FILE.
-       01 INPUT-RECORD      PIC X(100).
+       01 INPUT-REC PIC X(100).
 
        FD OUTPUT-FILE.
-       01 OUTPUT-RECORD     PIC X(200).
-
-       FD USER-FILE.
-       01 USER-RECORD.
-           05 U-NAME        PIC X(20).
-           05 U-PASS        PIC X(12).
+       01 OUTPUT-REC PIC X(200).
 
        WORKING-STORAGE SECTION.
-
-       01 EOF-FLAG          PIC X VALUE 'N'.
-       01 USER-COUNT        PIC 9 VALUE 0.
-       01 MENU-CHOICE       PIC 9.
-       01 TEMP-USER         PIC X(20).
-       01 TEMP-PASS         PIC X(12).
-
-       01 DISPLAY-LINE      PIC X(200).
+       01 WS-CHOICE-X PIC X(1).
+       01 WS-CHOICE   PIC 9.
+       01 WS-LINE     PIC X(200).
+       01 WS-EOF      PIC X VALUE 'N'.
 
        PROCEDURE DIVISION.
-
        MAIN.
            OPEN INPUT INPUT-FILE
            OPEN OUTPUT OUTPUT-FILE
-           OPEN I-O USER-FILE
 
-           PERFORM SHOW-MAIN-MENU
+           PERFORM UNTIL WS-EOF = 'Y'
+               PERFORM DISPLAY-MENU
+               READ INPUT-FILE INTO INPUT-REC
+                   AT END MOVE 'Y' TO WS-EOF
+                   NOT AT END
+                       MOVE INPUT-REC(1:1) TO WS-CHOICE-X
+                       MOVE FUNCTION NUMVAL(WS-CHOICE-X) TO WS-CHOICE
+                       PERFORM PROCESS-CHOICE
+               END-READ
+           END-PERFORM
 
            CLOSE INPUT-FILE
            CLOSE OUTPUT-FILE
-           CLOSE USER-FILE
            STOP RUN.
 
-       SHOW-MAIN-MENU.
+       DISPLAY-MENU.
+           MOVE "Welcome to InCollege!" TO WS-LINE
            PERFORM WRITE-LINE
-               USING "Welcome to InCollege!"
+
+           MOVE "1. Log In" TO WS-LINE
            PERFORM WRITE-LINE
-               USING "1. Log In"
+
+           MOVE "2. Create New Account" TO WS-LINE
            PERFORM WRITE-LINE
-               USING "2. Create New Account"
-           PERFORM WRITE-LINE
-               USING "Enter your choice:"
 
-           READ INPUT-FILE INTO INPUT-RECORD
-           MOVE INPUT-RECORD TO MENU-CHOICE
+           MOVE "Enter your choice:" TO WS-LINE
+           PERFORM WRITE-LINE.
 
-           IF MENU-CHOICE = 1
-               PERFORM LOGIN
-           ELSE
-               IF MENU-CHOICE = 2
-                   PERFORM CREATE-ACCOUNT
-               END-IF
-           END-IF.
-
-       LOGIN.
-           PERFORM WRITE-LINE
-               USING "Please enter your username:"
-           READ INPUT-FILE INTO TEMP-USER
-
-           PERFORM WRITE-LINE
-               USING "Please enter your password:"
-           READ INPUT-FILE INTO TEMP-PASS
-
-           PERFORM WRITE-LINE
-               USING "You have successfully logged in."
-
-           PERFORM POST-LOGIN-MENU.
-
-       CREATE-ACCOUNT.
-           IF USER-COUNT >= 5
+       PROCESS-CHOICE.
+           IF WS-CHOICE = 1
+               MOVE "Login selected." TO WS-LINE
                PERFORM WRITE-LINE
-                   USING "All permitted accounts have been created, please come back later"
-               GO TO MAIN
-           END-IF
-
-           PERFORM WRITE-LINE
-               USING "Enter new username:"
-           READ INPUT-FILE INTO TEMP-USER
-
-           PERFORM WRITE-LINE
-               USING "Enter new password:"
-           READ INPUT-FILE INTO TEMP-PASS
-
-           ADD 1 TO USER-COUNT
-
-           WRITE USER-RECORD
-               FROM TEMP-USER
-
-           PERFORM WRITE-LINE
-               USING "Account successfully created."
-
-           PERFORM MAIN.
-
-       POST-LOGIN-MENU.
-           PERFORM WRITE-LINE
-               USING "1. Search for a job"
-           PERFORM WRITE-LINE
-               USING "2. Find someone you know"
-           PERFORM WRITE-LINE
-               USING "3. Learn a new skill"
-           PERFORM WRITE-LINE
-               USING "Enter your choice:"
-
-           READ INPUT-FILE INTO MENU-CHOICE
-
-           IF MENU-CHOICE = 1
-               PERFORM WRITE-LINE
-                   USING "Job search is under construction."
            ELSE
-               IF MENU-CHOICE = 2
+               IF WS-CHOICE = 2
+                   MOVE "Create account selected." TO WS-LINE
                    PERFORM WRITE-LINE
-                       USING "Find someone you know is under construction."
                ELSE
-                   IF MENU-CHOICE = 3
-                       PERFORM SKILL-MENU
-                   END-IF
+                   MOVE "Invalid choice." TO WS-LINE
+                   PERFORM WRITE-LINE
                END-IF
            END-IF.
-
-       SKILL-MENU.
-           PERFORM WRITE-LINE
-               USING "Learn a New Skill:"
-           PERFORM WRITE-LINE
-               USING "1. Skill One"
-           PERFORM WRITE-LINE
-               USING "2. Skill Two"
-           PERFORM WRITE-LINE
-               USING "3. Skill Three"
-           PERFORM WRITE-LINE
-               USING "4. Skill Four"
-           PERFORM WRITE-LINE
-               USING "5. Skill Five"
-           PERFORM WRITE-LINE
-               USING "6. Go Back"
-
-           READ INPUT-FILE INTO MENU-CHOICE
-
-           PERFORM WRITE-LINE
-               USING "This feature is under construction."
-
-           PERFORM POST-LOGIN-MENU.
 
        WRITE-LINE.
-           WRITE OUTPUT-RECORD FROM DISPLAY-LINE
-           DISPLAY DISPLAY-LINE.
+           DISPLAY WS-LINE
+           MOVE WS-LINE TO OUTPUT-REC
+           WRITE OUTPUT-REC.
 

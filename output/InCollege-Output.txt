@@ -1,0 +1,29 @@
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
+Login selected.
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
+Create account selected.
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
+Invalid choice.
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
+Create account selected.
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
+Login selected.
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+Enter your choice:
