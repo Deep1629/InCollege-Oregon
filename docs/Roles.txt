@@ -1,0 +1,5 @@
+James - Scrum Master
+Deepesh - Developer #1 
+Twinkle - Developer #2
+Vincent - Tester #1
+Daniel - Tester #2
