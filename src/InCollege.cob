@@ -1,6 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. InCollege.
-
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
@@ -8,302 +7,237 @@
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT OutputFile ASSIGN TO "output/InCollege-Output.txt"
                ORGANIZATION IS LINE SEQUENTIAL.
-           SELECT UserDataFile ASSIGN TO "users.dat"
-               ORGANIZATION IS LINE SEQUENTIAL.
-
+           SELECT OPTIONAL UserDataFile ASSIGN TO "users.dat"
+               ORGANIZATION IS LINE SEQUENTIAL
+               FILE STATUS IS UserFileStatus.
        DATA DIVISION.
        FILE SECTION.
        FD InputFile.
        01 InputRecord PIC X(100).
-
        FD OutputFile.
        01 OutputRecord PIC X(100).
-
        FD UserDataFile.
        01 UserRecord.
-           05 Username PIC X(20).
-           05 Password PIC X(20).
-
+           05 StoredUser PIC X(25).
+           05 StoredPass PIC X(15).
        WORKING-STORAGE SECTION.
+       01 WS-Msg PIC X(100).
        01 UserCount PIC 9(3) VALUE 0.
        01 MaxUsers PIC 9(3) VALUE 5.
        01 LoggedIn PIC X VALUE 'N'.
-       01 CurrentUsername PIC X(20).
-       01 CurrentPassword PIC X(20).
-       01 MenuOption PIC 9 VALUE 0.
-       01 LoginSuccess PIC X VALUE 'N'.
-       01 EOF-UserData PIC X VALUE 'N'.
-       01 EOF-InputFile PIC X VALUE 'N'.
-       01 InputChar PIC X.
-       01 CurrentMessage PIC X(120).
-       01 OutputFileInitialized PIC X VALUE 'N'.
-       01 UsernameExists PIC X VALUE 'N'.
-       01 PasswordLength PIC 99 VALUE 0.
-       01 TempString PIC X(100).
-       01 PasswordValid PIC X VALUE 'N'.
-       01 HasCapital PIC X VALUE 'N'.
-       01 HasDigit PIC X VALUE 'N'.
-       01 HasSpecial PIC X VALUE 'N'.
-       01 I PIC 99 VALUE 0.
-       01 CheckChar PIC X VALUE SPACE.
-
+       01 CurrUser PIC X(25).
+       01 CurrPass PIC X(15).
+       01 MenuOpt PIC 9 VALUE 0.
+       01 LoginOK PIC X VALUE 'N'.
+       01 EOF-User PIC X VALUE 'N'.
+       01 EOF-Input PIC X VALUE 'N'.
+       01 InChar PIC X.
+       01 FileOpen PIC X VALUE 'N'.
+       01 UserExists PIC X VALUE 'N'.
+       01 PassLen PIC 99 VALUE 0.
+       01 PassOK PIC X VALUE 'N'.
+       01 HasCap PIC X VALUE 'N'.
+       01 HasDig PIC X VALUE 'N'.
+       01 HasSpec PIC X VALUE 'N'.
+       01 Idx PIC 99 VALUE 0.
+       01 OneChar PIC X.
+       01 UserFileStatus PIC XX.
        PROCEDURE DIVISION.
-       MainSection.
+       Main.
            OPEN INPUT InputFile
-           PERFORM CountExistingUsers
-           PERFORM DisplayWelcome
+           PERFORM CountUsers
            MOVE 'N' TO LoggedIn
-           PERFORM InitialMenu UNTIL LoggedIn = 'Y' OR MenuOption = 9
+           PERFORM ShowMenu UNTIL LoggedIn = 'Y' OR MenuOpt = 9
            CLOSE InputFile
            STOP RUN.
-
-       CountExistingUsers.
+       CountUsers.
            OPEN INPUT UserDataFile
-           MOVE 'N' TO EOF-UserData
-           PERFORM UNTIL EOF-UserData = 'Y'
-               READ UserDataFile INTO UserRecord
-               AT END
-                   MOVE 'Y' TO EOF-UserData
-               NOT AT END
-                   ADD 1 TO UserCount
-           END-PERFORM
+           IF UserFileStatus = '00'
+               MOVE 'N' TO EOF-User
+               PERFORM UNTIL EOF-User = 'Y'
+                   READ UserDataFile INTO UserRecord
+                       AT END MOVE 'Y' TO EOF-User
+                       NOT AT END ADD 1 TO UserCount
+                   END-READ
+               END-PERFORM
+           END-IF
            CLOSE UserDataFile.
-
-       DisplayAndLog.
-           DISPLAY CurrentMessage
-           IF OutputFileInitialized = 'N' THEN
+       WriteMsg.
+           IF FileOpen = 'N'
                OPEN OUTPUT OutputFile
-               MOVE 'Y' TO OutputFileInitialized
+               MOVE 'Y' TO FileOpen
            ELSE
                OPEN EXTEND OutputFile
            END-IF
-           MOVE CurrentMessage TO OutputRecord
+           INITIALIZE OutputRecord
+           MOVE FUNCTION TRIM(WS-Msg) TO OutputRecord
            WRITE OutputRecord
-           CLOSE OutputFile.
-
-       DisplayWelcome.
-           STRING "Welcome to InCollege!" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog.
-
-       InitialMenu.
-           STRING "1. Log In" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           STRING "2. Create New Account" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           STRING "3. Logout" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           STRING "Enter your choice:" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           PERFORM ReadMenuOption
-           EVALUATE MenuOption
-               WHEN 1
-                   PERFORM LoginUser
-               WHEN 2
-                   PERFORM RegisterUser
-               WHEN 3
-                   MOVE 9 TO MenuOption
+           CLOSE OutputFile
+           DISPLAY FUNCTION TRIM(WS-Msg)
+           INITIALIZE WS-Msg.
+       ShowMenu.
+           MOVE "Welcome to InCollege!" TO WS-Msg
+           PERFORM WriteMsg
+           MOVE "1. Log In" TO WS-Msg
+           PERFORM WriteMsg
+           MOVE "2. Create New Account" TO WS-Msg
+           PERFORM WriteMsg
+           MOVE "3. Logout" TO WS-Msg
+           PERFORM WriteMsg
+           MOVE "Enter your choice:" TO WS-Msg
+           PERFORM WriteMsg
+           PERFORM ReadOpt
+           EVALUATE MenuOpt
+               WHEN 1 PERFORM DoLogin
+               WHEN 2 PERFORM DoRegister
+               WHEN 3 MOVE 9 TO MenuOpt
                WHEN OTHER
-                   STRING "Invalid option. Please try again."
-                       DELIMITED BY SIZE INTO CurrentMessage
-                   END-STRING
-                   PERFORM DisplayAndLog
+                   MOVE "Invalid option." TO WS-Msg
+                   PERFORM WriteMsg
            END-EVALUATE.
-
-       RegisterUser.
-           IF UserCount >= MaxUsers THEN
-               STRING "All permitted accounts have been created, "
-                   "please come back later" DELIMITED BY SIZE
-                   INTO CurrentMessage
-               END-STRING
-               PERFORM DisplayAndLog
+       DoRegister.
+           IF UserCount >= MaxUsers
+               MOVE "All permitted accounts created." TO WS-Msg
+               PERFORM WriteMsg
            ELSE
-               STRING "Enter new username:" DELIMITED BY SIZE
-                   INTO CurrentMessage
-               END-STRING
-               PERFORM DisplayAndLog
-               PERFORM ReadUsername
-               STRING "Enter new password:" DELIMITED BY SIZE
-                   INTO CurrentMessage
-               END-STRING
-               PERFORM DisplayAndLog
-               PERFORM ReadPassword
-               PERFORM ValidatePassword
-               IF PasswordValid = 'N' THEN
+               MOVE "Enter new username:" TO WS-Msg
+               PERFORM WriteMsg
+               PERFORM ReadUser
+               MOVE "Enter new password:" TO WS-Msg
+               PERFORM WriteMsg
+               PERFORM ReadPass
+               PERFORM CheckPass
+               IF PassOK = 'N'
                    CONTINUE
                ELSE
-                   PERFORM CheckUsernameExists
-                   IF UsernameExists = 'Y' THEN
-                       STRING "Username already exists. "
-                           "Please try a different username."
-                           DELIMITED BY SIZE INTO CurrentMessage
-                       END-STRING
-                       PERFORM DisplayAndLog
+                   PERFORM CheckUserExists
+                   IF UserExists = 'Y'
+                       MOVE "Username already exists." TO WS-Msg
+                       PERFORM WriteMsg
                    ELSE
-                       OPEN EXTEND UserDataFile
-                       MOVE CurrentUsername TO Username
-                       MOVE CurrentPassword TO Password
+                       IF UserCount = 0
+                           OPEN OUTPUT UserDataFile
+                       ELSE
+                           OPEN EXTEND UserDataFile
+                       END-IF
+                       MOVE CurrUser TO StoredUser
+                       MOVE CurrPass TO StoredPass
                        WRITE UserRecord
                        CLOSE UserDataFile
                        ADD 1 TO UserCount
-                       STRING "Account successfully created."
-                           DELIMITED BY SIZE INTO CurrentMessage
-                       END-STRING
-                       PERFORM DisplayAndLog
+                       MOVE "Account successfully created." TO WS-Msg
+                       PERFORM WriteMsg
                    END-IF
                END-IF
            END-IF.
-
-       LoginUser.
-           MOVE 'N' TO LoginSuccess
-           MOVE 'N' TO EOF-UserData
-           STRING "Please enter your username:" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           PERFORM ReadUsername
-           STRING "Please enter your password:" DELIMITED BY SIZE
-               INTO CurrentMessage
-           END-STRING
-           PERFORM DisplayAndLog
-           PERFORM ReadPassword
+       DoLogin.
+           MOVE 'N' TO LoginOK
+           MOVE 'N' TO EOF-User
+           MOVE "Please enter your username:" TO WS-Msg
+           PERFORM WriteMsg
+           PERFORM ReadUser
+           MOVE "Please enter your password:" TO WS-Msg
+           PERFORM WriteMsg
+           PERFORM ReadPass
            OPEN INPUT UserDataFile
-           PERFORM UNTIL LoginSuccess = 'Y' OR EOF-UserData = 'Y'
-               READ UserDataFile INTO UserRecord
-               AT END
-                   MOVE 'Y' TO EOF-UserData
-               NOT AT END
-                   IF Username = CurrentUsername AND
-                      Password = CurrentPassword THEN
-                       STRING "You have successfully logged in."
-                           DELIMITED BY SIZE INTO CurrentMessage
-                       END-STRING
-                       PERFORM DisplayAndLog
-                       STRING "Video is now playing"
-                           DELIMITED BY SIZE INTO CurrentMessage
-                       END-STRING
-                       PERFORM DisplayAndLog
-                       STRING "Thank you for watching!"
-                           DELIMITED BY SIZE INTO CurrentMessage
-                       END-STRING
-                       PERFORM DisplayAndLog
-                       MOVE 'Y' TO LoginSuccess
-                       MOVE 'Y' TO LoggedIn
-                   END-IF
-           END-PERFORM
+           IF UserFileStatus = '00'
+               PERFORM UNTIL LoginOK = 'Y' OR EOF-User = 'Y'
+                   READ UserDataFile INTO UserRecord
+                       AT END MOVE 'Y' TO EOF-User
+                       NOT AT END
+                           IF StoredUser = CurrUser AND
+                              StoredPass = CurrPass
+                               MOVE "You have successfully logged in."
+                                   TO WS-Msg
+                               PERFORM WriteMsg
+                               MOVE 'Y' TO LoginOK
+                               MOVE 'Y' TO LoggedIn
+                           END-IF
+                   END-READ
+               END-PERFORM
+           END-IF
            CLOSE UserDataFile
-           IF LoginSuccess = 'N' THEN
-               STRING "Incorrect username/password, please try again."
-                   DELIMITED BY SIZE INTO CurrentMessage
-               END-STRING
-               PERFORM DisplayAndLog
+           IF LoginOK = 'N'
+               MOVE "Incorrect username/password, please try again."
+                   TO WS-Msg
+               PERFORM WriteMsg
            END-IF.
-
-       ReadMenuOption.
+       ReadOpt.
            READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE 9 TO MenuOption
-           NOT AT END
-               MOVE InputRecord(1:1) TO InputChar
-               MOVE FUNCTION NUMVAL-C(InputChar) TO MenuOption
+               AT END
+                   MOVE 'Y' TO EOF-Input
+                   MOVE 9 TO MenuOpt
+               NOT AT END
+                   MOVE InputRecord(1:1) TO InChar
+                   IF InChar IS NUMERIC
+                       MOVE InChar TO MenuOpt
+                   ELSE
+                       MOVE 0 TO MenuOpt
+                   END-IF
            END-READ.
-
-       ReadUsername.
+       ReadUser.
            READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentUsername
-           NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentUsername
+               AT END
+                   MOVE 'Y' TO EOF-Input
+                   INITIALIZE CurrUser
+               NOT AT END
+                   MOVE FUNCTION TRIM(InputRecord) TO CurrUser
            END-READ.
-
-       ReadPassword.
+       ReadPass.
            READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentPassword
-           NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentPassword
+               AT END
+                   MOVE 'Y' TO EOF-Input
+                   INITIALIZE CurrPass
+               NOT AT END
+                   MOVE FUNCTION TRIM(InputRecord) TO CurrPass
            END-READ.
-
-       ValidatePassword.
-           MOVE 'Y' TO PasswordValid
-           MOVE 'N' TO HasCapital
-           MOVE 'N' TO HasDigit
-           MOVE 'N' TO HasSpecial
-           MOVE FUNCTION LENGTH(FUNCTION TRIM(CurrentPassword))
-               TO PasswordLength
-           
-           IF PasswordLength < 8 OR PasswordLength > 12 THEN
-               STRING "Password must be between 8 and 12 characters."
-                   DELIMITED BY SIZE INTO CurrentMessage
-               END-STRING
-               PERFORM DisplayAndLog
-               MOVE 'N' TO PasswordValid
+       CheckPass.
+           MOVE 'Y' TO PassOK
+           MOVE 'N' TO HasCap
+           MOVE 'N' TO HasDig
+           MOVE 'N' TO HasSpec
+           MOVE FUNCTION LENGTH(FUNCTION TRIM(CurrPass)) TO PassLen
+           IF PassLen < 8 OR PassLen > 12
+               MOVE "Password must be 8-12 characters." TO WS-Msg
+               PERFORM WriteMsg
+               MOVE 'N' TO PassOK
            ELSE
-               PERFORM VARYING I FROM 1 BY 1 UNTIL I > PasswordLength
-                   MOVE CurrentPassword(I:1) TO CheckChar
-                   IF CheckChar >= 'A' AND CheckChar <= 'Z' THEN
-                       MOVE 'Y' TO HasCapital
+               PERFORM VARYING Idx FROM 1 BY 1 UNTIL Idx > PassLen
+                   MOVE CurrPass(Idx:1) TO OneChar
+                   IF OneChar >= 'A' AND OneChar <= 'Z'
+                       MOVE 'Y' TO HasCap
                    END-IF
-                   IF CheckChar >= '0' AND CheckChar <= '9' THEN
-                       MOVE 'Y' TO HasDigit
+                   IF OneChar >= '0' AND OneChar <= '9'
+                       MOVE 'Y' TO HasDig
                    END-IF
-                   IF CheckChar = '!' OR CheckChar = '@' OR
-                      CheckChar = '#' OR CheckChar = '$' OR
-                      CheckChar = '%' OR CheckChar = '^' OR
-                      CheckChar = '&' OR CheckChar = '*' OR
-                      CheckChar = '(' OR CheckChar = ')' OR
-                      CheckChar = '-' OR CheckChar = '_' OR
-                      CheckChar = '+' OR CheckChar = '=' OR
-                      CheckChar = '[' OR CheckChar = ']' OR
-                      CheckChar = '{' OR CheckChar = '}' OR
-                      CheckChar = ';' OR CheckChar = ':' OR
-                      CheckChar = '"' OR CheckChar = '|' OR
-                      CheckChar = '<' OR CheckChar = '>' OR
-                      CheckChar = ',' OR CheckChar = '.' OR
-                      CheckChar = '?' OR CheckChar = '/' OR
-                      CheckChar = '~' OR CheckChar = '`' THEN
-                       MOVE 'Y' TO HasSpecial
+                   IF OneChar = '!' OR OneChar = '@' OR
+                      OneChar = '#' OR OneChar = '$' OR
+                      OneChar = '%' OR OneChar = '^' OR
+                      OneChar = '&' OR OneChar = '*'
+                       MOVE 'Y' TO HasSpec
                    END-IF
                END-PERFORM
-               
-               IF HasCapital = 'N' OR HasDigit = 'N' OR
-                  HasSpecial = 'N' THEN
-                   STRING "Password must contain at least one "
-                       "capital letter, one digit, and one "
-                       "special character." DELIMITED BY SIZE
-                       INTO CurrentMessage
-                   END-STRING
-                   PERFORM DisplayAndLog
-                   MOVE 'N' TO PasswordValid
+               IF HasCap = 'N' OR HasDig = 'N' OR HasSpec = 'N'
+                   MOVE "Password needs capital, digit, special."
+                       TO WS-Msg
+                   PERFORM WriteMsg
+                   MOVE 'N' TO PassOK
                END-IF
            END-IF.
-
-       CheckUsernameExists.
-           MOVE 'N' TO UsernameExists
-           MOVE 'N' TO EOF-UserData
+       CheckUserExists.
+           MOVE 'N' TO UserExists
+           MOVE 'N' TO EOF-User
            OPEN INPUT UserDataFile
-           PERFORM UNTIL EOF-UserData = 'Y'
-               READ UserDataFile INTO UserRecord
-               AT END
-                   MOVE 'Y' TO EOF-UserData
-               NOT AT END
-                   IF Username = CurrentUsername THEN
-                       MOVE 'Y' TO UsernameExists
-                       MOVE 'Y' TO EOF-UserData
-                   END-IF
-           END-PERFORM
+           IF UserFileStatus = '00'
+               PERFORM UNTIL EOF-User = 'Y'
+                   READ UserDataFile INTO UserRecord
+                       AT END MOVE 'Y' TO EOF-User
+                       NOT AT END
+                           IF StoredUser = CurrUser
+                               MOVE 'Y' TO UserExists
+                               MOVE 'Y' TO EOF-User
+                           END-IF
+                   END-READ
+               END-PERFORM
+           END-IF
            CLOSE UserDataFile.
