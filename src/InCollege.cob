@@ -39,6 +39,9 @@ IDENTIFICATION DIVISION.
            05 Experience-Company PIC X(200).
            05 Experience-Dates PIC X(100).
            05 Experience-Description PIC X(500).
+           05 Education-Degree PIC X(50).
+           05 Education-Universiity PIC X(50).
+           05 Education-Years PIC X(9).
 
        WORKING-STORAGE SECTION.
        01 UserCount PIC 9(3) VALUE 0.
@@ -78,6 +81,14 @@ IDENTIFICATION DIVISION.
        01 Experience-Description PIC X(500).
        01 CurrentDescription PIC X(500).
        01 ExperienceCount PIC 9(1) VALUE 1.
+       01 EducationCount PIC 9(1) VALUE 1.
+       01 Education-Degree PIC X(50).
+       01 CurrentEducationDegree PIC X(50).
+       01 Education-Universiity PIC X(50).
+       01 CurrentEducationUniversity PIC X(50).
+       01 Education-Years PIC X(9).
+       01 CurrentEducationYears PIC X(9).
+
 
 
        PROCEDURE DIVISION.
@@ -322,6 +333,13 @@ IDENTIFICATION DIVISION.
            MOVE "Add Experience (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadExperience
+           MOVE "DONE" TO CurrentMessage
+                PERFORM DisplayAndLog
+           MOVE "Add Education (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
+                PERFORM DisplayAndLog
+                PERFORM ReadEducation
+           MOVE "Profile saved successfully." TO CurrentMessage
+           PERFORM DisplayAndLog
 
 
               OPEN EXTEND UserProfileRecordFile
@@ -339,6 +357,10 @@ IDENTIFICATION DIVISION.
                    MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
                    MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
                    MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
+                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
+                   MOVE CurrentEducationUniversity TO Education-Universiity IN UserProfileRecord
+                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+
 
 
 
@@ -476,9 +498,10 @@ IDENTIFICATION DIVISION.
            END-READ.
 
            ReadExperience.
-                       STRING "Experience #" DELIMITED BY SIZE
-                       ExperienceCount DELIMITED BY SIZE
-                       " - Title: " DELIMITED BY SIZE INTO CurrentMessage
+           MOVE SPACES TO CurrentMessage
+           STRING "Experience #" DELIMITED BY SIZE
+           ExperienceCount DELIMITED BY SIZE
+           " - Title: " DELIMITED BY SIZE INTO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
            AT END
@@ -492,7 +515,7 @@ IDENTIFICATION DIVISION.
                    MOVE SPACES TO CurrentTitle
                END-IF
 
-STRING "Experience #" DELIMITED BY SIZE
+           STRING "Experience #" DELIMITED BY SIZE
            ExperienceCount DELIMITED BY SIZE
            " - Company: " DELIMITED BY SIZE INTO CurrentMessage
            PERFORM DisplayAndLog
@@ -504,7 +527,7 @@ STRING "Experience #" DELIMITED BY SIZE
            MOVE InputRecord(1:20) TO TempString
               MOVE FUNCTION TRIM(TempString) TO CurrentCompany
               END-READ
-           
+
            MOVE SPACES TO CurrentMessage
            STRING "Experience #" DELIMITED BY SIZE
            ExperienceCount DELIMITED BY SIZE
@@ -530,9 +553,55 @@ STRING "Experience #" DELIMITED BY SIZE
               NOT AT END
            MOVE InputRecord(1:20) TO TempString
               MOVE FUNCTION TRIM(TempString) TO CurrentDescription
+           END-READ.
 
+
+           ReadEducation.
+           MOVE SPACES TO CurrentMessage
+                STRING "Education #" DELIMITED BY SIZE
+                       EducationCount DELIMITED BY SIZE
+                       " - Degree: " DELIMITED BY SIZE INTO CurrentMessage
+           PERFORM DisplayAndLog
+           READ InputFile INTO InputRecord
+           AT END
+               MOVE 'Y' TO EOF-InputFile
+               MOVE SPACES TO CurrentEducationDegree
+                  NOT AT END
+               MOVE InputRecord(1:20) TO TempString
+               MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
+               IF CurrentEducationDegree = "DONE" OR EducationCount >= 4 THEN
+                   MOVE 'Y' TO EOF-InputFile
+                   MOVE SPACES TO CurrentEducationDegree
+               END-IF
+
+           STRING "Education #" DELIMITED BY SIZE
+           EducationCount DELIMITED BY SIZE
+           " - University/College: " DELIMITED BY SIZE INTO CurrentMessage
+           PERFORM DisplayAndLog
+           READ InputFile INTO InputRecord
+           AT END
+                MOVE 'Y' TO EOF-InputFile
+                MOVE SPACES TO CurrentEducationUniversity
+              NOT AT END
+           MOVE InputRecord(1:20) TO TempString
+              MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
+              END-READ
+
+           MOVE SPACES TO CurrentMessage
+           STRING "Education #" DELIMITED BY SIZE
+           EducationCount DELIMITED BY SIZE
+           " - Years Attended: " DELIMITED BY SIZE INTO CurrentMessage
+           PERFORM DisplayAndLog
+           READ InputFile INTO InputRecord
+           AT END
+                MOVE 'Y' TO EOF-InputFile
+                MOVE SPACES TO CurrentEducationYears
+              NOT AT END
+           MOVE InputRecord(1:20) TO TempString
+              MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
 
            END-READ.
+
 
        CheckUsernameExists.
            MOVE 'N' TO UsernameExists
