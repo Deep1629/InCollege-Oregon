@@ -22,8 +22,8 @@ Major:
 Graduation Year:
 About Me (Optional 200 characters max or blank line to skip):
 Add Experience (Optional, 3 Entries or Enter 'DONE' to finish):
-Experience #1 - Title:
-Experience #1 - Company/Organization:
+Experience #1 - Title: l, 3 Entries or Enter 'DONE' to finish):
+Experience #1 - Company:  3 Entries or Enter 'DONE' to finish):
 Experience #1 - Dates:
 Experience #1 - Description (optional 100 characters max, blank line to skip):
 DONE
