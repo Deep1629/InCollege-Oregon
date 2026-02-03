@@ -312,31 +312,27 @@ IDENTIFICATION DIVISION.
            END-EVALUATE.
 
        CreateEditMenu.
-           MOVE "This is under development." TO CurrentMessage
+           MOVE "--- Create/Edit Profile ---" TO CurrentMessage
               PERFORM DisplayAndLog
-           MOVE "--- Create or Edit Profile ---" TO CurrentMessage
-              PERFORM DisplayAndLog
-              MOVE CurrentUsername TO CurrentMessage
-                 PERFORM DisplayAndLog
-           MOVE "First name: " TO CurrentMessage
+           MOVE "Enter First Name: " TO CurrentMessage
               PERFORM DisplayAndLog
               PERFORM ReadFirstName
-           MOVE "Last name: " TO CurrentMessage
+           MOVE "Enter Last Name: " TO CurrentMessage
               PERFORM DisplayAndLog
               PERFORM ReadLastName
-           MOVE "University/College: " TO CurrentMessage
+           MOVE "Enter University/College Attended: " TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM Readuniversity
-           MOVE "Major: " TO CurrentMessage
+           MOVE "Enter Major: " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadMajor
-           MOVE "Graduation Year: " TO CurrentMessage
+           MOVE "Enter Graduation Year (YYYY): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadGradYear
-           MOVE "About Me (Optional 200 characters max or blank line to skip): " TO CurrentMessage
+           MOVE "Enter About Me (optional, max 200 characters, enter blank line to skip): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadAboutMe
-           MOVE "Add Experience (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
+           MOVE "Add Experience (optional, max 3 entries. Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadExperience
            MOVE "DONE" TO CurrentMessage
