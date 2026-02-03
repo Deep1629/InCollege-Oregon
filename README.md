@@ -1,4 +1,4 @@
-# InCollege – Epic 1
+# InCollege - Oregon
 
 ## Quick Start (Docker)
 
@@ -27,6 +27,7 @@ COBOL-based login and account creation system.
 - `build_and_run.sh` – script to build and run the program
 - `Dockerfile` – for containerized development
 - `users.dat` – user data file (created at runtime)
+- `profiles.dat` – profile data file (created at runtime)
 - `docs/`, `test/`, `input/`, `output/` – supporting files
 
 ## Build and Run
@@ -47,5 +48,6 @@ Behavior notes:
 - The program reads menu choices, usernames, and passwords from `input/InCollege-Input.txt` using `READ InputFile`.
 - All terminal output is appended to `output/InCollege-Output.txt`.
 - The Job Search/Internships and "Find someone you know" options display "This feature is under construction.".
+- The create profile functionality works, and profiles are saved between runs.
 - The Learn-a-Skill options are present, but selecting any skill currently results in an "under construction" message.
 
