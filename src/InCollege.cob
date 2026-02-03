@@ -497,8 +497,8 @@ IDENTIFICATION DIVISION.
 
                    WRITE UserProfileRecord
                    CLOSE UserProfileRecordFile
-                   MOVE "DONE" TO CurrentMessage
-              PERFORM DisplayAndLog.
+                   MOVE "Profile saved successfully!" TO CurrentMessage
+              PERFORM DisplayAndLog
 
            ViewProfile.
            MOVE 'N' TO EOF-UserData
