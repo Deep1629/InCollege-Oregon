@@ -6,7 +6,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome
-charlie
+erin
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -14,13 +14,12 @@ charlie
 5. Learn a new skill
 This is under development.
 --- Create or Edit Profile ---
-charlie
+erin
 First name:
 Last name:
 University/College:
 Major:
 Graduation Year:
-Invalid Graduation Year
 About Me (Optional 200 characters max or blank line to skip):
 Add Experience (Optional, 3 Entries or Enter 'DONE' to finish):
 Experience #1 - Title:
@@ -30,13 +29,3 @@ Experience #1 - Description (optional 100 characters max, blank line to skip):
 DONE
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education #1 - Degree:
-Education #1 - University/College:
-Education #1 - Years Attended:
-Profile saved successfully.
-DONE
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-Exiting the program. Goodbye!
