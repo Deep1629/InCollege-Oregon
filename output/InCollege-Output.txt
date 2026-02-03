@@ -14,7 +14,7 @@ Programmer
 5. Learn a new skill
 This is under development.
 --- Create or Edit Profile ---
-Programmer
+Found your username
 First name:
 Last name:
 University/College:
@@ -29,8 +29,6 @@ Experience #1 - Description (optional 100 characters max, blank line to skip):
 DONE
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education #1 - Degree:
-Education #1 - University/College:
-Education #1 - Years Attended:
 Profile saved successfully.
 DONE
 1. Create/Edit My Profile
@@ -38,4 +36,3 @@ DONE
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-Exiting the program. Goodbye!

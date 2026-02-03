@@ -45,8 +45,8 @@ IDENTIFICATION DIVISION.
 
        WORKING-STORAGE SECTION.
        01 UserCount PIC 9(3) VALUE 0.
-    01 MaxUsers PIC 9(3) VALUE 5.
-    01 LoggedIn PIC X VALUE 'N'.
+       01 MaxUsers PIC 9(3) VALUE 5.
+       01 LoggedIn PIC X VALUE 'N'.
        01 CurrentUsername PIC X(20).
        01 CurrentPassword PIC X(20).
        01 MenuOption PIC 9 VALUE 0.
@@ -61,34 +61,24 @@ IDENTIFICATION DIVISION.
        01 PasswordLength PIC 99 VALUE 0.
        01 TempString PIC X(100).
        01 CurrentFirstName PIC X(20).
-       01 LastName PIC X(20).
        01 CurrentLastName PIC X(20).
-       01 University PIC X(30).
        01 CurrentUniversity PIC X(30).
-       01 Major PIC X(30).
        01 CurrentMajor PIC X(30).
-       01 GraduationYear PIC 9(4).
        01 CurrentGraduationYear PIC 9(4).
-       01 AboutMe PIC X(200).
        01 CurrentAboutMe PIC X(200).
        01 AboutLength PIC 99 VALUE 0.
-       01 Experience-Title PIC X(200).
        01 CurrentTitle PIC X(200).
-       01 Experience-Company PIC X(200).
        01 CurrentCompany PIC X(200).
-       01 Experience-Dates PIC X(100).
        01 CurrentDates PIC X(100).
-       01 Experience-Description PIC X(500).
        01 CurrentDescription PIC X(500).
        01 ExperienceCount PIC 9(1) VALUE 1.
        01 EducationCount PIC 9(1) VALUE 1.
-       01 Education-Degree PIC X(50).
        01 CurrentEducationDegree PIC X(50).
-       01 Education-Universiity PIC X(50).
        01 CurrentEducationUniversity PIC X(50).
-       01 Education-Years PIC X(9).
        01 CurrentEducationYears PIC X(9).
-
+       01 EditProfile PIC X VALUE 'N'.
+       01 EOF-ProfileData PIC X VALUE 'N'.
+       01 Is-Done PIC X VALUE 'N'.
 
 
        PROCEDURE DIVISION.
@@ -310,8 +300,22 @@ IDENTIFICATION DIVISION.
               PERFORM DisplayAndLog
            MOVE "--- Create or Edit Profile ---" TO CurrentMessage
               PERFORM DisplayAndLog
-              MOVE CurrentUsername TO CurrentMessage
-                 PERFORM DisplayAndLog
+           MOVE 'N' TO EditProfile
+           OPEN INPUT UserProfileRecordFile
+           PERFORM UNTIL EditProfile = 'Y' OR EOF-ProfileData = 'Y'
+               READ UserProfileRecordFile INTO UserProfileRecord
+               AT   END
+                   MOVE 'Y' TO EOF-ProfileData
+               NOT AT END
+                   IF Username = CurrentUsername THEN
+                       MOVE "Found your username" TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE 'Y' TO EditProfile
+                   END-IF
+           END-PERFORM
+           CLOSE UserProfileRecordFile
+
+
            MOVE "First name: " TO CurrentMessage
               PERFORM DisplayAndLog
               PERFORM ReadFirstName
@@ -341,7 +345,7 @@ IDENTIFICATION DIVISION.
            MOVE "Profile saved successfully." TO CurrentMessage
            PERFORM DisplayAndLog
 
-
+           IF EditProfile = 'N' THEN
               OPEN EXTEND UserProfileRecordFile
                    MOVE SPACES TO UserProfileRecord
                    MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
@@ -360,7 +364,25 @@ IDENTIFICATION DIVISION.
                    MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
                    MOVE CurrentEducationUniversity TO Education-Universiity IN UserProfileRecord
                    MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
-
+           ELSE
+               OPEN OUTPUT UserProfileRecordFile
+                   MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
+                   MOVE CurrentFirstName TO FirstName IN UserProfileRecord
+                   MOVE CurrentLastName TO LastName IN UserProfileRecord
+                   MOVE CurrentUniversity TO University IN UserProfileRecord
+                   MOVE CurrentMajor TO Major IN UserProfileRecord
+                   MOVE CurrentGraduationYear TO GraduationYear IN UserProfileRecord
+                   STRING "     " DELIMITED BY SIZE
+                       FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
+                       INTO AboutMe IN UserProfileRecord
+                   MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
+                   MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
+                   MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
+                   MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
+                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
+                   MOVE CurrentEducationUniversity TO Education-Universiity IN UserProfileRecord
+                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+           END-IF
 
 
 
