@@ -12,6 +12,8 @@ IDENTIFICATION DIVISION.
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT UserProfileRecordFile ASSIGN TO "profiles.dat"
                ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT TempProfileFile ASSIGN TO "profiles.tmp"
+               ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
@@ -42,6 +44,23 @@ IDENTIFICATION DIVISION.
            05 Education-Degree PIC X(50).
            05 Education-University PIC X(50).
            05 Education-Years PIC X(9).
+
+       FD TempProfileFile.
+       01 TempProfileRecord.
+           05 TempUsername-Profile PIC X(20).
+           05 TempFirstName PIC X(20).
+           05 TempLastName PIC X(20).
+           05 TempUniversity PIC X(30).
+           05 TempMajor PIC X(30).
+           05 TempGraduationYear PIC 9(4).
+           05 TempAboutMe PIC X(200).
+           05 TempExperience-Title PIC X(200).
+           05 TempExperience-Company PIC X(200).
+           05 TempExperience-Dates PIC X(100).
+           05 TempExperience-Description PIC X(500).
+           05 TempEducation-Degree PIC X(50).
+           05 TempEducation-University PIC X(50).
+           05 TempEducation-Years PIC X(9).
 
        WORKING-STORAGE SECTION.
        01 UserCount PIC 9(3) VALUE 0.
@@ -327,11 +346,12 @@ IDENTIFICATION DIVISION.
                AT   END
                    MOVE 'Y' TO EOF-ProfileData
                NOT AT END
-                   IF Username = CurrentUsername THEN
+                   IF Username-Profile = CurrentUsername THEN
                        MOVE "Found your username" TO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'Y' TO EditProfile
                    END-IF
+               END-READ
            END-PERFORM
            CLOSE UserProfileRecordFile
            MOVE "Enter First Name: " TO CurrentMessage
@@ -492,54 +512,81 @@ IDENTIFICATION DIVISION.
            MOVE "Profile saved successfully." TO CurrentMessage
            PERFORM DisplayAndLog
 
-
-              IF EditProfile = 'N' THEN
-              OPEN EXTEND UserProfileRecordFile
-                   MOVE SPACES TO UserProfileRecord
-                   MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
-                   MOVE CurrentFirstName TO FirstName IN UserProfileRecord
-                   MOVE CurrentLastName TO LastName IN UserProfileRecord
-                   MOVE CurrentUniversity TO University IN UserProfileRecord
-                   MOVE CurrentMajor TO Major IN UserProfileRecord
-                   MOVE CurrentGraduationYear TO GraduationYear IN UserProfileRecord
-                   STRING "     " DELIMITED BY SIZE
-                       FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
-                       INTO AboutMe IN UserProfileRecord
-                   MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
-                   MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
-                   MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
-                   MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
-                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
-                   MOVE CurrentEducationUniversity TO Education-University IN UserProfileRecord
-                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
-           ELSE
+           IF EditProfile = 'Y' THEN
+               *> Update existing: read all, skip current user, rewrite with updated
+               MOVE 'N' TO EOF-ProfileData
+               OPEN INPUT UserProfileRecordFile
+               OPEN OUTPUT TempProfileFile
+               PERFORM UNTIL EOF-ProfileData = 'Y'
+                   READ UserProfileRecordFile
+                   AT END
+                       MOVE 'Y' TO EOF-ProfileData
+                   NOT AT END
+                       IF Username-Profile NOT = CurrentUsername THEN
+                           WRITE TempProfileRecord FROM UserProfileRecord
+                       END-IF
+                   END-READ
+               END-PERFORM
+               CLOSE UserProfileRecordFile
+               CLOSE TempProfileFile
+               *> Rewrite profiles.dat with temp contents + updated record
+               MOVE 'N' TO EOF-ProfileData
+               OPEN INPUT TempProfileFile
                OPEN OUTPUT UserProfileRecordFile
-                   MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
-                   MOVE CurrentFirstName TO FirstName IN UserProfileRecord
-                   MOVE CurrentLastName TO LastName IN UserProfileRecord
-                   MOVE CurrentUniversity TO University IN UserProfileRecord
-                   MOVE CurrentMajor TO Major IN UserProfileRecord
-                   MOVE CurrentGraduationYear TO GraduationYear IN UserProfileRecord
-                   STRING "     " DELIMITED BY SIZE
-                       FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
-                       INTO AboutMe IN UserProfileRecord
-                   MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
-                   MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
-                   MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
-                   MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
-                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
-                   MOVE CurrentEducationUniversity TO Education-University IN UserProfileRecord
-                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
-           END-IF
+               PERFORM UNTIL EOF-ProfileData = 'Y'
+                   READ TempProfileFile INTO TempProfileRecord
+                   AT END
+                       MOVE 'Y' TO EOF-ProfileData
+                   NOT AT END
+                       WRITE UserProfileRecord FROM TempProfileRecord
+                   END-READ
+               END-PERFORM
+               *> Add updated profile
+               MOVE SPACES TO UserProfileRecord
+               MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
+               MOVE CurrentFirstName TO FirstName IN UserProfileRecord
+               MOVE CurrentLastName TO LastName IN UserProfileRecord
+               MOVE CurrentUniversity TO University IN UserProfileRecord
+               MOVE CurrentMajor TO Major IN UserProfileRecord
+               MOVE CurrentGraduationYear TO GraduationYear IN UserProfileRecord
+               STRING "     " DELIMITED BY SIZE
+                   FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
+                   INTO AboutMe IN UserProfileRecord
+               MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
+               MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
+               MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
+               MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
+               MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
+               MOVE CurrentEducationUniversity TO Education-University IN UserProfileRecord
+               MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+               WRITE UserProfileRecord
+               CLOSE TempProfileFile
+               CLOSE UserProfileRecordFile
+           ELSE
+               *> New profile: just append
+               MOVE SPACES TO UserProfileRecord
+               MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
+               MOVE CurrentFirstName TO FirstName IN UserProfileRecord
+               MOVE CurrentLastName TO LastName IN UserProfileRecord
+               MOVE CurrentUniversity TO University IN UserProfileRecord
+               MOVE CurrentMajor TO Major IN UserProfileRecord
+               MOVE CurrentGraduationYear TO GraduationYear IN UserProfileRecord
+               STRING "     " DELIMITED BY SIZE
+                   FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
+                   INTO AboutMe IN UserProfileRecord
+               MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
+               MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
+               MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
+               MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
+               MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
+               MOVE CurrentEducationUniversity TO Education-University IN UserProfileRecord
+               MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+               OPEN EXTEND UserProfileRecordFile
+               WRITE UserProfileRecord
+               CLOSE UserProfileRecordFile
+           END-IF.
 
-
-
-                   WRITE UserProfileRecord
-                   CLOSE UserProfileRecordFile
-                   MOVE "DONE" TO CurrentMessage
-              PERFORM DisplayAndLog.
-
-           ViewProfile.
+       ViewProfile.
            MOVE 'N' TO EOF-UserData
            MOVE 'N' TO LoginSuccess
            OPEN INPUT UserProfileRecordFile
