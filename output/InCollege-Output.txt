@@ -4,7 +4,7 @@ Welcome to InCollege!
 9. Exit
 Enter username:
 Enter password:
-Account created successfully.
+You have successfully logged in.
 Welcome
 charlie
 1. Create/Edit My Profile
@@ -12,26 +12,18 @@ charlie
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-This is under development.
---- Create or Edit Profile ---
-charlie
-First name:
-Last name:
-University/College:
-Major:
-Graduation Year:
-Invalid Graduation Year
-About Me (Optional 200 characters max or blank line to skip):
-Add Experience (Optional, 3 Entries or Enter 'DONE' to finish):
-Experience #1 - Title:
-Experience #1 - Company:
-Experience #1 - Dates:
-Experience #1 - Description (optional 100 characters max, blank line to skip):
-DONE
+--- Create/Edit Profile ---
+Found your username
+Enter First Name:
+Enter Last Name:
+Enter University/College Attended:
+Enter Major:
+Enter Graduation Year (YYYY):
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
-Education #1 - Degree:
-Education #1 - University/College:
-Education #1 - Years Attended:
+Education 1 - Degree:
 Profile saved successfully.
 DONE
 1. Create/Edit My Profile
