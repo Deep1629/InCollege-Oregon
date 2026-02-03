@@ -25,14 +25,12 @@ Experience 1 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
 --- Create/Edit Profile ---
-Found your username
 Enter First Name:
 Enter Last Name:
 Enter University/College Attended:
@@ -44,18 +42,17 @@ Experience 1 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
 --- Your Profile ---
-Name: Second Version
-University: New University
-Major: IT
-Graduation Year: 2026
-About Me: Updated about me.
+Name: First Version
+University: Old University
+Major: CS
+Graduation Year: 2024
+About Me: Old about me.
 Experience:
 Title: DONE
 Company:

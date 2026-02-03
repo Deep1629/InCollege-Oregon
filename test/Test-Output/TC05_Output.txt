@@ -3,6 +3,7 @@ Welcome to InCollege!
 2. Create New Account
 9. Exit
 Enter username:
+Warning: No username provided.
 Enter password:
 Username already exists. Please try a different username.
 1. Log In
