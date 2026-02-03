@@ -334,12 +334,141 @@ IDENTIFICATION DIVISION.
                 PERFORM ReadAboutMe
            MOVE "Add Experience (optional, max 3 entries. Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
-                PERFORM ReadExperience
-           MOVE "DONE" TO CurrentMessage
-                PERFORM DisplayAndLog
+                MOVE SPACES TO Experience-Title
+                MOVE SPACES TO Experience-Company
+                MOVE SPACES TO Experience-Dates
+                MOVE SPACES TO Experience-Description
+                MOVE 1 TO ExperienceCount
+                PERFORM UNTIL ExperienceCount > 3
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Title:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentTitle
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentTitle
+                   END-READ
+                   IF CurrentTitle = "DONE" OR CurrentTitle = SPACES THEN
+                       EXIT PERFORM
+                   END-IF
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Title DELIMITED BY LOW-VALUES " | " CurrentTitle DELIMITED BY LOW-VALUES INTO Experience-Title
+                   ELSE
+                       MOVE CurrentTitle TO Experience-Title
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Company:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentCompany
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentCompany
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Company DELIMITED BY LOW-VALUES " | " CurrentCompany DELIMITED BY LOW-VALUES INTO Experience-Company
+                   ELSE
+                       MOVE CurrentCompany TO Experience-Company
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Dates:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentDates
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentDates
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Dates DELIMITED BY LOW-VALUES " | " CurrentDates DELIMITED BY LOW-VALUES INTO Experience-Dates
+                   ELSE
+                       MOVE CurrentDates TO Experience-Dates
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Description (optional 100 characters max, blank line to skip):" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentDescription
+                   NOT AT END
+                       MOVE InputRecord(1:100) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentDescription
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Description DELIMITED BY LOW-VALUES " | " CurrentDescription DELIMITED BY LOW-VALUES INTO Experience-Description
+                   ELSE
+                       MOVE CurrentDescription TO Experience-Description
+                   END-IF
+                   ADD 1 TO ExperienceCount
+                END-PERFORM
            MOVE "Add Education (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
-                PERFORM ReadEducation
+                MOVE SPACES TO Education-Degree
+                MOVE SPACES TO Education-Universiity
+                MOVE SPACES TO Education-Years
+                MOVE 1 TO EducationCount
+                PERFORM UNTIL EducationCount > 3
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - Degree:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationDegree
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
+                   END-READ
+                   IF CurrentEducationDegree = "DONE" OR CurrentEducationDegree = SPACES THEN
+                       EXIT PERFORM
+                   END-IF
+                   IF EducationCount > 1 THEN
+                       STRING Education-Degree DELIMITED BY LOW-VALUES " | " CurrentEducationDegree DELIMITED BY LOW-VALUES INTO Education-Degree
+                   ELSE
+                       MOVE CurrentEducationDegree TO Education-Degree
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - University/College:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationUniversity
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
+                   END-READ
+                   IF EducationCount > 1 THEN
+                       STRING Education-Universiity DELIMITED BY LOW-VALUES " | " CurrentEducationUniversity DELIMITED BY LOW-VALUES INTO Education-Universiity
+                   ELSE
+                       MOVE CurrentEducationUniversity TO Education-Universiity
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - Years Attended:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationYears
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
+                   END-READ
+                   IF EducationCount > 1 THEN
+                       STRING Education-Years DELIMITED BY LOW-VALUES " | " CurrentEducationYears DELIMITED BY LOW-VALUES INTO Education-Years
+                   ELSE
+                       MOVE CurrentEducationYears TO Education-Years
+                   END-IF
+                   ADD 1 TO EducationCount
+                END-PERFORM
            MOVE "Profile saved successfully." TO CurrentMessage
            PERFORM DisplayAndLog
 
@@ -355,13 +484,13 @@ IDENTIFICATION DIVISION.
                    STRING "     " DELIMITED BY SIZE
                        FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
                        INTO AboutMe IN UserProfileRecord
-                   MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
-                   MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
-                   MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
-                   MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
-                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
-                   MOVE CurrentEducationUniversity TO Education-Universiity IN UserProfileRecord
-                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+                   MOVE Experience-Title TO Experience-Title IN UserProfileRecord
+                   MOVE Experience-Company TO Experience-Company IN UserProfileRecord
+                   MOVE Experience-Dates TO Experience-Dates IN UserProfileRecord
+                   MOVE Experience-Description TO Experience-Description IN UserProfileRecord
+                   MOVE Education-Degree TO Education-Degree IN UserProfileRecord
+                   MOVE Education-Universiity TO Education-Universiity IN UserProfileRecord
+                   MOVE Education-Years TO Education-Years IN UserProfileRecord
 
 
 
@@ -651,111 +780,6 @@ IDENTIFICATION DIVISION.
                ELSE
                    MOVE FUNCTION TRIM(InputRecord(1:200)) TO CurrentAboutMe
                END-IF
-           END-READ.
-
-           ReadExperience.
-           MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Title: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentTitle
-                  NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentTitle
-               IF CurrentTitle = "DONE" OR ExperienceCount >= 4 THEN
-                   MOVE 'Y' TO EOF-InputFile
-                   MOVE SPACES TO CurrentTitle
-               END-IF
-
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Company: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentCompany
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentCompany
-              END-READ
-
-           MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Dates: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentDates
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentDates
-
-            MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Description (optional 100 characters max, blank line to skip): " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentDescription
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentDescription
-           END-READ.
-
-
-           ReadEducation.
-           MOVE SPACES TO CurrentMessage
-                STRING "Education #" DELIMITED BY SIZE
-                       EducationCount DELIMITED BY SIZE
-                       " - Degree: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentEducationDegree
-                  NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
-               IF CurrentEducationDegree = "DONE" OR EducationCount >= 4 THEN
-                   MOVE 'Y' TO EOF-InputFile
-                   MOVE SPACES TO CurrentEducationDegree
-               END-IF
-
-           STRING "Education #" DELIMITED BY SIZE
-           EducationCount DELIMITED BY SIZE
-           " - University/College: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentEducationUniversity
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
-              END-READ
-
-           MOVE SPACES TO CurrentMessage
-           STRING "Education #" DELIMITED BY SIZE
-           EducationCount DELIMITED BY SIZE
-           " - Years Attended: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentEducationYears
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
-
            END-READ.
 
 
