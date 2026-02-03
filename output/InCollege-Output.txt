@@ -6,7 +6,7 @@ Enter username:
 Enter password:
 You have successfully logged in.
 Welcome
-charlie
+test
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
