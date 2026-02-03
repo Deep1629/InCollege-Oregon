@@ -60,6 +60,12 @@ IDENTIFICATION DIVISION.
        01 UsernameExists PIC X VALUE 'N'.
        01 PasswordLength PIC 99 VALUE 0.
        01 TempString PIC X(100).
+       01 PasswordValid PIC X VALUE 'Y'.
+       01 has_capital PIC X VALUE 'N'.
+       01 has_digit PIC X VALUE 'N'.
+       01 has_special PIC X VALUE 'N'.
+       01 TempChar PIC X.
+       01 I PIC 9(2) VALUE 1.
        01 CurrentFirstName PIC X(20).
        01 LastName PIC X(20).
        01 CurrentLastName PIC X(20).
@@ -203,24 +209,29 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
                PERFORM ReadPassword
                PERFORM CheckPasswordLength
-               PERFORM CheckUsernameExists
-               IF UsernameExists = 'Y' THEN
-                   MOVE "Username already exists. Please try a different username." TO CurrentMessage
+               IF PasswordValid = 'N' THEN
+                   MOVE "Registration failed due to invalid password." TO CurrentMessage
                    PERFORM DisplayAndLog
                ELSE
-                   OPEN EXTEND UserDataFile
-                   MOVE CurrentUsername TO Username
-                   MOVE CurrentPassword TO Password
-                   WRITE UserRecord
-                   CLOSE UserDataFile
-                   ADD 1 TO UserCount
-                   MOVE "Account created successfully." TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE "Welcome " TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE CurrentUsername TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE 'Y' TO LoggedIn
+                   PERFORM CheckUsernameExists
+                   IF UsernameExists = 'Y' THEN
+                       MOVE "Username already exists. Please try a different username." TO CurrentMessage
+                       PERFORM DisplayAndLog
+                   ELSE
+                       OPEN EXTEND UserDataFile
+                       MOVE CurrentUsername TO Username
+                       MOVE CurrentPassword TO Password
+                       WRITE UserRecord
+                       CLOSE UserDataFile
+                       ADD 1 TO UserCount
+                       MOVE "Account created successfully." TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE "Welcome " TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE CurrentUsername TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE 'Y' TO LoggedIn
+                   END-IF
                END-IF
            END-IF.
 
@@ -644,9 +655,11 @@ IDENTIFICATION DIVISION.
 
        CheckPasswordLength.
            MOVE FUNCTION LENGTH(FUNCTION TRIM(CurrentPassword)) TO PasswordLength
-           IF PasswordLength = 0 THEN
-               MOVE "Password is blank. Registration/login may fail." TO CurrentMessage
+           MOVE 'Y' TO PasswordValid
+           IF PasswordLength < 8 THEN
+               MOVE "Password must be at least 8 characters." TO CurrentMessage
                PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
            END-IF
            IF PasswordLength > 12 THEN
                MOVE "Password must be 12 characters or less. Program terminated." TO CurrentMessage
@@ -657,6 +670,36 @@ IDENTIFICATION DIVISION.
                    CLOSE OutputFile
                END-IF
                STOP RUN
+           END-IF
+           MOVE 'N' TO has_capital
+           MOVE 'N' TO has_digit
+           MOVE 'N' TO has_special
+           PERFORM VARYING I FROM 1 BY 1 UNTIL I > PasswordLength
+               MOVE CurrentPassword(I:1) TO TempChar
+               IF TempChar >= 'A' AND TempChar <= 'Z' THEN
+                   MOVE 'Y' TO has_capital
+               END-IF
+               IF TempChar >= '0' AND TempChar <= '9' THEN
+                   MOVE 'Y' TO has_digit
+               END-IF
+               IF NOT (TempChar >= 'A' AND TempChar <= 'Z' OR TempChar >= 'a' AND TempChar <= 'z' OR TempChar >= '0' AND TempChar <= '9') THEN
+                   MOVE 'Y' TO has_special
+               END-IF
+           END-PERFORM
+           IF has_capital = 'N' THEN
+               MOVE "Password must contain at least one capital letter." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
+           END-IF
+           IF has_digit = 'N' THEN
+               MOVE "Password must contain at least one digit." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
+           END-IF
+           IF has_special = 'N' THEN
+               MOVE "Password must contain at least one special character." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
            END-IF.
 
            ReadFirstName.
