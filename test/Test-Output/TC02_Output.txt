@@ -13,7 +13,6 @@ dana
 4. Find someone you know
 5. Learn a new skill
 --- Create/Edit Profile ---
-Found your username
 Enter First Name:
 Enter Last Name:
 Enter University/College Attended:
@@ -44,7 +43,6 @@ Education 3 - Degree:
 Education 3 - University/College:
 Education 3 - Years Attended:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job

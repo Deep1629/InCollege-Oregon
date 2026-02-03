@@ -13,7 +13,6 @@ alice
 4. Find someone you know
 5. Learn a new skill
 --- Create/Edit Profile ---
-Found your username
 Enter First Name:
 Enter Last Name:
 Enter University/College Attended:
@@ -32,7 +31,6 @@ Education 1 - University/College:
 Education 1 - Years Attended:
 Education 2 - Degree:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job

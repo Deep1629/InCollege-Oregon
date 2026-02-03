@@ -24,7 +24,6 @@ Experience 1 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job

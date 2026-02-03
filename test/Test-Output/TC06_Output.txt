@@ -34,7 +34,6 @@ Education 1 - University/College:
 Education 1 - Years Attended:
 Education 2 - Degree:
 Profile saved successfully.
-DONE
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
