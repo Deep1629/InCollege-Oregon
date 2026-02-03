@@ -655,6 +655,10 @@ IDENTIFICATION DIVISION.
            NOT AT END
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentUsername
+               IF FUNCTION TRIM(CurrentUsername) = SPACES THEN
+                   MOVE "Warning: No username provided." TO CurrentMessage
+                   PERFORM DisplayAndLog
+               END-IF
            END-READ.
 
        ReadPassword.
@@ -955,3 +959,4 @@ IDENTIFICATION DIVISION.
                    END-IF
            END-PERFORM
            CLOSE UserDataFile.
+
