@@ -60,6 +60,12 @@ IDENTIFICATION DIVISION.
        01 UsernameExists PIC X VALUE 'N'.
        01 PasswordLength PIC 99 VALUE 0.
        01 TempString PIC X(100).
+       01 PasswordValid PIC X VALUE 'Y'.
+       01 has_capital PIC X VALUE 'N'.
+       01 has_digit PIC X VALUE 'N'.
+       01 has_special PIC X VALUE 'N'.
+       01 TempChar PIC X.
+       01 I PIC 9(2) VALUE 1.
        01 CurrentFirstName PIC X(20).
        01 LastName PIC X(20).
        01 CurrentLastName PIC X(20).
@@ -203,24 +209,29 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
                PERFORM ReadPassword
                PERFORM CheckPasswordLength
-               PERFORM CheckUsernameExists
-               IF UsernameExists = 'Y' THEN
-                   MOVE "Username already exists. Please try a different username." TO CurrentMessage
+               IF PasswordValid = 'N' THEN
+                   MOVE "Registration failed due to invalid password." TO CurrentMessage
                    PERFORM DisplayAndLog
                ELSE
-                   OPEN EXTEND UserDataFile
-                   MOVE CurrentUsername TO Username
-                   MOVE CurrentPassword TO Password
-                   WRITE UserRecord
-                   CLOSE UserDataFile
-                   ADD 1 TO UserCount
-                   MOVE "Account created successfully." TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE "Welcome " TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE CurrentUsername TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   MOVE 'Y' TO LoggedIn
+                   PERFORM CheckUsernameExists
+                   IF UsernameExists = 'Y' THEN
+                       MOVE "Username already exists. Please try a different username." TO CurrentMessage
+                       PERFORM DisplayAndLog
+                   ELSE
+                       OPEN EXTEND UserDataFile
+                       MOVE CurrentUsername TO Username
+                       MOVE CurrentPassword TO Password
+                       WRITE UserRecord
+                       CLOSE UserDataFile
+                       ADD 1 TO UserCount
+                       MOVE "Account created successfully." TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE "Welcome " TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE CurrentUsername TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE 'Y' TO LoggedIn
+                   END-IF
                END-IF
            END-IF.
 
@@ -292,52 +303,183 @@ IDENTIFICATION DIVISION.
            PERFORM DisplayAndLog.
            EVALUATE SkillOption
                WHEN 1
-                   DISPLAY "You have chosen to learn Time Management."
+                   MOVE "You have chosen to learn Time Management." TO CurrentMessage
+                   PERFORM DisplayAndLog
                WHEN 2
-                   DISPLAY "You have chosen to learn Public Speaking."
+                   MOVE "You have chosen to learn Public Speaking." TO CurrentMessage
+                   PERFORM DisplayAndLog
                WHEN 3
-                   DISPLAY "You have chosen to learn Leadership."
+                   MOVE "You have chosen to learn Leadership." TO CurrentMessage
+                   PERFORM DisplayAndLog
                WHEN 4
-                   DISPLAY "You have chosen to learn Communication."
+                   MOVE "You have chosen to learn Communication." TO CurrentMessage
+                   PERFORM DisplayAndLog
                WHEN 5
-                   DISPLAY "You have chosen to learn Technical Skills."
+                   MOVE "You have chosen to learn Technical Skills." TO CurrentMessage
+                   PERFORM DisplayAndLog
                WHEN OTHER
-                   DISPLAY "Invalid option. Please try again."
+                   MOVE "Invalid option. Please try again." TO CurrentMessage
+                   PERFORM DisplayAndLog
            END-EVALUATE.
 
        CreateEditMenu.
-           MOVE "This is under development." TO CurrentMessage
+           MOVE "--- Create/Edit Profile ---" TO CurrentMessage
               PERFORM DisplayAndLog
-           MOVE "--- Create or Edit Profile ---" TO CurrentMessage
-              PERFORM DisplayAndLog
-              MOVE CurrentUsername TO CurrentMessage
-                 PERFORM DisplayAndLog
-           MOVE "First name: " TO CurrentMessage
+           MOVE "Enter First Name: " TO CurrentMessage
               PERFORM DisplayAndLog
               PERFORM ReadFirstName
-           MOVE "Last name: " TO CurrentMessage
+           MOVE "Enter Last Name: " TO CurrentMessage
               PERFORM DisplayAndLog
               PERFORM ReadLastName
-           MOVE "University/College: " TO CurrentMessage
+           MOVE "Enter University/College Attended: " TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM Readuniversity
-           MOVE "Major: " TO CurrentMessage
+           MOVE "Enter Major: " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadMajor
-           MOVE "Graduation Year: " TO CurrentMessage
+           MOVE "Enter Graduation Year (YYYY): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadGradYear
-           MOVE "About Me (Optional 200 characters max or blank line to skip): " TO CurrentMessage
+           MOVE "Enter About Me (optional, max 200 characters, enter blank line to skip): " TO CurrentMessage
                 PERFORM DisplayAndLog
                 PERFORM ReadAboutMe
-           MOVE "Add Experience (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
+           MOVE "Add Experience (optional, max 3 entries. Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
-                PERFORM ReadExperience
-           MOVE "DONE" TO CurrentMessage
-                PERFORM DisplayAndLog
+                MOVE SPACES TO Experience-Title
+                MOVE SPACES TO Experience-Company
+                MOVE SPACES TO Experience-Dates
+                MOVE SPACES TO Experience-Description
+                MOVE 1 TO ExperienceCount
+                PERFORM UNTIL ExperienceCount > 3
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Title:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentTitle
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentTitle
+                   END-READ
+                   IF CurrentTitle = "DONE" OR CurrentTitle = SPACES THEN
+                       EXIT PERFORM
+                   END-IF
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Title DELIMITED BY LOW-VALUES " | " CurrentTitle DELIMITED BY LOW-VALUES INTO Experience-Title
+                   ELSE
+                       MOVE CurrentTitle TO Experience-Title
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Company:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentCompany
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentCompany
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Company DELIMITED BY LOW-VALUES " | " CurrentCompany DELIMITED BY LOW-VALUES INTO Experience-Company
+                   ELSE
+                       MOVE CurrentCompany TO Experience-Company
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Dates:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentDates
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentDates
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Dates DELIMITED BY LOW-VALUES " | " CurrentDates DELIMITED BY LOW-VALUES INTO Experience-Dates
+                   ELSE
+                       MOVE CurrentDates TO Experience-Dates
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Experience " ExperienceCount " - Description (optional 100 characters max, blank line to skip):" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentDescription
+                   NOT AT END
+                       MOVE InputRecord(1:100) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentDescription
+                   END-READ
+                   IF ExperienceCount > 1 THEN
+                       STRING Experience-Description DELIMITED BY LOW-VALUES " | " CurrentDescription DELIMITED BY LOW-VALUES INTO Experience-Description
+                   ELSE
+                       MOVE CurrentDescription TO Experience-Description
+                   END-IF
+                   ADD 1 TO ExperienceCount
+                END-PERFORM
            MOVE "Add Education (Optional, 3 Entries or Enter 'DONE' to finish): " TO CurrentMessage
                 PERFORM DisplayAndLog
-                PERFORM ReadEducation
+                MOVE SPACES TO Education-Degree
+                MOVE SPACES TO Education-Universiity
+                MOVE SPACES TO Education-Years
+                MOVE 1 TO EducationCount
+                PERFORM UNTIL EducationCount > 3
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - Degree:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationDegree
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
+                   END-READ
+                   IF CurrentEducationDegree = "DONE" OR CurrentEducationDegree = SPACES THEN
+                       EXIT PERFORM
+                   END-IF
+                   IF EducationCount > 1 THEN
+                       STRING Education-Degree DELIMITED BY LOW-VALUES " | " CurrentEducationDegree DELIMITED BY LOW-VALUES INTO Education-Degree
+                   ELSE
+                       MOVE CurrentEducationDegree TO Education-Degree
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - University/College:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationUniversity
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
+                   END-READ
+                   IF EducationCount > 1 THEN
+                       STRING Education-Universiity DELIMITED BY LOW-VALUES " | " CurrentEducationUniversity DELIMITED BY LOW-VALUES INTO Education-Universiity
+                   ELSE
+                       MOVE CurrentEducationUniversity TO Education-Universiity
+                   END-IF
+                   MOVE SPACES TO CurrentMessage
+                   STRING "Education " EducationCount " - Years Attended:" INTO CurrentMessage
+                   PERFORM DisplayAndLog
+                   READ InputFile INTO InputRecord
+                   AT END
+                       MOVE 'Y' TO EOF-InputFile
+                       MOVE SPACES TO CurrentEducationYears
+                   NOT AT END
+                       MOVE InputRecord(1:20) TO TempString
+                       MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
+                   END-READ
+                   IF EducationCount > 1 THEN
+                       STRING Education-Years DELIMITED BY LOW-VALUES " | " CurrentEducationYears DELIMITED BY LOW-VALUES INTO Education-Years
+                   ELSE
+                       MOVE CurrentEducationYears TO Education-Years
+                   END-IF
+                   ADD 1 TO EducationCount
+                END-PERFORM
            MOVE "Profile saved successfully." TO CurrentMessage
            PERFORM DisplayAndLog
 
@@ -353,25 +495,118 @@ IDENTIFICATION DIVISION.
                    STRING "     " DELIMITED BY SIZE
                        FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
                        INTO AboutMe IN UserProfileRecord
-                   MOVE CurrentTitle TO Experience-Title IN UserProfileRecord
-                   MOVE CurrentCompany TO Experience-Company IN UserProfileRecord
-                   MOVE CurrentDates TO Experience-Dates IN UserProfileRecord
-                   MOVE CurrentDescription TO Experience-Description IN UserProfileRecord
-                   MOVE CurrentEducationDegree TO Education-Degree IN UserProfileRecord
-                   MOVE CurrentEducationUniversity TO Education-Universiity IN UserProfileRecord
-                   MOVE CurrentEducationYears TO Education-Years IN UserProfileRecord
+                   MOVE Experience-Title TO Experience-Title IN UserProfileRecord
+                   MOVE Experience-Company TO Experience-Company IN UserProfileRecord
+                   MOVE Experience-Dates TO Experience-Dates IN UserProfileRecord
+                   MOVE Experience-Description TO Experience-Description IN UserProfileRecord
+                   MOVE Education-Degree TO Education-Degree IN UserProfileRecord
+                   MOVE Education-Universiity TO Education-Universiity IN UserProfileRecord
+                   MOVE Education-Years TO Education-Years IN UserProfileRecord
 
 
 
 
                    WRITE UserProfileRecord
                    CLOSE UserProfileRecordFile
-                   MOVE "DONE" TO CurrentMessage
-              PERFORM DisplayAndLog.
+                   MOVE "Profile saved successfully!" TO CurrentMessage
+              PERFORM DisplayAndLog
 
            ViewProfile.
-           Move "This is under construction." TO CurrentMessage
-              PERFORM DisplayAndLog.
+           MOVE 'N' TO EOF-UserData
+           MOVE 'N' TO LoginSuccess
+           OPEN INPUT UserProfileRecordFile
+           PERFORM UNTIL LoginSuccess = 'Y' OR EOF-UserData = 'Y'
+               READ UserProfileRecordFile INTO UserProfileRecord
+               AT END
+                   MOVE 'Y' TO EOF-UserData
+               NOT AT END
+                   IF Username-Profile IN UserProfileRecord = CurrentUsername THEN
+                       MOVE "--- Your Profile ---" TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Name: " DELIMITED BY SIZE
+                           FUNCTION TRIM(FirstName IN UserProfileRecord) DELIMITED BY SIZE
+                           " " DELIMITED BY SIZE
+                           FUNCTION TRIM(LastName IN UserProfileRecord) DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "University: " DELIMITED BY SIZE
+                           FUNCTION TRIM(University IN UserProfileRecord) DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Major: " DELIMITED BY SIZE
+                           FUNCTION TRIM(Major IN UserProfileRecord) DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Graduation Year: " DELIMITED BY SIZE
+                           GraduationYear IN UserProfileRecord DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "About Me: " DELIMITED BY SIZE
+                           FUNCTION TRIM(AboutMe IN UserProfileRecord) DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE "Experience:" TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       IF FUNCTION TRIM(Experience-Title IN UserProfileRecord) NOT = SPACES THEN
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Title: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Experience-Title IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Company: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Experience-Company IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Dates: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Experience-Dates IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Description: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Experience-Description IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                       ELSE
+                           MOVE "None" TO CurrentMessage
+                           PERFORM DisplayAndLog
+                       END-IF
+                       MOVE "Education:" TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       IF FUNCTION TRIM(Education-Degree IN UserProfileRecord) NOT = SPACES THEN
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Degree: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Education-Degree IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                           MOVE SPACES TO CurrentMessage
+                           STRING "University: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Education-Universiity IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                           MOVE SPACES TO CurrentMessage
+                           STRING "Years: " DELIMITED BY SIZE
+                               FUNCTION TRIM(Education-Years IN UserProfileRecord) DELIMITED BY SIZE
+                               INTO CurrentMessage
+                           PERFORM DisplayAndLog
+                       ELSE
+                           MOVE "None" TO CurrentMessage
+                           PERFORM DisplayAndLog
+                       END-IF
+                       MOVE 'Y' TO LoginSuccess
+                   END-IF
+           END-PERFORM
+           CLOSE UserProfileRecordFile
+           IF LoginSuccess = 'N' THEN
+               MOVE "No profile found. Please create a profile first." TO CurrentMessage
+               PERFORM DisplayAndLog
+           END-IF.
 
 
        ReadMenuOption.
@@ -402,6 +637,10 @@ IDENTIFICATION DIVISION.
            NOT AT END
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentPassword
+               IF FUNCTION TRIM(CurrentPassword) = SPACES THEN
+                   MOVE "Warning: No password provided." TO CurrentMessage
+                   PERFORM DisplayAndLog
+               END-IF
            END-READ.
 
        ReadSkillOption.
@@ -416,6 +655,12 @@ IDENTIFICATION DIVISION.
 
        CheckPasswordLength.
            MOVE FUNCTION LENGTH(FUNCTION TRIM(CurrentPassword)) TO PasswordLength
+           MOVE 'Y' TO PasswordValid
+           IF PasswordLength < 8 THEN
+               MOVE "Password must be at least 8 characters." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
+           END-IF
            IF PasswordLength > 12 THEN
                MOVE "Password must be 12 characters or less. Program terminated." TO CurrentMessage
                PERFORM DisplayAndLog
@@ -425,6 +670,36 @@ IDENTIFICATION DIVISION.
                    CLOSE OutputFile
                END-IF
                STOP RUN
+           END-IF
+           MOVE 'N' TO has_capital
+           MOVE 'N' TO has_digit
+           MOVE 'N' TO has_special
+           PERFORM VARYING I FROM 1 BY 1 UNTIL I > PasswordLength
+               MOVE CurrentPassword(I:1) TO TempChar
+               IF TempChar >= 'A' AND TempChar <= 'Z' THEN
+                   MOVE 'Y' TO has_capital
+               END-IF
+               IF TempChar >= '0' AND TempChar <= '9' THEN
+                   MOVE 'Y' TO has_digit
+               END-IF
+               IF NOT (TempChar >= 'A' AND TempChar <= 'Z' OR TempChar >= 'a' AND TempChar <= 'z' OR TempChar >= '0' AND TempChar <= '9') THEN
+                   MOVE 'Y' TO has_special
+               END-IF
+           END-PERFORM
+           IF has_capital = 'N' THEN
+               MOVE "Password must contain at least one capital letter." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
+           END-IF
+           IF has_digit = 'N' THEN
+               MOVE "Password must contain at least one digit." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
+           END-IF
+           IF has_special = 'N' THEN
+               MOVE "Password must contain at least one special character." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE 'N' TO PasswordValid
            END-IF.
 
            ReadFirstName.
@@ -436,6 +711,20 @@ IDENTIFICATION DIVISION.
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentFirstName
            END-READ.
+           ReadFirstName.
+           READ InputFile INTO InputRecord
+           AT END
+               MOVE 'Y' TO EOF-InputFile
+               MOVE SPACES TO CurrentFirstName
+           NOT AT END
+               MOVE InputRecord(1:20) TO TempString
+               MOVE FUNCTION TRIM(TempString) TO CurrentFirstName
+           END-READ
+           IF FUNCTION TRIM(CurrentFirstName) = SPACES THEN
+               MOVE "First name missing; set to N/A." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "N/A" TO CurrentFirstName
+           END-IF.
 
            ReadLastName.
            READ InputFile INTO InputRecord
@@ -445,7 +734,12 @@ IDENTIFICATION DIVISION.
            NOT AT END
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentLastName
-           END-READ.
+           END-READ
+           IF FUNCTION TRIM(CurrentLastName) = SPACES THEN
+               MOVE "Last name missing; set to N/A." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "N/A" TO CurrentLastName
+           END-IF.
 
            ReadUniversity.
            READ InputFile INTO InputRecord
@@ -455,7 +749,12 @@ IDENTIFICATION DIVISION.
            NOT AT END
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentUniversity
-           END-READ.
+           END-READ
+           IF FUNCTION TRIM(CurrentUniversity) = SPACES THEN
+               MOVE "University missing; set to N/A." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "N/A" TO CurrentUniversity
+           END-IF.
 
            ReadMajor.
            READ InputFile INTO InputRecord
@@ -465,7 +764,12 @@ IDENTIFICATION DIVISION.
            NOT AT END
                MOVE InputRecord(1:20) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentMajor
-           END-READ.
+           END-READ
+           IF FUNCTION TRIM(CurrentMajor) = SPACES THEN
+               MOVE "Major missing; set to N/A." TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "N/A" TO CurrentMajor
+           END-IF.
 
            ReadGradYear.
            READ InputFile INTO InputRecord
@@ -481,6 +785,30 @@ IDENTIFICATION DIVISION.
                      PERFORM DisplayAndLog
                 END-IF
            END-READ.
+           ReadGradYear.
+           READ InputFile INTO InputRecord
+           AT END
+               MOVE 'Y' TO EOF-InputFile
+               MOVE 0 TO CurrentGraduationYear
+           NOT AT END
+               MOVE FUNCTION TRIM(InputRecord(1:4)) TO TempString
+               IF FUNCTION TRIM(TempString) IS NUMERIC THEN
+                   MOVE FUNCTION NUMVAL(TempString) TO CurrentGraduationYear
+               ELSE
+                     MOVE "Invalid Graduation Year" TO CurrentMessage
+                     PERFORM DisplayAndLog
+                END-IF
+           END-READ
+           *> Validate graduation year range
+           IF CurrentGraduationYear < 1900 OR CurrentGraduationYear > 2100 THEN
+               IF CurrentGraduationYear = 0 THEN
+                   MOVE "Graduation Year not provided; set to 0." TO CurrentMessage
+               ELSE
+                   MOVE "Graduation Year out of range; set to 0." TO CurrentMessage
+               END-IF
+               PERFORM DisplayAndLog
+               MOVE 0 TO CurrentGraduationYear
+           END-IF.
 
            ReadAboutMe.
            READ InputFile INTO InputRecord
@@ -495,111 +823,6 @@ IDENTIFICATION DIVISION.
                ELSE
                    MOVE FUNCTION TRIM(InputRecord(1:200)) TO CurrentAboutMe
                END-IF
-           END-READ.
-
-           ReadExperience.
-           MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Title: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentTitle
-                  NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentTitle
-               IF CurrentTitle = "DONE" OR ExperienceCount >= 4 THEN
-                   MOVE 'Y' TO EOF-InputFile
-                   MOVE SPACES TO CurrentTitle
-               END-IF
-
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Company: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentCompany
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentCompany
-              END-READ
-
-           MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Dates: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentDates
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentDates
-
-            MOVE SPACES TO CurrentMessage
-           STRING "Experience #" DELIMITED BY SIZE
-           ExperienceCount DELIMITED BY SIZE
-           " - Description (optional 100 characters max, blank line to skip): " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentDescription
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentDescription
-           END-READ.
-
-
-           ReadEducation.
-           MOVE SPACES TO CurrentMessage
-                STRING "Education #" DELIMITED BY SIZE
-                       EducationCount DELIMITED BY SIZE
-                       " - Degree: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-               MOVE 'Y' TO EOF-InputFile
-               MOVE SPACES TO CurrentEducationDegree
-                  NOT AT END
-               MOVE InputRecord(1:20) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
-               IF CurrentEducationDegree = "DONE" OR EducationCount >= 4 THEN
-                   MOVE 'Y' TO EOF-InputFile
-                   MOVE SPACES TO CurrentEducationDegree
-               END-IF
-
-           STRING "Education #" DELIMITED BY SIZE
-           EducationCount DELIMITED BY SIZE
-           " - University/College: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentEducationUniversity
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
-              END-READ
-
-           MOVE SPACES TO CurrentMessage
-           STRING "Education #" DELIMITED BY SIZE
-           EducationCount DELIMITED BY SIZE
-           " - Years Attended: " DELIMITED BY SIZE INTO CurrentMessage
-           PERFORM DisplayAndLog
-           READ InputFile INTO InputRecord
-           AT END
-                MOVE 'Y' TO EOF-InputFile
-                MOVE SPACES TO CurrentEducationYears
-              NOT AT END
-           MOVE InputRecord(1:20) TO TempString
-              MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
-
            END-READ.
 
 
@@ -618,4 +841,3 @@ IDENTIFICATION DIVISION.
                    END-IF
            END-PERFORM
            CLOSE UserDataFile.
-
