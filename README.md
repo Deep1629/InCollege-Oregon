@@ -22,13 +22,15 @@ COBOL-based login and account creation system.
 
 ## Files
 - `src/InCollege.cob` – main COBOL source
-- `test/Epic1-Test-Input/InCollege-Input.txt` – program input
-- `test/Epic1-Test-Output/InCollege-Output.txt` – program output
+- `input/InCollege-Input.txt` – program input which is read
+- `output/InCollege-Output.txt` – program output log
+- `test/Test-Input/TC*.txt` – program test input cases
+- `test/Test-Output/TC*_Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
 - `Dockerfile` – for containerized development
 - `users.dat` – user data file (created at runtime)
 - `profiles.dat` – profile data file (created at runtime)
-- `docs/`, `test/`, `input/`, `output/` – supporting files
+- `docs/`– supporting files
 
 ## Build and Run
 
@@ -49,5 +51,6 @@ Behavior notes:
 - All terminal output is appended to `output/InCollege-Output.txt`.
 - The Job Search/Internships and "Find someone you know" options display "This feature is under construction.".
 - The create profile functionality works, and profiles are saved between runs.
+- The search feature works by searching for a username, and it will display the profile if found.
 - The Learn-a-Skill options are present, but selecting any skill currently results in an "under construction" message.
 
