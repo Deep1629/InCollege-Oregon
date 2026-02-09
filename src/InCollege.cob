@@ -195,11 +195,10 @@ IDENTIFICATION DIVISION.
            END-EVALUATE.
 
        RegisterUser.
-           IF UserCount > 5
+           IF UserCount >= 5
                DISPLAY "All permitted accounts have been created, please
 come back later"
-               PERFORM InitialMenu
-               EXIT PARAGRAPH
+               GO TO InitialMenu
            END-IF
            MOVE "Enter username:" TO CurrentMessage
            PERFORM DisplayAndLog
