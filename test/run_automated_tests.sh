@@ -25,6 +25,7 @@ find "$OUT_DIR" -mindepth 1 -type f -delete
 # Delete old database
 : > /workspace/users.dat
 : > /workspace/profiles.dat
+: > /workspace/profiles.tmp
 
 cleanup() {
   cp -f "$BACKUP" "$LIVE_INPUT"
