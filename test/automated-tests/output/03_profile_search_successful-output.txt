@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, donald!
+Welcome, holly!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -13,7 +13,22 @@ Welcome, donald!
 4. Find someone you know
 5. Learn a new skill
 Enter the full name of the person you are looking for:
-No one by that name could be found.
+--- Found User Profile ---
+--- Your Profile ---
+Name: Gregory House
+University: Johns Hopkins University
+Major: Physics
+Graduation Year: 1999
+About Me: I have a cane
+Experience:
+Title: Doctor
+Company: Princeton Medical
+Dates: April 2005
+Description: Treated patients
+Education:
+Degree: PhD
+University: Johns Hopkins University
+Years: 2003
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile

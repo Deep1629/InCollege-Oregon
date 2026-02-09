@@ -5,31 +5,23 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome
-persistuser
+Welcome, donald!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
---- Your Profile ---
-Name: Persist User
-University: Persistence U
-Major: CS
-Graduation Year: 2025
-About Me: Saved profile.
-Experience:
-Title: DONE
-Company:
-Dates:
-Description:
-Education:
-Degree: DONE
-University:
-Years:
+Enter the full name of the person you are looking for:
+No one by that name could be found.
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
+Exiting the program. Goodbye!
+1. Log In
+2. Create New Account
+9. Exit
 Exiting the program. Goodbye!
