@@ -6,6 +6,7 @@ Enter username:
 Enter password:
 You have successfully logged in.
 Welcome, donald!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -13,6 +14,7 @@ Welcome, donald!
 5. Learn a new skill
 Enter the full name of the person you are looking for:
 No one by that name could be found.
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job

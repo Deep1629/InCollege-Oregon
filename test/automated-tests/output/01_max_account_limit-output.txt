@@ -6,6 +6,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, bob!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -19,6 +20,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, larry!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -32,6 +34,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, holly!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -45,6 +48,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, gregory!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
@@ -58,6 +62,7 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, donald!
+-------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job

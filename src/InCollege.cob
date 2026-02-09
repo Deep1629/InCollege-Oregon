@@ -283,6 +283,8 @@ IDENTIFICATION DIVISION.
            END-IF.
 
        PostLoginMenu.
+           MOVE "-------------------------" TO CurrentMessage
+           PERFORM DisplayAndLog
            MOVE "1. Create/Edit My Profile" TO CurrentMessage
            PERFORM DisplayAndLog
            MOVE "2. View My Profile" TO CurrentMessage
