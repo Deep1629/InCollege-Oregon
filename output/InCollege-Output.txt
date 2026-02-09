@@ -22,8 +22,4 @@ Exiting the program. Goodbye!
 1. Log In
 2. Create New Account
 9. Exit
-Invalid option. Please try again.
-1. Log In
-2. Create New Account
-9. Exit
 Exiting the program. Goodbye!
