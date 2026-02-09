@@ -196,9 +196,9 @@ IDENTIFICATION DIVISION.
 
        RegisterUser.
            IF UserCount >= 5
-               DISPLAY "All permitted accounts have been created, please
-come back later"
-               GO TO InitialMenu
+               MOVE "All permitted accounts have been created, please come back later" TO CurrentMessage
+               PERFORM DisplayAndLog
+               EXIT PARAGRAPH
            END-IF
            MOVE "Enter username:" TO CurrentMessage
            PERFORM DisplayAndLog
