@@ -870,6 +870,9 @@ come back later"
        ReadUsername.
            MOVE SPACES TO CurrentUsername
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -884,6 +887,9 @@ come back later"
 
        ReadPassword.
            MOVE SPACES TO CurrentPassword
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -960,6 +966,9 @@ come back later"
        ReadFirstName.
            MOVE SPACES TO CurrentFirstName
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -976,6 +985,9 @@ come back later"
        ReadLastName.
            MOVE SPACES TO CurrentLastName
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -992,6 +1004,9 @@ come back later"
        ReadUniversity.
            MOVE SPACES TO CurrentUniversity
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -1137,6 +1152,9 @@ come back later"
        ReadSearchQuery.
            MOVE SPACES TO SearchQuery
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
