@@ -195,6 +195,11 @@ IDENTIFICATION DIVISION.
            END-EVALUATE.
 
        RegisterUser.
+           IF UserCount >= 5
+               MOVE "All permitted accounts have been created, please come back later" TO CurrentMessage
+               PERFORM DisplayAndLog
+               EXIT PARAGRAPH
+           END-IF
            MOVE "Enter username:" TO CurrentMessage
            PERFORM DisplayAndLog
            PERFORM ReadUsername
@@ -278,6 +283,8 @@ IDENTIFICATION DIVISION.
            END-IF.
 
        PostLoginMenu.
+           MOVE "-------------------------" TO CurrentMessage
+           PERFORM DisplayAndLog
            MOVE "1. Create/Edit My Profile" TO CurrentMessage
            PERFORM DisplayAndLog
            MOVE "2. View My Profile" TO CurrentMessage
@@ -865,6 +872,9 @@ IDENTIFICATION DIVISION.
        ReadUsername.
            MOVE SPACES TO CurrentUsername
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -879,6 +889,9 @@ IDENTIFICATION DIVISION.
 
        ReadPassword.
            MOVE SPACES TO CurrentPassword
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -955,6 +968,9 @@ IDENTIFICATION DIVISION.
        ReadFirstName.
            MOVE SPACES TO CurrentFirstName
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -971,6 +987,9 @@ IDENTIFICATION DIVISION.
        ReadLastName.
            MOVE SPACES TO CurrentLastName
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -987,6 +1006,9 @@ IDENTIFICATION DIVISION.
        ReadUniversity.
            MOVE SPACES TO CurrentUniversity
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile
@@ -1132,6 +1154,9 @@ IDENTIFICATION DIVISION.
        ReadSearchQuery.
            MOVE SPACES TO SearchQuery
            MOVE SPACES TO TempString
+           IF EOF-InputFile = 'Y'
+               EXIT PARAGRAPH
+           END-IF
            READ InputFile INTO InputRecord
            AT END
                MOVE 'Y' TO EOF-InputFile

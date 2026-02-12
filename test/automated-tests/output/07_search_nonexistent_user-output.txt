@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, donald!
+Welcome, larry!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -21,6 +21,14 @@ No one by that name could be found.
 4. Find someone you know
 5. Learn a new skill
 Exiting the program. Goodbye!
+1. Log In
+2. Create New Account
+9. Exit
+Invalid option. Please try again.
+1. Log In
+2. Create New Account
+9. Exit
+Invalid option. Please try again.
 1. Log In
 2. Create New Account
 9. Exit
