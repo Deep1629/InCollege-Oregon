@@ -1,24 +1,17 @@
-1
-gregory
-Pass123!
-1
-Gregory
-House
-Johns Hopkins University
-Physics
-1999
-I have a cane
-Doctor
-Princeton Medical
-April 2005
-Treated patients
-DONE
-PhD
-Johns Hopkins University
-2003
-DONE
 2
-4
-Alice      Johnson
-6
+charlie
+Pass123@@
+1
+Charlie
+Brown
+State University
+Engineering
+20XX
+Software Developer
+SomeCompany
+Jan 2021 - Dec 2023
+Worked on core systems.
+Bachelor of Engineering
+State University
+2017-2021
 9
