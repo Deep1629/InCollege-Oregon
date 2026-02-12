@@ -113,7 +113,7 @@ IDENTIFICATION DIVISION.
        01 J PIC 9(3) VALUE 1.
        01 K PIC 9(3) VALUE 1.
        01 SearchFound PIC X VALUE 'N'.
-       01 SearchProfile PIC X VALUE 'N'.
+       01 IsOwnProfile PIC X VALUE 'Y'.
 
        PROCEDURE DIVISION.
        MainSection.
@@ -126,7 +126,7 @@ IDENTIFICATION DIVISION.
                PERFORM InitialMenu UNTIL LoggedIn = 'Y' OR MenuOption = 9
                IF LoggedIn = 'Y' THEN
                    MOVE 0 TO MenuOption
-                   PERFORM PostLoginMenu UNTIL MenuOption = 9
+                   PERFORM PostLoginMenu UNTIL LoggedIn = 'N'
                    MOVE 'N' TO LoggedIn
                    MOVE 0 TO MenuOption
                END-IF
@@ -296,6 +296,8 @@ IDENTIFICATION DIVISION.
            PERFORM DisplayAndLog
            MOVE "5. Learn a new skill" TO CurrentMessage
            PERFORM DisplayAndLog
+           MOVE "6. Logout" TO CurrentMessage
+           PERFORM DisplayAndLog
            PERFORM ReadMenuOption
            EVALUATE MenuOption
                WHEN 1
@@ -309,9 +311,11 @@ IDENTIFICATION DIVISION.
                    PERFORM SearchUser
                WHEN 5
                    PERFORM LearnSkillMenu
-               WHEN 9
-                   MOVE "Exiting the program. Goodbye!" TO CurrentMessage
+               WHEN 6
+                   MOVE "Logging out..." TO CurrentMessage
                    PERFORM DisplayAndLog
+                   PERFORM DisplayWelcome
+                   MOVE 'N' TO LoggedIn
                WHEN OTHER
                    MOVE "Invalid option. Please try again." TO CurrentMessage
                    PERFORM DisplayAndLog
@@ -475,7 +479,8 @@ IDENTIFICATION DIVISION.
            MOVE "Profile saved successfully." TO CurrentMessage
            PERFORM DisplayAndLog
 
-           PERFORM SaveProfile.
+           PERFORM SaveProfile
+           PERFORM DisplayProfileData.
 
        SaveProfile.
            IF EditProfile = 'Y' THEN
@@ -701,13 +706,10 @@ IDENTIFICATION DIVISION.
            END-IF.
 
        DisplayProfileData.
-           IF SearchProfile = 'N' THEN
-               MOVE "--- My Profile ---" TO CurrentMessage
+           IF IsOwnProfile = 'Y'
+               MOVE "--- Your Profile ---" TO CurrentMessage
            ELSE
-               STRING "--- " DELIMITED BY SIZE
-               FUNCTION TRIM(SearchQuery) DELIMITED BY SIZE
-               "'s  Profile ---" INTO CurrentMessage
-               MOVE 'N' TO SearchProfile
+               MOVE "--- Found User Profile ---" TO CurrentMessage
            END-IF
            PERFORM DisplayAndLog
 
@@ -836,9 +838,7 @@ IDENTIFICATION DIVISION.
                        FUNCTION TRIM(FUNCTION UPPER-CASE(SearchQuery))
                    THEN
                        MOVE 'Y' TO SearchFound
-                       MOVE "--- Found User Profile ---" TO CurrentMessage
-                       MOVE 'Y' TO SearchProfile
-                       PERFORM DisplayAndLog
+                       MOVE 'N' TO IsOwnProfile
                        PERFORM DisplayProfileData
                    END-IF
                END-READ
@@ -848,7 +848,8 @@ IDENTIFICATION DIVISION.
            IF SearchFound = 'N' THEN
                MOVE "No one by that name could be found." TO CurrentMessage
                PERFORM DisplayAndLog
-           END-IF.
+           END-IF
+           MOVE 'Y' TO IsOwnProfile.
 
        ReadMenuOption.
            MOVE 0 TO MenuOption
