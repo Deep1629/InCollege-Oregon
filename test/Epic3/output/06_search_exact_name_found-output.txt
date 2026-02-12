@@ -12,9 +12,10 @@ Welcome, bob!
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
+6. Logout
 Enter the full name of the person you are looking for:
+Gregory House
 --- Found User Profile ---
---- Your Profile ---
 Name: Gregory House
 University: Johns Hopkins University
 Major: Physics
@@ -35,15 +36,9 @@ Years: 2003
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-Exiting the program. Goodbye!
-1. Log In
-2. Create New Account
-9. Exit
-Invalid option. Please try again.
-1. Log In
-2. Create New Account
-9. Exit
-Invalid option. Please try again.
+6. Logout
+Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit

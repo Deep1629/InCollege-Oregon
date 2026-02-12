@@ -12,7 +12,9 @@ Welcome, donald!
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
+6. Logout
 Enter the full name of the person you are looking for:
+Donald Trump
 No one by that name could be found.
 -------------------------
 1. Create/Edit My Profile
@@ -20,7 +22,9 @@ No one by that name could be found.
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-Exiting the program. Goodbye!
+6. Logout
+Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit
