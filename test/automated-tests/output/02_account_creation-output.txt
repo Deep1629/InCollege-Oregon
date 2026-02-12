@@ -1,0 +1,77 @@
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Enter username:
+Enter password:
+You have successfully logged in.
+Welcome, gregory!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. Logout
+--- Create/Edit Profile ---
+Enter First Name:
+Gregory
+Enter Last Name:
+House
+Enter University/College Attended:
+Johns Hopkins University
+Enter Major:
+Physics
+Enter Graduation Year (YYYY):
+1999
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+I have a cane
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
+Doctor
+Experience 1 - Company:
+Princeton Medical
+Experience 1 - Dates:
+April 2005
+Experience 1 - Description (optional 100 characters max, blank line to skip):
+Treated patients
+Experience 2 - Title:
+DONE
+Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
+Education 1 - Degree:
+PhD
+Education 1 - University/College:
+Johns Hopkins University
+Education 1 - Years Attended:
+2003
+Education 2 - Degree:
+DONE
+Profile saved successfully.
+--- Your Profile ---
+Name: Gregory House
+University: Johns Hopkins University
+Major: Physics
+Graduation Year: 1999
+About Me: I have a cane
+Experience:
+Title: Doctor
+Company: Princeton Medical
+Dates: April 2005
+Description: Treated patients
+Education:
+Degree: PhD
+University: Johns Hopkins University
+Years: 2003
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. Logout
+Logging out...
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Exiting the program. Goodbye!

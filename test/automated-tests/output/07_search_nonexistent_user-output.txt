@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, holly!
+Welcome, larry!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -14,7 +14,7 @@ Welcome, holly!
 5. Learn a new skill
 6. Logout
 Enter the full name of the person you are looking for:
-Gregory  House
+John Doe
 No one by that name could be found.
 -------------------------
 1. Create/Edit My Profile
