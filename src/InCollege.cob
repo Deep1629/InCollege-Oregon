@@ -113,6 +113,7 @@ IDENTIFICATION DIVISION.
        01 J PIC 9(3) VALUE 1.
        01 K PIC 9(3) VALUE 1.
        01 SearchFound PIC X VALUE 'N'.
+       01 SearchProfile PIC X VALUE 'N'.
 
        PROCEDURE DIVISION.
        MainSection.
@@ -700,7 +701,14 @@ IDENTIFICATION DIVISION.
            END-IF.
 
        DisplayProfileData.
-           MOVE "--- Your Profile ---" TO CurrentMessage
+           IF SearchProfile = 'N' THEN
+               MOVE "--- My Profile ---" TO CurrentMessage
+           ELSE
+               STRING "--- " DELIMITED BY SIZE
+               FUNCTION TRIM(SearchQuery) DELIMITED BY SIZE
+               "'s  Profile ---" INTO CurrentMessage
+               MOVE 'N' TO SearchProfile
+           END-IF
            PERFORM DisplayAndLog
 
            MOVE SPACES TO CurrentMessage
@@ -829,6 +837,7 @@ IDENTIFICATION DIVISION.
                    THEN
                        MOVE 'Y' TO SearchFound
                        MOVE "--- Found User Profile ---" TO CurrentMessage
+                       MOVE 'Y' TO SearchProfile
                        PERFORM DisplayAndLog
                        PERFORM DisplayProfileData
                    END-IF
