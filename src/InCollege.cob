@@ -824,8 +824,8 @@ IDENTIFICATION DIVISION.
                        FUNCTION TRIM(ProfileLastName)
                        DELIMITED BY SIZE
                        INTO FoundName
-                   IF FUNCTION TRIM(FoundName) =
-                       FUNCTION TRIM(SearchQuery)
+                   IF FUNCTION TRIM(FUNCTION UPPER-CASE(FoundName)) =
+                       FUNCTION TRIM(FUNCTION UPPER-CASE(SearchQuery))
                    THEN
                        MOVE 'Y' TO SearchFound
                        MOVE "--- Found User Profile ---" TO CurrentMessage
@@ -982,6 +982,9 @@ IDENTIFICATION DIVISION.
                    PERFORM DisplayAndLog
                    MOVE "N/A" TO CurrentFirstName
                END-IF
+               MOVE SPACES TO CurrentMessage
+               MOVE CurrentFirstName TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ.
 
        ReadLastName.
@@ -1001,6 +1004,9 @@ IDENTIFICATION DIVISION.
                    PERFORM DisplayAndLog
                    MOVE "N/A" TO CurrentLastName
                END-IF
+               MOVE SPACES TO CurrentMessage
+               MOVE CurrentLastName TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ.
 
        ReadUniversity.
@@ -1020,6 +1026,9 @@ IDENTIFICATION DIVISION.
                    PERFORM DisplayAndLog
                    MOVE "N/A" TO CurrentUniversity
                END-IF
+               MOVE SPACES TO CurrentMessage
+               MOVE CurrentUniversity TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ.
 
        ReadMajor.
@@ -1036,6 +1045,9 @@ IDENTIFICATION DIVISION.
                    PERFORM DisplayAndLog
                    MOVE "N/A" TO CurrentMajor
                END-IF
+               MOVE SPACES TO CurrentMessage
+               MOVE CurrentMajor TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ.
 
        ReadGradYear.
@@ -1055,6 +1067,9 @@ IDENTIFICATION DIVISION.
                    PERFORM DisplayAndLog
                    MOVE 0 TO CurrentGraduationYear
                END-IF
+               MOVE SPACES TO CurrentMessage
+               MOVE CurrentGraduationYear TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ
            IF CurrentGraduationYear < 1900 OR
                CurrentGraduationYear > 2100
@@ -1079,6 +1094,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO CurrentAboutMe
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO CurrentAboutMe
+           MOVE SPACES TO CurrentMessage
+           MOVE CurrentAboutMe TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadExperienceTitle.
@@ -1089,6 +1107,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadExperienceCompany.
@@ -1099,6 +1120,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadExperienceDates.
@@ -1109,6 +1133,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadExperienceDescription.
@@ -1119,6 +1146,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadEducationDegree.
@@ -1129,6 +1159,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadEducationUniversity.
@@ -1139,6 +1172,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadEducationYears.
@@ -1149,6 +1185,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO TempString
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:200)) TO TempString
+           MOVE SPACES TO CurrentMessage
+           MOVE TempString TO CurrentMessage
+           PERFORM DisplayAndLog
            END-READ.
 
        ReadSearchQuery.
@@ -1163,6 +1202,9 @@ IDENTIFICATION DIVISION.
                MOVE SPACES TO SearchQuery
            NOT AT END
                MOVE FUNCTION TRIM(InputRecord(1:40)) TO SearchQuery
+               MOVE SPACES TO CurrentMessage
+               MOVE SearchQuery TO CurrentMessage
+               PERFORM DisplayAndLog
            END-READ.
 
        CheckUsernameExists.
