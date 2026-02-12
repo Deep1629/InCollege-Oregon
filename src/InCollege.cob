@@ -112,6 +112,9 @@ IDENTIFICATION DIVISION.
        01 FoundName PIC X(40) VALUE SPACES.
        01 J PIC 9(3) VALUE 1.
        01 K PIC 9(3) VALUE 1.
+       01 InputLength PIC 9(3) VALUE 0.
+       01 OutputIndex PIC 9(3) VALUE 1.
+       01 PrevCharWasSpace PIC X VALUE 'N'.
        01 SearchFound PIC X VALUE 'N'.
        01 IsOwnProfile PIC X VALUE 'Y'.
 
@@ -1211,10 +1214,26 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO SearchQuery
            NOT AT END
-               MOVE FUNCTION TRIM(InputRecord(1:40)) TO SearchQuery
-               MOVE SPACES TO CurrentMessage
-               MOVE SearchQuery TO CurrentMessage
-               PERFORM DisplayAndLog
+               MOVE FUNCTION TRIM(InputRecord(1:40)) TO TempString
+               MOVE FUNCTION LENGTH(FUNCTION TRIM(TempString))
+                   TO InputLength
+               MOVE SPACES TO SearchQuery
+               MOVE 1 TO OutputIndex
+               MOVE 'N' TO PrevCharWasSpace
+               PERFORM VARYING I FROM 1 BY 1 UNTIL I > InputLength
+                   MOVE TempString(I:1) TO TempChar
+                   IF TempChar = SPACE THEN
+                       IF PrevCharWasSpace = 'N' THEN
+                           MOVE SPACE TO SearchQuery(OutputIndex:1)
+                           ADD 1 TO OutputIndex
+                           MOVE 'Y' TO PrevCharWasSpace
+                       END-IF
+                   ELSE
+                       MOVE TempChar TO SearchQuery(OutputIndex:1)
+                       ADD 1 TO OutputIndex
+                       MOVE 'N' TO PrevCharWasSpace
+                   END-IF
+               END-PERFORM
            END-READ.
 
        CheckUsernameExists.
