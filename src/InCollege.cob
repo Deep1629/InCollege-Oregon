@@ -141,13 +141,14 @@ IDENTIFICATION DIVISION.
        01 FoundEducationUniversity PIC X(50).
        01 FoundEducationYears PIC X(9).
 
+       01 IncomingRequestFound PIC X VALUE 'N'.
+       01 IncomingFromUsername PIC X(20).
 
 
        PROCEDURE DIVISION.
        MainSection.
            OPEN INPUT InputFile
            PERFORM CountExistingUsers
-           PERFORM DisplayWelcome
            MOVE 'N' TO LoggedIn
            PERFORM InitialMenu UNTIL LoggedIn = 'Y' OR MenuOption = 9
            PERFORM UNTIL MenuOption = 9
@@ -194,6 +195,8 @@ IDENTIFICATION DIVISION.
          PERFORM DisplayAndLog.
 
        InitialMenu.
+           MOVE "Welcome to InCollege!" TO CurrentMessage
+           PERFORM DisplayAndLog
            MOVE "1. Log In" TO CurrentMessage
            PERFORM DisplayAndLog
            MOVE "2. Create New Account" TO CurrentMessage
@@ -290,9 +293,11 @@ IDENTIFICATION DIVISION.
                        ADD 1 TO UserCount
                        MOVE "Account created successfully." TO CurrentMessage
                        PERFORM DisplayAndLog
-                       MOVE "Welcome " TO CurrentMessage
-                       PERFORM DisplayAndLog
-                       MOVE CurrentUsername TO CurrentMessage
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'Y' TO LoggedIn
                    END-IF
@@ -317,9 +322,11 @@ IDENTIFICATION DIVISION.
                    IF Username = CurrentUsername AND Password = CurrentPassword THEN
                        MOVE "You have successfully logged in." TO CurrentMessage
                        PERFORM DisplayAndLog
-                       MOVE "Welcome " TO CurrentMessage
-                       PERFORM DisplayAndLog
-                       MOVE CurrentUsername TO CurrentMessage
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'Y' TO LoginSuccess
                        MOVE 'Y' TO LoggedIn
@@ -492,24 +499,93 @@ IDENTIFICATION DIVISION.
                        PERFORM DisplayAndLog
                    END-IF
 
-                   MOVE "Send connection request? (Y/N):" TO CurrentMessage
-                   PERFORM DisplayAndLog
-                   READ InputFile INTO InputRecord
-                   AT END
-                       MOVE 'Y' TO EOF-InputFile
-                       MOVE 'N' TO SendRequest
-                   NOT AT END
-                       MOVE InputRecord(1:1) TO SendRequest
-                   END-READ
+                   MOVE 'N' TO IncomingRequestFound
+                   MOVE 'N' TO EOF-ConnectionFile
+                   OPEN INPUT ConnectionRequestFile
+                   PERFORM UNTIL EOF-ConnectionFile = 'Y'
+                       READ ConnectionRequestFile INTO ConnectionRecord
+                       AT END
+                           MOVE 'Y' TO EOF-ConnectionFile
+                       NOT AT END
+                           IF FromUsername IN ConnectionRecord = SearchedUsername AND
+                              ToUsername IN ConnectionRecord = CurrentUsername AND
+                              ConnectionStatus IN ConnectionRecord = "Pending"
+                           THEN
+                               MOVE 'Y' TO IncomingRequestFound
+                               MOVE FromUsername IN ConnectionRecord TO IncomingFromUsername
+                           END-IF
+                       END-READ
+                   END-PERFORM
+                   CLOSE ConnectionRequestFile
 
-                   IF SendRequest = 'Y' OR SendRequest = 'y' THEN
-                       PERFORM SendConnectionRequest
+                   IF IncomingRequestFound = 'Y' THEN
+                       MOVE SPACES TO CurrentMessage
+                       STRING FUNCTION TRIM(SearchedUsername) DELIMITED BY SIZE
+                           " has sent you a connection request. Accept? (Y/N):" DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       READ InputFile INTO InputRecord
+                       AT END
+                           MOVE 'Y' TO EOF-InputFile
+                           MOVE 'N' TO SendRequest
+                       NOT AT END
+                           MOVE InputRecord(1:1) TO SendRequest
+                       END-READ
+
+                       IF SendRequest = 'Y' OR SendRequest = 'y' THEN
+                           PERFORM AcceptIncomingRequest
+                       ELSE
+                           MOVE "Request ignored." TO CurrentMessage
+                           PERFORM DisplayAndLog
+                       END-IF
+                   ELSE
+                       MOVE "Send connection request? (Y/N):" TO CurrentMessage
+                       PERFORM DisplayAndLog
+                       READ InputFile INTO InputRecord
+                       AT END
+                           MOVE 'Y' TO EOF-InputFile
+                           MOVE 'N' TO SendRequest
+                       NOT AT END
+                           MOVE InputRecord(1:1) TO SendRequest
+                       END-READ
+
+                       IF SendRequest = 'Y' OR SendRequest = 'y' THEN
+                           PERFORM SendConnectionRequest
+                       END-IF
                    END-IF
                ELSE
                    MOVE "No one by that name could be found." TO CurrentMessage
                    PERFORM DisplayAndLog
                END-IF
            END-IF.
+
+       AcceptIncomingRequest.
+           MOVE 'N' TO EOF-ConnectionFile
+           OPEN INPUT ConnectionRequestFile
+           OPEN OUTPUT TempConnectionFile
+           PERFORM UNTIL EOF-ConnectionFile = 'Y'
+               READ ConnectionRequestFile INTO ConnectionRecord
+               AT END
+                   MOVE 'Y' TO EOF-ConnectionFile
+               NOT AT END
+                   IF FromUsername IN ConnectionRecord = SearchedUsername AND
+                      ToUsername IN ConnectionRecord = CurrentUsername AND
+                      ConnectionStatus IN ConnectionRecord = "Pending"
+                   THEN
+                       MOVE "Connected" TO ConnectionStatus IN ConnectionRecord
+                   END-IF
+                   WRITE TempConnectionRecord FROM ConnectionRecord
+               END-READ
+           END-PERFORM
+           CLOSE ConnectionRequestFile
+           CLOSE TempConnectionFile
+
+           CALL "CBL_DELETE_FILE" USING "connections.dat"
+           CALL "CBL_RENAME_FILE" USING "connections_temp.dat"
+               "connections.dat"
+
+           MOVE "Connection request accepted successfully." TO CurrentMessage
+           PERFORM DisplayAndLog.
 
        CreateEditMenu.
            MOVE "--- Create/Edit Profile ---" TO CurrentMessage
@@ -669,8 +745,6 @@ IDENTIFICATION DIVISION.
                    END-IF
                    ADD 1 TO EducationCount
                 END-PERFORM
-           MOVE "Profile saved successfully." TO CurrentMessage
-           PERFORM DisplayAndLog
            OPEN EXTEND UserProfileRecordFile
            MOVE SPACES TO UserProfileRecord
            MOVE CurrentUsername TO Username-Profile IN UserProfileRecord
