@@ -293,9 +293,29 @@ IDENTIFICATION DIVISION.
                        ADD 1 TO UserCount
                        MOVE "Account created successfully." TO CurrentMessage
                        PERFORM DisplayAndLog
-                       MOVE "Welcome " TO CurrentMessage
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
                        PERFORM DisplayAndLog
-                       MOVE CurrentUsername TO CurrentMessage
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
+                       PERFORM DisplayAndLog
+                       MOVE SPACES TO CurrentMessage
+                       STRING "Welcome, " DELIMITED BY SIZE
+                           FUNCTION TRIM(CurrentUsername) DELIMITED BY SIZE
+                           "!" DELIMITED BY SIZE
+                           INTO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'Y' TO LoggedIn
                    END-IF
