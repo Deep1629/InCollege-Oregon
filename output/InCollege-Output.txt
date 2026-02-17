@@ -6,9 +6,6 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, user1!
-Welcome, user1!
-Welcome, user1!
-Welcome, user1!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -35,7 +32,6 @@ Education 1 - Degree:
 Education 1 - University/College:
 Education 1 - Years Attended:
 Education 2 - Degree:
-Profile saved successfully.
 Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
@@ -54,9 +50,6 @@ Enter username:
 Enter password:
 Account created successfully.
 Welcome, user2!
-Welcome, user2!
-Welcome, user2!
-Welcome, user2!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -83,7 +76,6 @@ Education 1 - Degree:
 Education 1 - University/College:
 Education 1 - Years Attended:
 Education 2 - Degree:
-Profile saved successfully.
 Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
@@ -101,8 +93,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome
-user2
+Welcome, user2!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -159,8 +150,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome
-user1
+Welcome, user1!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
