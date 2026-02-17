@@ -5,8 +5,10 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 Account created successfully.
-Welcome
-user1
+Welcome, user1!
+Welcome, user1!
+Welcome, user1!
+Welcome, user1!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -44,14 +46,17 @@ Profile saved successfully!
 6. View My Pending Connection Requests
 7. Logout
 Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit
 Enter username:
 Enter password:
 Account created successfully.
-Welcome
-user2
+Welcome, user2!
+Welcome, user2!
+Welcome, user2!
+Welcome, user2!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -89,6 +94,7 @@ Profile saved successfully!
 6. View My Pending Connection Requests
 7. Logout
 Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit
@@ -146,6 +152,7 @@ Invalid option. Please try again.
 6. View My Pending Connection Requests
 7. Logout
 Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit
@@ -175,6 +182,7 @@ Connection accepted successfully.
 6. View My Pending Connection Requests
 7. Logout
 Logging out...
+Welcome to InCollege!
 1. Log In
 2. Create New Account
 9. Exit
