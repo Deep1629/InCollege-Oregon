@@ -141,13 +141,14 @@ IDENTIFICATION DIVISION.
        01 FoundEducationUniversity PIC X(50).
        01 FoundEducationYears PIC X(9).
 
+       01 IncomingRequestFound PIC X VALUE 'N'.
+       01 IncomingFromUsername PIC X(20).
 
 
        PROCEDURE DIVISION.
        MainSection.
            OPEN INPUT InputFile
            PERFORM CountExistingUsers
-           PERFORM DisplayWelcome
            MOVE 'N' TO LoggedIn
            PERFORM InitialMenu UNTIL LoggedIn = 'Y' OR MenuOption = 9
            PERFORM UNTIL MenuOption = 9
@@ -194,6 +195,8 @@ IDENTIFICATION DIVISION.
          PERFORM DisplayAndLog.
 
        InitialMenu.
+           MOVE "Welcome to InCollege!" TO CurrentMessage
+           PERFORM DisplayAndLog
            MOVE "1. Log In" TO CurrentMessage
            PERFORM DisplayAndLog
            MOVE "2. Create New Account" TO CurrentMessage
