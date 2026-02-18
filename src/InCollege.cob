@@ -858,11 +858,11 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
            END-IF.
 
-       COPY SENDREQUEST.COB.
+       COPY SendRequest.cob.
 
-       COPY ACCEPTREQUEST.COB.
+       COPY AcceptRequest.cob.
 
-       COPY VIEWREQUESTS.COB.
+       COPY ViewRequests.cob.
 
        ReadMenuOption.
            READ InputFile INTO InputRecord
