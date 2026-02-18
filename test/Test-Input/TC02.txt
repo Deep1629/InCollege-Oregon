@@ -1,0 +1,32 @@
+2
+dana
+Pwd123??
+1
+Dana
+Lee
+Some University
+Mathematics
+2023
+Enthusiastic learner interested in data and teaching.
+Title One
+Company One
+Jan 2019 - Dec 2019
+Did project A.
+Title Two
+Company Two
+Jan 2020 - Dec 2020
+Did project B.
+Title Three
+Company Three
+Jan 2021 - Dec 2021
+Did project C.
+Degree One
+University One
+2014-2016
+Degree Two
+University Two
+2016-2018
+Degree Three
+University Three
+2018-2020
+9

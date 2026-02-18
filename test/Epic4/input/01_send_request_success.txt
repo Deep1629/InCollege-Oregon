@@ -8,14 +8,7 @@ MIT
 CS
 2024
 User One profile.
-Dev
-Company1
-2023-24
-Building
 DONE
-BS
-MIT
-2024
 DONE
 7
 2
@@ -28,29 +21,14 @@ Stanford
 Math
 2023
 User Two profile.
-Scientist
-Company2
-2022-23
-Analyzing
 DONE
-MS
-Stanford
-2023
 DONE
-7
-1
-user2
-Pass222B@
-4
-User One
-Y
-6
-0
 7
 1
 user1
 Pass111A!
-6
-1
+4
+User Two
+Y
 7
 9
