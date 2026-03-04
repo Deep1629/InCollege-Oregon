@@ -3,3 +3,4 @@ find /workspace/test/automated-tests/output -mindepth 1 -type f -delete
 : > /workspace/users.dat
 : > /workspace/profiles.dat
 : > /workspace/profiles.tmp
+: > /workspace/connections.dat

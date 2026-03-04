@@ -26,6 +26,7 @@ find "$OUT_DIR" -mindepth 1 -type f -delete
 : > /workspace/users.dat
 : > /workspace/profiles.dat
 : > /workspace/profiles.tmp
+: > /workspace/connections.dat
 
 cleanup() {
   cp -f "$BACKUP" "$LIVE_INPUT"
