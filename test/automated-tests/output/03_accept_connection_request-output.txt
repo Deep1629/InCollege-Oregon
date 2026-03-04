@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, dogman!
+Welcome, jeff!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -15,9 +15,11 @@ Welcome, dogman!
 6. View My Pending Connection Requests
 7. View My Network
 8. Logout
---- Your Network ---
-001. jeff
----------------------
+Your Pending Connection Requests:
+001. From: dogman
+Enter number to accept, or 0 to skip:
+1. Accept  2. Reject
+Connection accepted successfully.
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile

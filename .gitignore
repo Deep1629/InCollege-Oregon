@@ -1,4 +1,5 @@
 *.log
 *.tmp
+*.dat
 *.env
 .DS_Store

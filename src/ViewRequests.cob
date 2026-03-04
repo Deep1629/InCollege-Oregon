@@ -30,9 +30,20 @@
                MOVE "You have no pending connection requests." TO CurrentMessage
                PERFORM DisplayAndLog
            ELSE
-               MOVE "Accept request? (Enter number or 0 to skip):" TO CurrentMessage
+               MOVE "Enter number to accept, or 0 to skip:" TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM ReadMenuOption
                IF MenuOption > 0 AND MenuOption <= RequestIndex THEN
-                   PERFORM AcceptConnectionRequest
+                   MOVE "1. Accept  2. Reject" TO CurrentMessage
+                   PERFORM DisplayAndLog
+                   MOVE MenuOption TO RequestIndex
+                   PERFORM ReadMenuOption
+                   IF MenuOption = 1 THEN
+                       MOVE RequestIndex TO MenuOption
+                       PERFORM AcceptConnectionRequest
+                   ELSE IF MenuOption = 2 THEN
+                       MOVE RequestIndex TO MenuOption
+                       PERFORM RejectConnectionRequest
+                   END-IF
+                   END-IF
                END-IF.
