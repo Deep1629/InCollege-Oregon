@@ -4,7 +4,7 @@ set -euo pipefail
 INPUT_DIR="/workspace/test/automated-tests/input"
 OUT_DIR="/workspace/test/automated-tests/output"
 
-RUNNER="/workspace/InCollege"
+RUNNER="/workspace/build_and_run.sh"
 
 LIVE_INPUT="/workspace/input/InCollege-Input.txt"
 LIVE_OUTPUT="/workspace/output/Incollege-Output.txt"
@@ -13,7 +13,7 @@ LIVE_OUTPUT="/workspace/output/Incollege-Output.txt"
 [ -d "$INPUT_DIR" ] || { echo "Missing $INPUT_DIR"; exit 1; }
 [ -d "$OUT_DIR" ]   || { echo "Missing $OUT_DIR"; exit 1; }
 [ -f "$LIVE_INPUT" ] || { echo "Missing $LIVE_INPUT"; exit 1; }
-[ -x "$RUNNER" ]     || { echo "Runner not executable: $RUNNER"; exit 1; }
+[ -x "$RUNNER" ]     || { echo "Build script not executable: $RUNNER"; exit 1; }
 
 # Backup live input
 BACKUP="$(mktemp)"
@@ -46,7 +46,7 @@ while IFS= read -r testfile; do
     # Ensure trailing newline
     [[ "$(tail -c 1 "$LIVE_INPUT")" != $'\n' ]] && printf '\n' >> "$LIVE_INPUT"
 
-    ( cd /workspace && "$RUNNER" )
+    ( cd /workspace && bash "$RUNNER" )
 
 
     cp -f "$LIVE_OUTPUT" "$OUT_DIR/${name}-output.txt"
