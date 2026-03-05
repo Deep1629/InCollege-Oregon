@@ -100,7 +100,7 @@ Welcome, dogman!
 8. Logout
 Your Pending Connection Requests:
 001. From: rick
-Enter number to accept, or 0 to skip:
+Enter number to accept/reject, or 0 to skip:
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -131,7 +131,7 @@ Welcome, holly!
 Your Pending Connection Requests:
 001. From: dogman
 002. From: rick
-Enter number to accept, or 0 to skip:
+Enter number to accept/reject, or 0 to skip:
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
