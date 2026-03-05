@@ -42,12 +42,6 @@ COBOL-based login and account creation system.
 cobc -x -free -I./src src/InCollege.cob -o InCollege
 ```
 
-**Before running**, ensure data files exist (they persist between runs):
-
-```bash
-touch users.dat profiles.dat connections.dat
-```
-
 **Run** the program:
 
 ```bash

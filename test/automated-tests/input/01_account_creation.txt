@@ -1,0 +1,81 @@
+2
+dogman
+Dogman123!
+1
+Dog
+Man
+University of Connecticut
+Literature
+2026
+I like to read
+Author
+Self-employed
+2020-2025
+Wrote a book about dogs
+DONE
+B.S. Literature
+University of Connecticut
+2020-2024
+DONE
+8
+2
+jeff
+Jeff123!
+1
+Jeff
+Rich
+Boston College
+Philosophy
+2028
+I like to party
+Sandwich_Artist
+Subway
+2018-2020
+Made sandwiches
+DONE
+B.S. Biology
+Harvard
+2020-2024
+DONE
+8
+2
+holly
+Holly123!
+1
+Holly
+Smith
+University of Michigan
+Computer Science
+2027
+I like to code
+Software Engineer
+Google
+2020-2024
+Worked on search engine
+DONE
+B.S. Computer Science
+University of Michigan
+2024-2028
+DONE
+8
+2
+rick
+Rick123!
+1
+Rick
+Sanchez
+University of California, Berkeley
+Physics
+2025
+I like to invent things
+Inventor
+Self-employed
+2020-2025
+Invented a portal gun
+DONE
+B.S. Physics
+University of California, Berkeley
+2020-2025
+DONE
+8
+9

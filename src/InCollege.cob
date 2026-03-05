@@ -234,7 +234,9 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
                MOVE "6. View My Pending Connection Requests" TO CurrentMessage
                PERFORM DisplayAndLog
-               MOVE "7. Logout" TO CurrentMessage
+               MOVE "7. View My Network" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "8. Logout" TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM ReadMenuOption
                EVALUATE MenuOption
@@ -251,6 +253,8 @@ IDENTIFICATION DIVISION.
                    WHEN 6
                        PERFORM ViewPendingRequests
                    WHEN 7
+                       PERFORM ViewMyNetwork
+                   WHEN 8
                        MOVE "Logging out..." TO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'N' TO LoggedIn
@@ -624,7 +628,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentTitle
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentTitle
                    END-READ
                    IF CurrentTitle = "DONE" OR CurrentTitle = SPACES THEN
@@ -643,7 +647,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentCompany
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentCompany
                    END-READ
                    IF ExperienceCount > 1 THEN
@@ -659,7 +663,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentDates
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentDates
                    END-READ
                    IF ExperienceCount > 1 THEN
@@ -700,7 +704,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentEducationDegree
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentEducationDegree
                    END-READ
                    IF CurrentEducationDegree = "DONE" OR CurrentEducationDegree = SPACES THEN
@@ -719,7 +723,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentEducationUniversity
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentEducationUniversity
                    END-READ
                    IF EducationCount > 1 THEN
@@ -735,7 +739,7 @@ IDENTIFICATION DIVISION.
                        MOVE 'Y' TO EOF-InputFile
                        MOVE SPACES TO CurrentEducationYears
                    NOT AT END
-                       MOVE InputRecord(1:20) TO TempString
+                       MOVE InputRecord(1:100) TO TempString
                        MOVE FUNCTION TRIM(TempString) TO CurrentEducationYears
                    END-READ
                    IF EducationCount > 1 THEN
@@ -756,6 +760,13 @@ IDENTIFICATION DIVISION.
            STRING "     " DELIMITED BY SIZE
                FUNCTION TRIM(CurrentAboutMe) DELIMITED BY SIZE
                INTO AboutMe IN UserProfileRecord
+           MOVE Experience-Title-Acc       TO Experience-Title IN UserProfileRecord
+           MOVE Experience-Company-Acc     TO Experience-Company IN UserProfileRecord
+           MOVE Experience-Dates-Acc       TO Experience-Dates IN UserProfileRecord
+           MOVE Experience-Description-Acc TO Experience-Description IN UserProfileRecord
+           MOVE Education-Degree-Acc       TO Education-Degree IN UserProfileRecord
+           MOVE Education-Universiity-Acc  TO Education-Universiity IN UserProfileRecord
+           MOVE Education-Years-Acc        TO Education-Years IN UserProfileRecord
            WRITE UserProfileRecord
            CLOSE UserProfileRecordFile
            MOVE "Profile saved successfully!" TO CurrentMessage
@@ -862,7 +873,11 @@ IDENTIFICATION DIVISION.
 
        COPY "AcceptRequest.cob".
 
+       COPY "RejectRequest.cob".
+
        COPY "ViewRequests.cob".
+
+       COPY "ViewNetwork.cob".
 
        ReadMenuOption.
            READ InputFile INTO InputRecord
@@ -880,7 +895,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentUsername
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentUsername
            END-READ.
 
@@ -890,7 +905,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentPassword
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentPassword
                IF FUNCTION TRIM(CurrentPassword) = SPACES THEN
                    MOVE "Warning: No password provided." TO CurrentMessage
@@ -963,7 +978,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentFirstName
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentFirstName
            END-READ
            IF FUNCTION TRIM(CurrentFirstName) = SPACES THEN
@@ -978,7 +993,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentLastName
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentLastName
            END-READ
            IF FUNCTION TRIM(CurrentLastName) = SPACES THEN
@@ -993,7 +1008,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentUniversity
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentUniversity
            END-READ
            IF FUNCTION TRIM(CurrentUniversity) = SPACES THEN
@@ -1008,7 +1023,7 @@ IDENTIFICATION DIVISION.
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentMajor
            NOT AT END
-               MOVE InputRecord(1:20) TO TempString
+               MOVE InputRecord(1:100) TO TempString
                MOVE FUNCTION TRIM(TempString) TO CurrentMajor
            END-READ
            IF FUNCTION TRIM(CurrentMajor) = SPACES THEN

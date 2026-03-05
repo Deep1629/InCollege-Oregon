@@ -5,24 +5,43 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, donald!
+Welcome, dogman!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-6. Logout
+6. View My Pending Connection Requests
+7. View My Network
+8. Logout
 Enter the full name of the person you are looking for:
-Donald Trump
-No one by that name could be found.
+--- Found User Profile ---
+Name: Jeff Rich
+University: Boston College
+Major: Philosophy
+Graduation Year: 2028
+About Me: I like to party
+Experience:
+Title: Sandwich_Artist
+Company: Subway
+Dates: 2018-2020
+Description: Made sandwiches
+Education:
+Degree: B.S. Biology
+University: Harvard
+Years: 2020-2024
+Send connection request? (Y/N):
+You are already connected with this user.
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
 3. Search for a job
 4. Find someone you know
 5. Learn a new skill
-6. Logout
+6. View My Pending Connection Requests
+7. View My Network
+8. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In

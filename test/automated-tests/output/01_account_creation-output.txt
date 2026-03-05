@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 Account created successfully.
-Welcome, user1!
+Welcome, dogman!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -13,7 +13,8 @@ Welcome, user1!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 --- Create/Edit Profile ---
 Enter First Name:
 Enter Last Name:
@@ -23,8 +24,15 @@ Enter Graduation Year (YYYY):
 Enter About Me (optional, max 200 characters, enter blank line to skip):
 Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
 Experience 1 - Title:
+Experience 1 - Company:
+Experience 1 - Dates:
+Experience 1 - Description (optional 100 characters max, blank line to skip):
+Experience 2 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
+Education 1 - University/College:
+Education 1 - Years Attended:
+Education 2 - Degree:
 Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
@@ -33,7 +41,8 @@ Profile saved successfully!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
@@ -42,7 +51,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 Account created successfully.
-Welcome, user2!
+Welcome, jeff!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -50,7 +59,8 @@ Welcome, user2!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 --- Create/Edit Profile ---
 Enter First Name:
 Enter Last Name:
@@ -60,8 +70,15 @@ Enter Graduation Year (YYYY):
 Enter About Me (optional, max 200 characters, enter blank line to skip):
 Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
 Experience 1 - Title:
+Experience 1 - Company:
+Experience 1 - Dates:
+Experience 1 - Description (optional 100 characters max, blank line to skip):
+Experience 2 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
+Education 1 - University/College:
+Education 1 - Years Attended:
+Education 2 - Degree:
 Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
@@ -70,7 +87,8 @@ Profile saved successfully!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
@@ -78,8 +96,8 @@ Welcome to InCollege!
 9. Exit
 Enter username:
 Enter password:
-You have successfully logged in.
-Welcome, user1!
+Account created successfully.
+Welcome, holly!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -87,20 +105,27 @@ Welcome, user1!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
-Enter the full name of the person you are looking for:
---- Found User Profile ---
-Name: User Two
-University: Stanford
-Major: Math
-Graduation Year: 2023
-About Me: User Two profile.
-Experience:
-None
-Education:
-None
-Send connection request? (Y/N):
-Connection request sent successfully.
+7. View My Network
+8. Logout
+--- Create/Edit Profile ---
+Enter First Name:
+Enter Last Name:
+Enter University/College Attended:
+Enter Major:
+Enter Graduation Year (YYYY):
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
+Experience 1 - Company:
+Experience 1 - Dates:
+Experience 1 - Description (optional 100 characters max, blank line to skip):
+Experience 2 - Title:
+Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
+Education 1 - Degree:
+Education 1 - University/College:
+Education 1 - Years Attended:
+Education 2 - Degree:
+Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -108,7 +133,8 @@ Connection request sent successfully.
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
@@ -116,8 +142,8 @@ Welcome to InCollege!
 9. Exit
 Enter username:
 Enter password:
-You have successfully logged in.
-Welcome, user2!
+Account created successfully.
+Welcome, rick!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -125,20 +151,27 @@ Welcome, user2!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
-Enter the full name of the person you are looking for:
---- Found User Profile ---
-Name: User One
-University: MIT
-Major: CS
-Graduation Year: 2024
-About Me: User One profile.
-Experience:
-None
-Education:
-None
-user1 has sent you a connection request. Accept? (Y/N):
-Connection request accepted successfully.
+7. View My Network
+8. Logout
+--- Create/Edit Profile ---
+Enter First Name:
+Enter Last Name:
+Enter University/College Attended:
+Enter Major:
+Enter Graduation Year (YYYY):
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
+Experience 1 - Company:
+Experience 1 - Dates:
+Experience 1 - Description (optional 100 characters max, blank line to skip):
+Experience 2 - Title:
+Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
+Education 1 - Degree:
+Education 1 - University/College:
+Education 1 - Years Attended:
+Education 2 - Degree:
+Profile saved successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -146,7 +179,8 @@ Connection request accepted successfully.
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. Logout
+7. View My Network
+8. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
