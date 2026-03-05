@@ -4,8 +4,8 @@ Welcome to InCollege!
 9. Exit
 Enter username:
 Enter password:
-You have successfully logged in.
-Welcome, rick!
+Account created successfully.
+Welcome, user1!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -13,24 +13,92 @@ Welcome, rick!
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. View My Network
-8. Logout
+7. Logout
+--- Create/Edit Profile ---
+Enter First Name:
+Enter Last Name:
+Enter University/College Attended:
+Enter Major:
+Enter Graduation Year (YYYY):
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
+Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
+Education 1 - Degree:
+Profile saved successfully!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. Logout
+Logging out...
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Enter username:
+Enter password:
+Account created successfully.
+Welcome, user2!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. Logout
+--- Create/Edit Profile ---
+Enter First Name:
+Enter Last Name:
+Enter University/College Attended:
+Enter Major:
+Enter Graduation Year (YYYY):
+Enter About Me (optional, max 200 characters, enter blank line to skip):
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
+Experience 1 - Title:
+Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
+Education 1 - Degree:
+Profile saved successfully!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. Logout
+Logging out...
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Enter username:
+Enter password:
+You have successfully logged in.
+Welcome, user1!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. Logout
 Enter the full name of the person you are looking for:
 --- Found User Profile ---
-Name: Holly Smith
-University: University of Michigan
-Major: Computer Science
-Graduation Year: 2027
-About Me: I like to code
+Name: User Two
+University: Stanford
+Major: Math
+Graduation Year: 2023
+About Me: User Two profile.
 Experience:
-Title: Software Engineer
-Company: Google
-Dates: 2020-2024
-Description: Worked on search engine
+None
 Education:
-Degree: B.S. Computer Science
-University: University of Michigan
-Years: 2024-2028
+None
 Send connection request? (Y/N):
 Connection request sent successfully.
 -------------------------
@@ -40,26 +108,37 @@ Connection request sent successfully.
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. View My Network
-8. Logout
+7. Logout
+Logging out...
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Enter username:
+Enter password:
+You have successfully logged in.
+Welcome, user2!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. Logout
 Enter the full name of the person you are looking for:
 --- Found User Profile ---
-Name: Dog Man
-University: University of Connecticut
-Major: Literature
-Graduation Year: 2026
-About Me: I like to read
+Name: User One
+University: MIT
+Major: CS
+Graduation Year: 2024
+About Me: User One profile.
 Experience:
-Title: Author
-Company: Self-employed
-Dates: 2020-2025
-Description: Wrote a book about dogs
+None
 Education:
-Degree: B.S. Literature
-University: University of Connecticut
-Years: 2020-2024
-Send connection request? (Y/N):
-Connection request sent successfully.
+None
+user1 has sent you a connection request. Accept? (Y/N):
+Connection request accepted successfully.
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -67,80 +146,7 @@ Connection request sent successfully.
 4. Find someone you know
 5. Learn a new skill
 6. View My Pending Connection Requests
-7. View My Network
-8. Logout
-Your Pending Connection Requests:
-You have no pending connection requests.
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Logout
-Logging out...
-Welcome to InCollege!
-1. Log In
-2. Create New Account
-9. Exit
-Enter username:
-Enter password:
-You have successfully logged in.
-Welcome, dogman!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Logout
-Your Pending Connection Requests:
-001. From: rick
-Enter number to accept, or 0 to skip:
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Logout
-Logging out...
-Welcome to InCollege!
-1. Log In
-2. Create New Account
-9. Exit
-Enter username:
-Enter password:
-You have successfully logged in.
-Welcome, holly!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Logout
-Your Pending Connection Requests:
-001. From: dogman
-002. From: rick
-Enter number to accept, or 0 to skip:
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Logout
+7. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
