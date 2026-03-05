@@ -60,6 +60,12 @@ IDENTIFICATION DIVISION.
            05 ConnectionStatus PIC X(10).
 
        WORKING-STORAGE SECTION.
+       01 FileDetail.
+           05 FileSize PIC 9(18) VALUE 0.
+           05 FileDateTime.
+               10 FileDate PIC 9(8) VALUE 0.
+               10 FileTime PIC 9(8) VALUE 0.
+           05 FileFiller PIC X(14) VALUE SPACES.
        01 UserCount PIC 9(3) VALUE 0.
        01 MaxUsers PIC 9(3) VALUE 5.
        01 LoggedIn PIC X VALUE 'N'.
@@ -147,6 +153,7 @@ IDENTIFICATION DIVISION.
 
        PROCEDURE DIVISION.
        MainSection.
+           PERFORM InitializeFiles
            OPEN INPUT InputFile
            PERFORM CountExistingUsers
            MOVE 'N' TO LoggedIn
@@ -165,6 +172,25 @@ IDENTIFICATION DIVISION.
            OPEN OUTPUT OutputFile
            WRITE OutputRecord
            CLOSE OutputFile.
+       InitializeFiles.
+           CALL "CBL_CHECK_FILE_EXIST" USING "users.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT UserDataFile
+               CLOSE UserDataFile
+           END-IF
+           CALL "CBL_CHECK_FILE_EXIST" USING "profiles.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT UserProfileRecordFile
+               CLOSE UserProfileRecordFile
+           END-IF
+           CALL "CBL_CHECK_FILE_EXIST" USING "connections.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT ConnectionRequestFile
+               CLOSE ConnectionRequestFile
+           END-IF.
 
        CountExistingUsers.
            OPEN INPUT UserDataFile
