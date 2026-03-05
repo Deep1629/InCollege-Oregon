@@ -14,9 +14,22 @@ LIVE_OUTPUT="/workspace/output/Incollege-Output.txt"
 [ -d "$OUT_DIR" ]      || { echo "Missing $OUT_DIR"; exit 1; }
 [ -f "$LIVE_INPUT" ]   || { echo "Missing $LIVE_INPUT"; exit 1; }
 
+# Backup live input and output before resetting
+BACKUP="$(mktemp)"
+BACKUP_OUT="$(mktemp)"
+cp -f "$LIVE_INPUT" "$BACKUP"
+cp -f "$LIVE_OUTPUT" "$BACKUP_OUT"
+
+cleanup() {
+  cp -f "$BACKUP" "$LIVE_INPUT"
+  cp -f "$BACKUP_OUT" "$LIVE_OUTPUT"
+  rm -f "$BACKUP" "$BACKUP_OUT"
+}
+trap cleanup EXIT
+
 # Reset databases once at the start of each script run
 
-for f in /workspace/users.dat /workspace/profiles.dat /workspace/profiles.tmp \
+for f in /workspace/users.dat /workspace/profiles.dat \
           /workspace/connections.dat /workspace/connections_temp.dat "$LIVE_OUTPUT"; do
     : > "$f"
 done
@@ -28,16 +41,6 @@ rm -f "$OUT_DIR"/*.txt
 echo "=== Building ==="
 ( cd /workspace && cobc -x -free -I./src src/InCollege.cob -o InCollege )
 [ -x "$RUNNER" ] || { echo "Build failed: $RUNNER not found or not executable"; exit 1; }
-
-# Backup live input
-BACKUP="$(mktemp)"
-cp -f "$LIVE_INPUT" "$BACKUP"
-
-cleanup() {
-  cp -f "$BACKUP" "$LIVE_INPUT"
-  rm -f "$BACKUP"
-}
-trap cleanup EXIT
 
 # Run tests
 while IFS= read -r testfile; do
