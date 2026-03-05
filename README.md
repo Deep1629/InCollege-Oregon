@@ -25,14 +25,17 @@ COBOL-based login and account creation system.
 - `src/SendRequest.cob` – copybook for SendConnectionRequest procedure
 - `src/ViewRequests.cob` – copybook for ViewPendingRequests procedure
 - `src/AcceptRequest.cob` – copybook for AcceptConnectionRequest procedure
-- `test/Epic1-Test-Input/InCollege-Input.txt` – program input
-- `test/Epic1-Test-Output/InCollege-Output.txt` – program output
+- `src/ViewNetwork.cob` – copybook for ViewNetwork procedure
+- `src/RejectRequest.cob` – copybook for RejectConnectionRequest procedure
+- `input/InCollege-Input.txt` – program input
+- `output/InCollege-Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
 - `Dockerfile` – for containerized development
 - `users.dat` – user data file (created at runtime)
 - `profiles.dat` – profile data file (created at runtime)
 - `connections.dat` – connection request data file (created at runtime, Epic 4)
-- `docs/`, `test/`, `input/`, `output/` – supporting files
+- `test/` - contains test cases and outputs starting from Epic 3
+- `docs/` – supporting files
 
 ## Build and Run
 
@@ -58,5 +61,6 @@ The program reads input from `input/InCollege-Input.txt` and writes output to `o
 - The create profile functionality works, and profiles are saved between runs
 - The Learn-a-Skill options are present, but selecting any skill results in an "under construction" message
 - **Epic 4 (Connection Requests)**: Full support for sending, viewing, and accepting connection requests persisted in `connections.dat`
+- **Epic 5 (Network Display)**: Displays the user's network of connections, showing accepted connections and their profiles
 
 
