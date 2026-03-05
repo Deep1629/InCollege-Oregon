@@ -41,9 +41,10 @@
                    IF MenuOption = 1 THEN
                        MOVE RequestIndex TO MenuOption
                        PERFORM AcceptConnectionRequest
-                   ELSE IF MenuOption = 2 THEN
-                       MOVE RequestIndex TO MenuOption
-                       PERFORM RejectConnectionRequest
-                   END-IF
+                   ELSE
+                       IF MenuOption = 2 THEN
+                           MOVE RequestIndex TO MenuOption
+                           PERFORM RejectConnectionRequest
+                       END-IF
                    END-IF
                END-IF.
