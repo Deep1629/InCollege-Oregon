@@ -4,8 +4,6 @@ set -euo pipefail
 INPUT_DIR="./automated-tests/input"
 OUT_DIR="./automated-tests/output"
 
-RUNNER="$(cd .. && pwd)/InCollege"
-
 LIVE_INPUT="../input/InCollege-Input.txt"
 LIVE_OUTPUT="../output/Incollege-Output.txt"
 
@@ -40,7 +38,6 @@ rm -f "$OUT_DIR"/*.txt
 # Build once
 echo "=== Building ==="
 ( cobc -x -free -I../src ../src/InCollege.cob -o ../InCollege )
-[ -x "$RUNNER" ] || { echo "Build failed: $RUNNER not found or not executable"; exit 1; }
 
 # Run tests
 while IFS= read -r testfile; do
@@ -56,7 +53,7 @@ while IFS= read -r testfile; do
 
     : > "$LIVE_OUTPUT"
 
-    ( cd /workspace && "$RUNNER" ) || true
+    ( cd .. && ./InCollege ) || true
 
     cp -f "$LIVE_OUTPUT" "$OUT_DIR/${name}-output.txt"
     echo
