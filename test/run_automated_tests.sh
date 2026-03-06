@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INPUT_DIR="/workspace/test/automated-tests/input"
-OUT_DIR="/workspace/test/automated-tests/output"
+INPUT_DIR="./automated-tests/input"
+OUT_DIR="./automated-tests/output"
 
-RUNNER="/workspace/InCollege"
+RUNNER="$(cd .. && pwd)/InCollege"
 
-LIVE_INPUT="/workspace/input/InCollege-Input.txt"
-LIVE_OUTPUT="/workspace/output/Incollege-Output.txt"
+LIVE_INPUT="../input/InCollege-Input.txt"
+LIVE_OUTPUT="../output/Incollege-Output.txt"
 
 # Sanity checks
 [ -d "$INPUT_DIR" ]    || { echo "Missing $INPUT_DIR"; exit 1; }
@@ -29,8 +29,8 @@ trap cleanup EXIT
 
 # Reset databases once at the start of each script run
 
-for f in /workspace/users.dat /workspace/profiles.dat \
-          /workspace/connections.dat /workspace/connections_temp.dat "$LIVE_OUTPUT"; do
+for f in ../users.dat ../profiles.dat \
+          ../connections.dat ../connections_temp.dat "$LIVE_OUTPUT"; do
     : > "$f"
 done
 
@@ -39,7 +39,7 @@ rm -f "$OUT_DIR"/*.txt
 
 # Build once
 echo "=== Building ==="
-( cd /workspace && cobc -x -free -I./src src/InCollege.cob -o InCollege )
+( cobc -x -free -I../src ../src/InCollege.cob -o ../InCollege )
 [ -x "$RUNNER" ] || { echo "Build failed: $RUNNER not found or not executable"; exit 1; }
 
 # Run tests
