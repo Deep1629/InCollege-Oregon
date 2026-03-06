@@ -5,7 +5,7 @@ INPUT_DIR="./automated-tests/input"
 OUT_DIR="./automated-tests/output"
 
 LIVE_INPUT="../input/InCollege-Input.txt"
-LIVE_OUTPUT="../output/Incollege-Output.txt"
+LIVE_OUTPUT="../output/InCollege-Output.txt"
 
 # Sanity checks
 [ -d "$INPUT_DIR" ]    || { echo "Missing $INPUT_DIR"; exit 1; }
