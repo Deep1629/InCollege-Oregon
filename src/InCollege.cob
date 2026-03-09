@@ -396,6 +396,27 @@ IDENTIFICATION DIVISION.
            END-EVALUATE.
 
        JobSearch.
+           MOVE "--- Job Search/Internship Menu ---" TO CurrentMessage
+           PERFORM DisplayAndLog
+           MOVE "1. Post a Job/Internship" TO CurrentMessage
+           PERFORM DisplayAndLog
+           MOVE "2. Browse Jobs/Internships" TO CurrentMessage
+           PERFORM DisplayAndLog
+           MOVE "3. Back to Main Menu" TO CurrentMessage
+           PERFORM DisplayAndLog
+           PERFORM ReadMenuOption
+           EVALUATE MenuOption
+                WHEN 1
+                     MOVE "This post feature is under construction." TO CurrentMessage
+                     PERFORM DisplayAndLog
+                 WHEN 2
+                     MOVE "This browse feature is under construction." TO CurrentMessage
+                     PERFORM DisplayAndLog
+                 WHEN 3
+                     CONTINUE
+                 WHEN OTHER
+                     MOVE "Invalid option. Please try again." TO CurrentMessage
+                     PERFORM DisplayAndLog
            MOVE "This feature is under construction." TO CurrentMessage
            PERFORM DisplayAndLog.
 

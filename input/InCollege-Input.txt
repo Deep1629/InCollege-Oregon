@@ -1,25 +1,11 @@
-2
+1
 dogman
 Dogman123!
-8
-2
-jeff
-Jeff123!
+3
 1
-Jeff
-Rich
-Boston College
-Philosophy
-2028
-I like to party
-Sandwich Artist
-Subway
-2018-2020
-Made sandwiches
-DONE
-B.S. Biology
-Harvard
-2020-2024
-DONE
+3
+2
+3
+3
 8
 9
