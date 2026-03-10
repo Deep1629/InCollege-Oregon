@@ -204,6 +204,12 @@ IDENTIFICATION DIVISION.
            IF RETURN-CODE NOT = 0 THEN
                OPEN OUTPUT ConnectionRequestFile
                CLOSE ConnectionRequestFile
+           END-IF
+           CALL "CBL_CHECK_FILE_EXIST" USING "jobs.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT JobFile
+               CLOSE JobFile
            END-IF.
 
        CountExistingUsers.
