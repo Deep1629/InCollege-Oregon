@@ -19,7 +19,7 @@ Welcome, dogman!
 1. Post a Job/Internship
 2. Browse Jobs/Internships
 3. Back to Main Menu
-This post feature is under construction.
+Browse Jobs/Internships feature is under construction.
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -33,7 +33,13 @@ This post feature is under construction.
 1. Post a Job/Internship
 2. Browse Jobs/Internships
 3. Back to Main Menu
-This browse feature is under construction.
+--- Post a Job/Internship ---
+Enter Job Title:
+Enter Description (max 200 chars):
+Enter Employer Name:
+Enter Job Location:
+Enter Job Salary (optional, enter 'NONE' to skip):
+Job posted successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -47,6 +53,13 @@ This browse feature is under construction.
 1. Post a Job/Internship
 2. Browse Jobs/Internships
 3. Back to Main Menu
+--- Post a Job/Internship ---
+Enter Job Title:
+Enter Description (max 200 chars):
+Enter Employer Name:
+Enter Job Location:
+Enter Job Salary (optional, enter 'NONE' to skip):
+Job posted successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile

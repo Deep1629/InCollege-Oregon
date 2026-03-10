@@ -16,6 +16,8 @@ IDENTIFICATION DIVISION.
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT TempConnectionFile ASSIGN TO "connections_temp.dat"
                ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT JobFile ASSIGN TO "jobs.dat"
+               ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
@@ -58,6 +60,15 @@ IDENTIFICATION DIVISION.
            05 FromUsername PIC X(20).
            05 ToUsername PIC X(20).
            05 ConnectionStatus PIC X(10).
+
+       FD JobFile.
+       01 JobRecord.
+           05 JobUsername PIC X(20).
+           05 JobTitle PIC X(50).
+           05 JobDescription PIC X(200).
+           05 JobEmployer PIC X(50).
+           05 JobLocation PIC X(50).
+           05 JobSalary PIC X(50).
 
        WORKING-STORAGE SECTION.
        01 FileDetail.
@@ -146,10 +157,13 @@ IDENTIFICATION DIVISION.
        01 FoundEducationDegree PIC X(50).
        01 FoundEducationUniversity PIC X(50).
        01 FoundEducationYears PIC X(9).
-
        01 IncomingRequestFound PIC X VALUE 'N'.
        01 IncomingFromUsername PIC X(20).
-
+       01 CurrentJobTitle PIC X(50).
+       01 CurrentJobDescription PIC X(200).
+       01 CurrentJobEmployer PIC X(50).
+       01 CurrentJobLocation PIC X(50).
+       01 CurrentJobSalary PIC X(50).
 
        PROCEDURE DIVISION.
        MainSection.
@@ -407,10 +421,9 @@ IDENTIFICATION DIVISION.
            PERFORM ReadMenuOption
            EVALUATE MenuOption
                 WHEN 1
-                     MOVE "This post feature is under construction." TO CurrentMessage
-                     PERFORM DisplayAndLog
+                     PERFORM PostJob
                  WHEN 2
-                     MOVE "This browse feature is under construction." TO CurrentMessage
+                     MOVE "Browse Jobs/Internships feature is under construction." TO CurrentMessage
                      PERFORM DisplayAndLog
                  WHEN 3
                      CONTINUE
@@ -925,6 +938,10 @@ IDENTIFICATION DIVISION.
        COPY "ViewRequests.cob".
 
        COPY "ViewNetwork.cob".
+
+       COPY "PostJobs.cob".
+
+       COPY "BrowseJobs.cob".
 
        ReadMenuOption.
            READ InputFile INTO InputRecord
