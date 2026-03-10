@@ -1,7 +1,6 @@
        PostJob.
            MOVE "--- Post a Job/Internship ---" TO CurrentMessage
            PERFORM DisplayAndLog
-
            MOVE "Enter Job Title: " TO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
@@ -24,7 +23,6 @@
                            MOVE FUNCTION TRIM(TempString) TO CurrentJobTitle
                    END-PERFORM
            END-READ
-
            MOVE "Enter Description (max 200 chars): " TO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
@@ -51,7 +49,6 @@
                            MOVE FUNCTION TRIM(TempString) TO CurrentJobDescription
                    END-PERFORM
            END-READ
-
            MOVE "Enter Employer Name: " TO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
@@ -74,7 +71,6 @@
                            MOVE FUNCTION TRIM(TempString) TO CurrentJobEmployer
                    END-PERFORM
            END-READ
-
            MOVE "Enter Job Location: " TO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
@@ -97,7 +93,6 @@
                            MOVE FUNCTION TRIM(TempString) TO CurrentJobLocation
                    END-PERFORM
            END-READ
-
            MOVE "Enter Job Salary (optional, enter 'NONE' to skip): " TO CurrentMessage
            PERFORM DisplayAndLog
            READ InputFile INTO InputRecord
@@ -113,7 +108,6 @@
            IF EOF-InputFile = 'Y'
                MOVE "N/A" TO CurrentJobSalary
            END-IF
-
            OPEN EXTEND JobFile
            MOVE SPACES TO JobRecord
            MOVE CurrentJobTitle TO JobTitle IN JobRecord
@@ -127,3 +121,4 @@
            CLOSE JobFile
            MOVE "Job posted successfully!" TO CurrentMessage
            PERFORM DisplayAndLog.
+           
