@@ -22,6 +22,7 @@ Welcome, user4!
 --- Post a Job/Internship ---
 Enter Job Title:
 Enter Description (max 200 chars):
+Description exceeds 200 characters. Please enter a shorter Description:
 Enter Employer Name:
 Enter Job Location:
 Enter Job Salary (optional, enter 'NONE' to skip):
