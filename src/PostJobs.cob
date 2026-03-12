@@ -113,10 +113,11 @@
            MOVE SPACES TO JobRecord
            MOVE CurrentUsername TO JobUsername IN JobRecord
            MOVE CurrentJobTitle TO JobTitle IN JobRecord
-           STRING "     " DELIMITED BY SIZE
-               FUNCTION TRIM(CurrentJobDescription) DELIMITED BY SIZE
+           STRING FUNCTION TRIM(CurrentJobDescription) DELIMITED BY SIZE
+               "     " DELIMITED BY SIZE
                INTO JobDescription IN JobRecord
-           MOVE CurrentJobEmployer TO JobEmployer IN JobRecord
+           STRING "     " DELIMITED BY SIZE 
+               FUNCTION TRIM(CurrentJobEmployer) INTO JobEmployer IN JobRecord
            MOVE CurrentJobLocation TO JobLocation IN JobRecord
            MOVE CurrentJobSalary TO JobSalary IN JobRecord
            WRITE JobRecord
