@@ -11,19 +11,18 @@ user1
 Pass1@ABC
 3
 2
-3
 1
 Software Engineer
 Develop scalable backend systems and APIs
 TechCorp Inc
 San Francisco, CA
 120000
-3
 1
 Data Analyst
 Analyze datasets and create visualizations
 DataWorks Co
 Chicago, IL
 95000
+3
 8
 9

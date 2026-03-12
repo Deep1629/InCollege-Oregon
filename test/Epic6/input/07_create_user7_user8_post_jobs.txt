@@ -8,6 +8,7 @@ Support recruitment and employee onboarding
 PeopleFirst HR
 Philadelphia, PA
 65000
+3
 8
 1
 user2
@@ -19,5 +20,6 @@ Advise clients on investments and financial planning
 FinanceNow
 Miami, FL
 110000
+3
 8
 9

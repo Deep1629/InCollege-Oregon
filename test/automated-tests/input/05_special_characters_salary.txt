@@ -12,5 +12,6 @@ Design, implement, and maintain CI/CD pipelines; manage cloud infrastructure (AW
 Cloud & Co., LLC
 Portland, OR - Remote
 $125K-$150K/year
+3
 8
 9
