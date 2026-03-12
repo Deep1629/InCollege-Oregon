@@ -8,6 +8,7 @@ Execute test plans and identify software defects
 QAExperts
 Denver, CO
 NONE
+3
 8
 1
 user5
@@ -19,5 +20,6 @@ Build automated regression suites
 QAExperts
 Denver, CO
 85000
+3
 8
 9

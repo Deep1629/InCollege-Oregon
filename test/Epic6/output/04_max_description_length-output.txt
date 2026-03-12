@@ -26,6 +26,10 @@ Enter Employer Name:
 Enter Job Location:
 Enter Job Salary (optional, enter 'NONE' to skip):
 Job posted successfully!
+--- Job Search/Internship Menu ---
+1. Post a Job/Internship
+2. Browse Jobs/Internships
+3. Back to Main Menu
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
