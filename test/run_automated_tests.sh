@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Change to the directory where this script is located
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
 INPUT_DIR="./automated-tests/input"
 OUT_DIR="./automated-tests/output"
 
 LIVE_INPUT="../input/InCollege-Input.txt"
-LIVE_OUTPUT="../output/Incollege-Output.txt"
+LIVE_OUTPUT="../output/InCollege-Output.txt"
 
 # Sanity checks
 [ -d "$INPUT_DIR" ]    || { echo "Missing $INPUT_DIR"; exit 1; }
@@ -28,7 +31,7 @@ trap cleanup EXIT
 # Reset databases once at the start of each script run
 
 for f in ../users.dat ../profiles.dat \
-          ../connections.dat ../connections_temp.dat "$LIVE_OUTPUT"; do
+          ../connections.dat ../connections_temp.dat ../jobs.dat "$LIVE_OUTPUT"; do
     : > "$f"
 done
 

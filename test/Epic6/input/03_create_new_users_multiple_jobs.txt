@@ -1,0 +1,27 @@
+2
+user3
+Pass3@123
+8
+2
+user4
+Pass4@456
+8
+1
+user3
+Pass3@123
+3
+1
+Marketing Manager
+Manage brand and marketing campaigns
+MarketingPro
+New York, NY
+NONE
+3
+1
+Sales Executive
+Drive revenue and manage sales team
+SalesForce Ltd
+Boston, MA
+100000
+8
+9

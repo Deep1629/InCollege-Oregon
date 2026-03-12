@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, dogman!
+Welcome, user4!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -15,8 +15,17 @@ Welcome, dogman!
 6. View My Pending Connection Requests
 7. View My Network
 8. Logout
-Enter the full name of the person you are looking for:
-No one by that name could be found.
+--- Job Search/Internship Menu ---
+1. Post a Job/Internship
+2. Browse Jobs/Internships
+3. Back to Main Menu
+--- Post a Job/Internship ---
+Enter Job Title:
+Enter Description (max 200 chars):
+Enter Employer Name:
+Enter Job Location:
+Enter Job Salary (optional, enter 'NONE' to skip):
+Job posted successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile

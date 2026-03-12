@@ -1,0 +1,23 @@
+1
+user5
+Pass5@789
+3
+1
+Quality Assurance Tester
+Execute test plans and identify software defects
+QAExperts
+Denver, CO
+NONE
+8
+1
+user5
+Pass5@789
+3
+1
+Test Automation Engineer
+Build automated regression suites
+QAExperts
+Denver, CO
+85000
+8
+9

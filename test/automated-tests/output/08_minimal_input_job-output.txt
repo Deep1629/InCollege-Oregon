@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, user5!
+Welcome, user3!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -21,12 +21,9 @@ Welcome, user5!
 3. Back to Main Menu
 --- Post a Job/Internship ---
 Enter Job Title:
-Job Title cannot be empty. Please enter a valid Job Title:
 Enter Description (max 200 chars):
 Enter Employer Name:
-Employer Name cannot be empty. Please enter a valid Employer Name:
 Enter Job Location:
-Job Location cannot be empty. Please enter a valid Job Location:
 Enter Job Salary (optional, enter 'NONE' to skip):
 Job posted successfully!
 -------------------------
