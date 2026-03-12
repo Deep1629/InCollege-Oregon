@@ -92,6 +92,7 @@ IDENTIFICATION DIVISION.
        01 OutputFileInitialized PIC X VALUE 'N'.
        01 UsernameExists PIC X VALUE 'N'.
        01 PasswordLength PIC 99 VALUE 0.
+       01 BackToMainMenu PIC X VALUE 'N'.
        01 TempString PIC X(100).
        01 PasswordValid PIC X VALUE 'Y'.
        01 has_capital PIC X VALUE 'N'.
@@ -416,28 +417,30 @@ IDENTIFICATION DIVISION.
            END-EVALUATE.
 
        JobSearch.
-           MOVE "--- Job Search/Internship Menu ---" TO CurrentMessage
-           PERFORM DisplayAndLog
-           MOVE "1. Post a Job/Internship" TO CurrentMessage
-           PERFORM DisplayAndLog
-           MOVE "2. Browse Jobs/Internships" TO CurrentMessage
-           PERFORM DisplayAndLog
-           MOVE "3. Back to Main Menu" TO CurrentMessage
-           PERFORM DisplayAndLog
-           PERFORM ReadMenuOption
-           EVALUATE MenuOption
-                WHEN 1
-                     PERFORM PostJob
-                 WHEN 2
-                     MOVE "Browse Jobs/Internships feature is under construction." TO CurrentMessage
-                     PERFORM DisplayAndLog
-                 WHEN 3
-                     CONTINUE
-                 WHEN OTHER
-                     MOVE "Invalid option. Please try again." TO CurrentMessage
-                     PERFORM DisplayAndLog
-           MOVE "This feature is under construction." TO CurrentMessage
-           PERFORM DisplayAndLog.
+           MOVE 'N' TO BackToMainMenu
+           PERFORM UNTIL BackToMainMenu = 'Y'
+               MOVE "--- Job Search/Internship Menu ---" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "1. Post a Job/Internship" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "2. Browse Jobs/Internships" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "3. Back to Main Menu" TO CurrentMessage
+               PERFORM DisplayAndLog
+               PERFORM ReadMenuOption
+               EVALUATE MenuOption
+                    WHEN 1
+                         PERFORM PostJob
+                     WHEN 2
+                         MOVE "Browse Jobs/Internships feature is under construction." TO CurrentMessage
+                         PERFORM DisplayAndLog
+                     WHEN 3
+                         MOVE 'Y' TO BackToMainMenu
+                     WHEN OTHER
+                         MOVE "Invalid option. Please try again." TO CurrentMessage
+                         PERFORM DisplayAndLog
+               END-EVALUATE
+           END-PERFORM.
 
        FindSomeone.
            MOVE "Enter the full name of the person you are looking for:" TO CurrentMessage

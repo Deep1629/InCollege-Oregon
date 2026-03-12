@@ -110,6 +110,7 @@
            END-IF
            OPEN EXTEND JobFile
            MOVE SPACES TO JobRecord
+           MOVE CurrentUsername TO JobUsername IN JobRecord
            MOVE CurrentJobTitle TO JobTitle IN JobRecord
            STRING "     " DELIMITED BY SIZE
                FUNCTION TRIM(CurrentJobDescription) DELIMITED BY SIZE
