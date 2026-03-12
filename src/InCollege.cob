@@ -22,7 +22,7 @@ IDENTIFICATION DIVISION.
        DATA DIVISION.
        FILE SECTION.
        FD InputFile.
-       01 InputRecord PIC X(200).
+       01 InputRecord PIC X(300).
 
        FD OutputFile.
        01 OutputRecord PIC X(100).
@@ -161,7 +161,7 @@ IDENTIFICATION DIVISION.
        01 IncomingRequestFound PIC X VALUE 'N'.
        01 IncomingFromUsername PIC X(20).
        01 CurrentJobTitle PIC X(50).
-       01 CurrentJobDescription PIC X(200).
+       01 CurrentJobDescription PIC X(300).
        01 CurrentJobEmployer PIC X(50).
        01 CurrentJobLocation PIC X(50).
        01 CurrentJobSalary PIC X(50).

@@ -30,10 +30,10 @@
                MOVE 'Y' TO EOF-InputFile
                MOVE SPACES TO CurrentJobDescription
            NOT AT END
-               MOVE InputRecord(1:200) TO TempString
-               MOVE FUNCTION TRIM(TempString) TO CurrentJobDescription
-               IF CurrentJobDescription = SPACES OR FUNCTION LENGTH(CurrentJobDescription) > 200
-                   PERFORM UNTIL CurrentJobDescription NOT = SPACES AND FUNCTION LENGTH(CurrentJobDescription) <= 200
+               MOVE InputRecord(1:200) TO CurrentJobDescription
+               MOVE FUNCTION TRIM(CurrentJobDescription) TO CurrentJobDescription
+               IF CurrentJobDescription = SPACES OR InputRecord(201:1) NOT = SPACE
+                   PERFORM UNTIL CurrentJobDescription NOT = SPACES AND InputRecord(201:1) = SPACE
                        IF CurrentJobDescription = SPACES
                             MOVE "Description cannot be empty. Please enter a valid Description: " TO CurrentMessage
                        ELSE
@@ -44,9 +44,10 @@
                        AT END
                            MOVE 'Y' TO EOF-InputFile
                            MOVE SPACES TO CurrentJobDescription
+                           EXIT PERFORM
                        NOT AT END
-                           MOVE InputRecord(1:200) TO TempString
-                           MOVE FUNCTION TRIM(TempString) TO CurrentJobDescription
+                           MOVE InputRecord(1:200) TO CurrentJobDescription
+                           MOVE FUNCTION TRIM(CurrentJobDescription) TO CurrentJobDescription
                    END-PERFORM
            END-READ
            MOVE "Enter Employer Name: " TO CurrentMessage
