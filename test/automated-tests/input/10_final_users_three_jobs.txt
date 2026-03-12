@@ -1,0 +1,26 @@
+1
+user4
+Pass4@456
+3
+1
+Senior Architect
+Lead architectural decisions for enterprise software solutions
+EnterpriseSoft
+Atlanta, GA
+180000
+3
+1
+Business Analyst
+Gather requirements and document business processes
+BizConsult
+Charlotte, NC
+NONE
+3
+1
+Help Desk Technician
+Provide IT support to end users
+TechSupport
+Nashville, TN
+48000
+8
+9

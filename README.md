@@ -27,6 +27,8 @@ COBOL-based login and account creation system.
 - `src/AcceptRequest.cob` – copybook for AcceptConnectionRequest procedure
 - `src/ViewNetwork.cob` – copybook for ViewNetwork procedure
 - `src/RejectRequest.cob` – copybook for RejectConnectionRequest procedure
+- `src/BrowseJobs.cob` – copybook for BrowseJobs procedure (WIP)
+- `src/PostJobs.cob` – copybook for PostJobs procedure
 - `input/InCollege-Input.txt` – program input
 - `output/InCollege-Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
@@ -62,5 +64,6 @@ The program reads input from `input/InCollege-Input.txt` and writes output to `o
 - The Learn-a-Skill options are present, but selecting any skill results in an "under construction" message
 - **Epic 4 (Connection Requests)**: Full support for sending, viewing, and accepting connection requests persisted in `connections.dat`
 - **Epic 5 (Network Display)**: Displays the user's network of connections, showing accepted connections and their profiles
+- **Epic 6 (Job Postings)**: Users can post jobs, which are saved to `jobs.dat` and displayed in the Browse Jobs section (WIP)
 
 

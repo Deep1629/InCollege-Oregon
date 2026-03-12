@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, dogman!
+Welcome, user2!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -15,24 +15,17 @@ Welcome, dogman!
 6. View My Pending Connection Requests
 7. View My Network
 8. Logout
-Enter the full name of the person you are looking for:
---- Found User Profile ---
-Name: Jeff Rich
-University: Boston College
-Major: Philosophy
-Graduation Year: 2028
-About Me: I like to party
-Experience:
-Title: Sandwich_Artist
-Company: Subway
-Dates: 2018-2020
-Description: Made sandwiches
-Education:
-Degree: B.S. Biology
-University: Harvard
-Years: 2020-2024
-Send connection request? (Y/N):
-You are already connected with this user.
+--- Job Search/Internship Menu ---
+1. Post a Job/Internship
+2. Browse Jobs/Internships
+3. Back to Main Menu
+--- Post a Job/Internship ---
+Enter Job Title:
+Enter Description (max 200 chars):
+Enter Employer Name:
+Enter Job Location:
+Enter Job Salary (optional, enter 'NONE' to skip):
+Job posted successfully!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
