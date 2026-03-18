@@ -18,6 +18,8 @@ IDENTIFICATION DIVISION.
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT JobFile ASSIGN TO "jobs.dat"
                ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT ApplicationFile ASSIGN TO "applications.dat"
+               ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
@@ -69,6 +71,13 @@ IDENTIFICATION DIVISION.
            05 JobEmployer PIC X(50).
            05 JobLocation PIC X(50).
            05 JobSalary PIC X(50).
+
+       FD ApplicationFile.
+       01 ApplicationRecord.
+           05 AppUsername PIC X(20).
+           05 AppJobTitle PIC X(50).
+           05 AppJobEmployer PIC X(50).
+           05 AppJobLocation PIC X(50).
 
        WORKING-STORAGE SECTION.
        01 FileDetail.
@@ -165,6 +174,18 @@ IDENTIFICATION DIVISION.
        01 CurrentJobEmployer PIC X(50).
        01 CurrentJobLocation PIC X(50).
        01 CurrentJobSalary PIC X(50).
+    01 EOF-JobFile PIC X VALUE 'N'.
+    01 EOF-ApplicationFile PIC X VALUE 'N'.
+    01 JobListCount PIC 9(3) VALUE 0.
+    01 SelectedJobIndex PIC 9(3) VALUE 0.
+    01 CurrentJobIndex PIC 9(3) VALUE 0.
+    01 JobFound PIC X VALUE 'N'.
+    01 JobActionOption PIC 9 VALUE 0.
+    01 AlreadyApplied PIC X VALUE 'N'.
+    01 ApplicationCount PIC 9(3) VALUE 0.
+    01 JobListCountDisplay PIC ZZ9.
+    01 ApplicationCountDisplay PIC ZZ9.
+    01 BackToBrowseMenu PIC X VALUE 'N'.
 
        PROCEDURE DIVISION.
        MainSection.
@@ -211,6 +232,12 @@ IDENTIFICATION DIVISION.
            IF RETURN-CODE NOT = 0 THEN
                OPEN OUTPUT JobFile
                CLOSE JobFile
+           END-IF
+           CALL "CBL_CHECK_FILE_EXIST" USING "applications.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT ApplicationFile
+               CLOSE ApplicationFile
            END-IF.
 
        CountExistingUsers.
@@ -425,16 +452,19 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
                MOVE "2. Browse Jobs/Internships" TO CurrentMessage
                PERFORM DisplayAndLog
-               MOVE "3. Back to Main Menu" TO CurrentMessage
+               MOVE "3. View My Applications" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "4. Back to Main Menu" TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM ReadMenuOption
                EVALUATE MenuOption
                     WHEN 1
                          PERFORM PostJob
                      WHEN 2
-                         MOVE "Browse Jobs/Internships feature is under construction." TO CurrentMessage
-                         PERFORM DisplayAndLog
+                         PERFORM BrowseJobs
                      WHEN 3
+                         PERFORM ViewApplications
+                     WHEN 4
                          MOVE 'Y' TO BackToMainMenu
                      WHEN OTHER
                          MOVE "Invalid option. Please try again." TO CurrentMessage
@@ -951,6 +981,10 @@ IDENTIFICATION DIVISION.
        COPY "PostJobs.cob".
 
        COPY "BrowseJobs.cob".
+
+    COPY "ApplyJob.cob".
+
+    COPY "ViewApplications.cob".
 
        ReadMenuOption.
            READ InputFile INTO InputRecord
