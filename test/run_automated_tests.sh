@@ -31,7 +31,7 @@ trap cleanup EXIT
 # Reset databases once at the start of each script run
 
 for f in ../users.dat ../profiles.dat \
-          ../connections.dat ../connections_temp.dat ../jobs.dat "$LIVE_OUTPUT"; do
+          ../connections.dat ../connections_temp.dat ../jobs.dat ../applications.dat "$LIVE_OUTPUT"; do
     : > "$f"
 done
 
