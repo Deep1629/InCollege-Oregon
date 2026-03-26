@@ -1,0 +1,62 @@
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Enter username:
+Enter password:
+You have successfully logged in.
+Welcome, mia!
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. View My Network
+8. Logout
+--- Job Search/Internship Menu ---
+1. Post a Job/Internship
+2. Browse Jobs/Internships
+3. View My Applications
+4. Back to Main Menu
+--- Available Job Listings ---
+1. Software Engineer at TechCorp Inc (San Francisco, CA)
+2. Data Analyst at DataWorks Co (Chicago, IL)
+----------------------------
+Enter job # for details, or 0 to go back:
+--- Job Details ---
+Title: Software Engineer
+Description: Develop scalable backend systems and APIs
+Employer: TechCorp Inc
+Location: San Francisco, CA
+Salary: 120000
+------------------
+1. Apply for this Job
+2. Back to Job List
+Enter your choice:
+--- Available Job Listings ---
+1. Software Engineer at TechCorp Inc (San Francisco, CA)
+2. Data Analyst at DataWorks Co (Chicago, IL)
+----------------------------
+Enter job # for details, or 0 to go back:
+--- Job Search/Internship Menu ---
+1. Post a Job/Internship
+2. Browse Jobs/Internships
+3. View My Applications
+4. Back to Main Menu
+-------------------------
+1. Create/Edit My Profile
+2. View My Profile
+3. Search for a job
+4. Find someone you know
+5. Learn a new skill
+6. View My Pending Connection Requests
+7. View My Network
+8. Logout
+Logging out...
+Welcome to InCollege!
+1. Log In
+2. Create New Account
+9. Exit
+Exiting the program. Goodbye!
