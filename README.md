@@ -37,12 +37,12 @@ COBOL-based login and account creation system.
 - `output/InCollege-Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
 - `Dockerfile` – for containerized development
-- `users.dat` – user data file (created at runtime)
-- `profiles.dat` – profile data file (created at runtime)
+- `users.dat` – user data file (created at runtime, Epic 1)
+- `profiles.dat` – profile data file (created at runtime, Epic 2)
 - `connections.dat` – connection request data file (created at runtime, Epic 4)
-- `jobs.dat` – job postings data file (created at runtime)
-- `applications.dat` – job applications data file (created at runtime)
-- `messages.dat` – private messages data file (created at runtime)
+- `jobs.dat` – job postings data file (created at runtime, Epic 6/7)
+- `applications.dat` – job applications data file (created at runtime, Epic 6/7)
+- `messages.dat` – private messages data file (created at runtime, Epic 8)
 - `test/` - contains test cases and outputs starting from Epic 3
 - `docs/` – supporting files
 
@@ -71,9 +71,12 @@ The program reads input from `input/InCollege-Input.txt` and writes output to `o
 - Users can view a "My Applications" report with their total application count
 - The create profile functionality works, and profiles are saved between runs
 - The Learn-a-Skill options are present, but selecting any skill results in an "under construction" message
+- **Epic 1 (Login Part 1)**: Basic login and account creation functionality is implemented, with user data persisted in `users.dat`
+- **Epic 2 (User Profile Creation)**: Users can create a profile with details like name, headline, location, and experience; profiles are persisted in `profiles.dat`
+- **Epic 3 (Profile Viewing/Search)**: Users can view their own profile and search for other users by name, with results displayed from `profiles.dat`
 - **Epic 4 (Connection Requests)**: Full support for sending, viewing, and accepting connection requests persisted in `connections.dat`
 - **Epic 5 (Network Display)**: Displays the user's network of connections, showing accepted connections and their profiles
 - **Epic 6/7 (Job Board)**: Users can post jobs, browse postings, apply to jobs, and view applications persisted in data files
-- **Epic 8 (Messaging Part 1)**: Logged-in users can open the Messages menu and send a message to an existing connected user; sent messages are persisted to `messages.dat` with sender, recipient, message content, and timestamp
+- **Epic 8 (Messaging Part 1)**: Logged-in users can open the Messages menu and send a message to an existing connected user; sent messages are persisted to `messages.dat` with sender, recipient, and message content
 
 
