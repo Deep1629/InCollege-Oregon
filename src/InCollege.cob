@@ -20,6 +20,8 @@ IDENTIFICATION DIVISION.
                ORGANIZATION IS LINE SEQUENTIAL.
            SELECT ApplicationFile ASSIGN TO "applications.dat"
                ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT MessageFile ASSIGN TO "messages.dat"
+               ORGANIZATION IS LINE SEQUENTIAL.
 
        DATA DIVISION.
        FILE SECTION.
@@ -78,6 +80,12 @@ IDENTIFICATION DIVISION.
            05 AppJobTitle PIC X(50).
            05 AppJobEmployer PIC X(50).
            05 AppJobLocation PIC X(50).
+
+       FD MessageFile.
+       01 MessageRecord.
+           05 MsgSender PIC X(20).
+           05 MsgRecipient PIC X(20).
+           05 MsgContent PIC X(200).
 
        WORKING-STORAGE SECTION.
        01 FileDetail.
@@ -186,6 +194,11 @@ IDENTIFICATION DIVISION.
     01 JobListCountDisplay PIC ZZ9.
     01 ApplicationCountDisplay PIC ZZ9.
     01 BackToBrowseMenu PIC X VALUE 'N'.
+    01 RecipientUsername PIC X(20).
+    01 MessageText PIC X(200).
+    01 RecipientExists PIC X VALUE 'N'.
+    01 RecipientConnected PIC X VALUE 'N'.
+    01 EOF-MessageFile PIC X VALUE 'N'.
 
        PROCEDURE DIVISION.
        MainSection.
@@ -238,6 +251,12 @@ IDENTIFICATION DIVISION.
            IF RETURN-CODE NOT = 0 THEN
                OPEN OUTPUT ApplicationFile
                CLOSE ApplicationFile
+           END-IF
+           CALL "CBL_CHECK_FILE_EXIST" USING "messages.dat"
+               FileDetail
+           IF RETURN-CODE NOT = 0 THEN
+               OPEN OUTPUT MessageFile
+               CLOSE MessageFile
            END-IF.
 
        CountExistingUsers.
@@ -310,7 +329,9 @@ IDENTIFICATION DIVISION.
                PERFORM DisplayAndLog
                MOVE "7. View My Network" TO CurrentMessage
                PERFORM DisplayAndLog
-               MOVE "8. Logout" TO CurrentMessage
+               MOVE "8. Messages" TO CurrentMessage
+               PERFORM DisplayAndLog
+               MOVE "9. Logout" TO CurrentMessage
                PERFORM DisplayAndLog
                PERFORM ReadMenuOption
                EVALUATE MenuOption
@@ -329,10 +350,13 @@ IDENTIFICATION DIVISION.
                    WHEN 7
                        PERFORM ViewMyNetwork
                    WHEN 8
+                       PERFORM MessagesMenu
+                   WHEN 9
                        MOVE "Logging out..." TO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 'N' TO LoggedIn
-                   WHEN 9
+                       MOVE 0 TO MenuOption
+                   WHEN 0
                        MOVE "Exiting the program. Goodbye!" TO CurrentMessage
                        PERFORM DisplayAndLog
                        MOVE 9 TO MenuOption
@@ -985,6 +1009,10 @@ IDENTIFICATION DIVISION.
     COPY "ApplyJob.cob".
 
     COPY "ViewApplications.cob".
+
+    COPY "SendMessage.cob".
+
+    COPY "ViewMessages.cob".
 
        ReadMenuOption.
            READ InputFile INTO InputRecord

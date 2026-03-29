@@ -31,6 +31,8 @@ COBOL-based login and account creation system.
 - `src/PostJobs.cob` – copybook for PostJobs procedure
 - `src/ApplyJob.cob` – copybook for viewing job details and applying
 - `src/ViewApplications.cob` – copybook for viewing application summaries
+- `src/SendMessage.cob` – copybook for sending a private message to a connected user
+- `src/ViewMessages.cob` – copybook for view-messages menu option placeholder
 - `input/InCollege-Input.txt` – program input
 - `output/InCollege-Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
@@ -40,6 +42,7 @@ COBOL-based login and account creation system.
 - `connections.dat` – connection request data file (created at runtime, Epic 4)
 - `jobs.dat` – job postings data file (created at runtime)
 - `applications.dat` – job applications data file (created at runtime)
+- `messages.dat` – private messages data file (created at runtime)
 - `test/` - contains test cases and outputs starting from Epic 3
 - `docs/` – supporting files
 
@@ -71,5 +74,6 @@ The program reads input from `input/InCollege-Input.txt` and writes output to `o
 - **Epic 4 (Connection Requests)**: Full support for sending, viewing, and accepting connection requests persisted in `connections.dat`
 - **Epic 5 (Network Display)**: Displays the user's network of connections, showing accepted connections and their profiles
 - **Epic 6/7 (Job Board)**: Users can post jobs, browse postings, apply to jobs, and view applications persisted in data files
+- **Epic 8 (Messaging Part 1)**: Logged-in users can open the Messages menu and send a message to an existing connected user; sent messages are persisted to `messages.dat` with sender, recipient, message content, and timestamp
 
 

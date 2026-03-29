@@ -15,6 +15,7 @@ Welcome, mia!
 6. View My Pending Connection Requests
 7. View My Network
 8. Logout
+9. Messages
 --- Job Search/Internship Menu ---
 1. Post a Job/Internship
 2. Browse Jobs/Internships
@@ -64,6 +65,7 @@ Total applications: 2
 6. View My Pending Connection Requests
 7. View My Network
 8. Logout
+9. Messages
 Logging out...
 Welcome to InCollege!
 1. Log In
