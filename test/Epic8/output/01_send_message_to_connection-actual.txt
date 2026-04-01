@@ -1,0 +1,128 @@
+Welcome to InCollege!                                                                               
+1. Log In                                                                                           
+2. Create New Account                                                                               
+9. Exit                                                                                             
+Enter username:                                                                                     
+Enter password:                                                                                     
+Account created successfully.                                                                       
+Welcome, user1!                                                                                     
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Logging out...                                                                                      
+Welcome to InCollege!                                                                               
+1. Log In                                                                                           
+2. Create New Account                                                                               
+9. Exit                                                                                             
+Enter username:                                                                                     
+Enter password:                                                                                     
+Account created successfully.                                                                       
+Welcome, user2!                                                                                     
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Logging out...                                                                                      
+Welcome to InCollege!                                                                               
+1. Log In                                                                                           
+2. Create New Account                                                                               
+9. Exit                                                                                             
+Enter username:                                                                                     
+Enter password:                                                                                     
+You have successfully logged in.                                                                    
+Welcome, user1!                                                                                     
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Enter the full name of the person you are looking for:                                              
+No one by that name could be found.                                                                 
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Exiting the program. Goodbye!                                                                       
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Logging out...                                                                                      
+Welcome to InCollege!                                                                               
+1. Log In                                                                                           
+2. Create New Account                                                                               
+9. Exit                                                                                             
+Enter username:                                                                                     
+Enter password:                                                                                     
+You have successfully logged in.                                                                    
+Welcome, user2!                                                                                     
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+Your Pending Connection Requests:                                                                   
+You have no pending connection requests.                                                            
+-------------------------                                                                           
+1. Create/Edit My Profile                                                                           
+2. View My Profile                                                                                  
+3. Search for a job                                                                                 
+4. Find someone you know                                                                            
+5. Learn a new skill                                                                                
+6. View My Pending Connection Requests                                                              
+7. View My Network                                                                                  
+8. Messages                                                                                         
+9. Logout                                                                                           
+--- Create/Edit Profile ---                                                                         
+Enter First Name:                                                                                   
+Enter Last Name:                                                                                    
+Enter University/College Attended:                                                                  
+Enter Major:                                                                                        
+Enter Graduation Year (YYYY):                                                                       
+Graduation Year out of range; set to 0.                                                             
+Enter About Me (optional, max 200 characters, enter blank line to skip):                            
+Add Experience (optional, max 3 entries. Enter 'DONE' to finish):                                   
+Experience 1 - Title:                                                                               
+Experience 1 - Company:                                                                             
+Experience 1 - Dates:                                                                               
+Experience 1 - Description (optional 100 characters max, blank line to skip):                       
+Experience 2 - Title:                                                                               
+Experience 2 - Company:                                                                             
+Experience 2 - Dates:                                                                               
+libcob: error: READ after unsuccessful READ/START (status = 46) for file InputFile ('input' => input/InCollege-Input.txt)
+libcob: warning: implicit CLOSE of InputFile ('input/InCollege-Input.txt')
