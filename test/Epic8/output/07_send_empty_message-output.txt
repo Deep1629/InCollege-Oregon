@@ -22,6 +22,7 @@ Welcome, alice!
 3. Back to Main Menu
 Enter recipient's username (must be a connection):
 Enter your message (max 200 chars):
+Message cannot be blank. Please try again:
 Message sent to bob successfully!
 --- Messages Menu ---
 1. Send a New Message
