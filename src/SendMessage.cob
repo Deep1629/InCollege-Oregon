@@ -86,26 +86,44 @@
 			   ELSE
 				   MOVE "Enter your message (max 200 chars):" TO CurrentMessage
 				   PERFORM DisplayAndLog
+				   MOVE 'N' TO EOF-InputFile
 				   READ InputFile INTO InputRecord
 				   AT END
 					   MOVE 'Y' TO EOF-InputFile
 					   MOVE SPACES TO MessageText
 				   NOT AT END
-					   MOVE InputRecord(1:200) TO MessageText
+					   MOVE FUNCTION TRIM(InputRecord(1:200)) TO MessageText
 				   END-READ
 
-				   OPEN EXTEND MessageFile
-				   MOVE CurrentUsername TO MsgSender
-				   MOVE RecipientUsername TO MsgRecipient
-				   MOVE MessageText TO MsgContent
-				   WRITE MessageRecord
-				   CLOSE MessageFile
+				   PERFORM UNTIL MessageText NOT = SPACES OR EOF-InputFile = 'Y'
+					   MOVE "Message cannot be blank. Please try again:" TO CurrentMessage
+					   PERFORM DisplayAndLog
+					   READ InputFile INTO InputRecord
+					   AT END
+						   MOVE 'Y' TO EOF-InputFile
+						   MOVE SPACES TO MessageText
+					   NOT AT END
+						   MOVE FUNCTION TRIM(InputRecord(1:200)) TO MessageText
+					   END-READ
+				   END-PERFORM
 
-				   MOVE SPACES TO CurrentMessage
-				   STRING "Message sent to " DELIMITED BY SIZE
-					   FUNCTION TRIM(RecipientUsername) DELIMITED BY SIZE
-					   " successfully!" DELIMITED BY SIZE
-					   INTO CurrentMessage
-				   PERFORM DisplayAndLog
+				   IF MessageText = SPACES THEN
+					   MOVE "Message cannot be blank." TO CurrentMessage
+					   PERFORM DisplayAndLog
+				   ELSE
+					   OPEN EXTEND MessageFile
+					   MOVE CurrentUsername TO MsgSender
+					   MOVE RecipientUsername TO MsgRecipient
+					   MOVE MessageText TO MsgContent
+					   WRITE MessageRecord
+					   CLOSE MessageFile
+
+					   MOVE SPACES TO CurrentMessage
+					   STRING "Message sent to " DELIMITED BY SIZE
+						   FUNCTION TRIM(RecipientUsername) DELIMITED BY SIZE
+						   " successfully!" DELIMITED BY SIZE
+						   INTO CurrentMessage
+					   PERFORM DisplayAndLog
+				   END-IF
 			   END-IF
 		   END-IF.
