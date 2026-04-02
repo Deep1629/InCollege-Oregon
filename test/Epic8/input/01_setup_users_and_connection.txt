@@ -1,0 +1,43 @@
+2
+alice
+Pass123!
+1
+Alice
+Smith
+StateU
+CompSci
+2026
+CS student
+
+DONE
+DONE
+9
+2
+bob
+Pass456!
+1
+Bob
+Jones
+StateU
+Business
+2026
+Biz student
+
+DONE
+DONE
+9
+1
+alice
+Pass123!
+4
+Bob Jones
+Y
+9
+1
+bob
+Pass456!
+6
+1
+1
+9
+9
