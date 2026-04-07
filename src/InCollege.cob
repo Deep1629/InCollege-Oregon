@@ -199,6 +199,7 @@ IDENTIFICATION DIVISION.
     01 RecipientExists PIC X VALUE 'N'.
     01 RecipientConnected PIC X VALUE 'N'.
     01 EOF-MessageFile PIC X VALUE 'N'.
+    01 MessageCount PIC 9(3) VALUE 0.
 
        PROCEDURE DIVISION.
        MainSection.

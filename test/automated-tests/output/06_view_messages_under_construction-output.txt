@@ -20,7 +20,8 @@ Welcome, alice!
 1. Send a New Message
 2. View My Messages
 3. Back to Main Menu
-View My Messages is under construction.
+--- My Messages ---
+You have no messages.
 --- Messages Menu ---
 1. Send a New Message
 2. View My Messages

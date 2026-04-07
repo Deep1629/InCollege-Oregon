@@ -8,7 +8,6 @@ StateU
 CompSci
 2026
 CS student
-
 DONE
 DONE
 9
@@ -22,7 +21,6 @@ StateU
 Business
 2026
 Biz student
-
 DONE
 DONE
 9

@@ -32,7 +32,7 @@ COBOL-based login and account creation system.
 - `src/ApplyJob.cob` – copybook for viewing job details and applying
 - `src/ViewApplications.cob` – copybook for viewing application summaries
 - `src/SendMessage.cob` – copybook for sending a private message to a connected user
-- `src/ViewMessages.cob` – copybook for view-messages menu option placeholder
+- `src/ViewMessages.cob` – copybook for viewing received private messages
 - `input/InCollege-Input.txt` – program input
 - `output/InCollege-Output.txt` – program output
 - `build_and_run.sh` – script to build and run the program
@@ -78,5 +78,6 @@ The program reads input from `input/InCollege-Input.txt` and writes output to `o
 - **Epic 5 (Network Display)**: Displays the user's network of connections, showing accepted connections and their profiles
 - **Epic 6/7 (Job Board)**: Users can post jobs, browse postings, apply to jobs, and view applications persisted in data files
 - **Epic 8 (Messaging Part 1)**: Logged-in users can open the Messages menu and send a message to an existing connected user; sent messages are persisted to `messages.dat` with sender, recipient, and message content
+- **Epic 9 (Messaging Part 2)**: Logged-in users can view received messages from their inbox in the Messages menu
 
 

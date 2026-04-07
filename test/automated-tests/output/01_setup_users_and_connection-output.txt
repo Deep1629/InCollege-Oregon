@@ -38,17 +38,6 @@ Profile saved successfully!
 7. View My Network
 8. Messages
 9. Logout
-Exiting the program. Goodbye!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
 Logging out...
 Welcome to InCollege!
 1. Log In
@@ -80,17 +69,6 @@ Experience 1 - Title:
 Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
 Education 1 - Degree:
 Profile saved successfully!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
-Exiting the program. Goodbye!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
