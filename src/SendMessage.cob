@@ -120,6 +120,7 @@
 					   ACCEPT FixedMessageTimestamp
 						   FROM ENVIRONMENT "INCOLLEGE_FIXED_TIMESTAMP"
 					   IF FUNCTION TRIM(FixedMessageTimestamp) = SPACES
+						   SET ENVIRONMENT 'TZ' TO 'UTC'
 						   MOVE FUNCTION CURRENT-DATE TO CurrentDateTime
 						   STRING CurrentDateTime(1:4) DELIMITED BY SIZE
 							   "-" DELIMITED BY SIZE
