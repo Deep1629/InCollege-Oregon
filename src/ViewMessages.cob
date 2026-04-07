@@ -26,6 +26,14 @@
 						   INTO CurrentMessage
 					   PERFORM DisplayAndLog
 
+					   IF FUNCTION TRIM(MsgTimestamp) NOT = SPACES
+						   MOVE SPACES TO CurrentMessage
+						   STRING "Sent: " DELIMITED BY SIZE
+							   FUNCTION TRIM(MsgTimestamp) DELIMITED BY SIZE
+							   INTO CurrentMessage
+						   PERFORM DisplayAndLog
+					   END-IF
+
 					   MOVE FUNCTION TRIM(MsgContent(1:100)) TO CurrentMessage
 					   PERFORM DisplayAndLog
 

@@ -23,6 +23,7 @@ Welcome, mia!
 --- My Messages ---
 Message 001:
 From: alice
+Sent: 2026-04-07 09:00
 Hi Mia, welcome to my network.
 -------------------
 --- Messages Menu ---

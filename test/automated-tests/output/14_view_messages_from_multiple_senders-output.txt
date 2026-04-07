@@ -23,14 +23,17 @@ Welcome, bob!
 --- My Messages ---
 Message 001:
 From: alice
+Sent: 2026-04-07 09:00
 Hello Bob, how are you?
 -------------------
 Message 002:
 From: alice
+Sent: 2026-04-07 09:00
 hi
 -------------------
 Message 003:
 From: charlie
+Sent: 2026-04-07 09:00
 Hi Bob, this is Charlie.
 -------------------
 --- Messages Menu ---

@@ -86,6 +86,7 @@ IDENTIFICATION DIVISION.
            05 MsgSender PIC X(20).
            05 MsgRecipient PIC X(20).
            05 MsgContent PIC X(200).
+           05 MsgTimestamp PIC X(16).
 
        WORKING-STORAGE SECTION.
        01 FileDetail.
@@ -200,6 +201,9 @@ IDENTIFICATION DIVISION.
     01 RecipientConnected PIC X VALUE 'N'.
     01 EOF-MessageFile PIC X VALUE 'N'.
     01 MessageCount PIC 9(3) VALUE 0.
+    01 CurrentDateTime PIC X(21).
+    01 FixedMessageTimestamp PIC X(16).
+    01 FormattedMessageTimestamp PIC X(16).
 
        PROCEDURE DIVISION.
        MainSection.

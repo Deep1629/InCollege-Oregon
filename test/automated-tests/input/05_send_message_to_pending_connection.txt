@@ -8,7 +8,6 @@ StateU
 Art
 2026
 Art student
-
 DONE
 DONE
 9
