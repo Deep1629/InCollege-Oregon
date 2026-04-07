@@ -115,27 +115,19 @@
 					   MOVE CurrentUsername TO MsgSender
 					   MOVE RecipientUsername TO MsgRecipient
 					   MOVE MessageText TO MsgContent
-					   MOVE SPACES TO FixedMessageTimestamp
 					   MOVE SPACES TO FormattedMessageTimestamp
-					   ACCEPT FixedMessageTimestamp
-						   FROM ENVIRONMENT "INCOLLEGE_FIXED_TIMESTAMP"
-					   IF FUNCTION TRIM(FixedMessageTimestamp) = SPACES
-						   SET ENVIRONMENT 'TZ' TO 'UTC'
-						   MOVE FUNCTION CURRENT-DATE TO CurrentDateTime
-						   STRING CurrentDateTime(1:4) DELIMITED BY SIZE
-							   "-" DELIMITED BY SIZE
-							   CurrentDateTime(5:2) DELIMITED BY SIZE
-							   "-" DELIMITED BY SIZE
-							   CurrentDateTime(7:2) DELIMITED BY SIZE
-							   " " DELIMITED BY SIZE
-							   CurrentDateTime(9:2) DELIMITED BY SIZE
-							   ":" DELIMITED BY SIZE
-							   CurrentDateTime(11:2) DELIMITED BY SIZE
-							   INTO FormattedMessageTimestamp
-					   ELSE
-						   MOVE FixedMessageTimestamp
-							   TO FormattedMessageTimestamp
-					   END-IF
+					   SET ENVIRONMENT 'TZ' TO 'UTC'
+					   MOVE FUNCTION CURRENT-DATE TO CurrentDateTime
+					   STRING CurrentDateTime(1:4) DELIMITED BY SIZE
+						   "-" DELIMITED BY SIZE
+						   CurrentDateTime(5:2) DELIMITED BY SIZE
+						   "-" DELIMITED BY SIZE
+						   CurrentDateTime(7:2) DELIMITED BY SIZE
+						   " " DELIMITED BY SIZE
+						   CurrentDateTime(9:2) DELIMITED BY SIZE
+						   ":" DELIMITED BY SIZE
+						   CurrentDateTime(11:2) DELIMITED BY SIZE
+						   INTO FormattedMessageTimestamp
 					   MOVE FormattedMessageTimestamp TO MsgTimestamp
 					   WRITE MessageRecord
 					   CLOSE MessageFile

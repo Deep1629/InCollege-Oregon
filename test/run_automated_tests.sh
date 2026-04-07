@@ -9,7 +9,6 @@ OUT_DIR="./automated-tests/output"
 
 LIVE_INPUT="../input/InCollege-Input.txt"
 LIVE_OUTPUT="../output/InCollege-Output.txt"
-export INCOLLEGE_FIXED_TIMESTAMP="2026-04-07 09:00"
 
 # Sanity checks
 [ -d "$INPUT_DIR" ]    || { echo "Missing $INPUT_DIR"; exit 1; }

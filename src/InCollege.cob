@@ -202,7 +202,6 @@ IDENTIFICATION DIVISION.
     01 EOF-MessageFile PIC X VALUE 'N'.
     01 MessageCount PIC 9(3) VALUE 0.
     01 CurrentDateTime PIC X(21).
-    01 FixedMessageTimestamp PIC X(16).
     01 FormattedMessageTimestamp PIC X(16).
 
        PROCEDURE DIVISION.
