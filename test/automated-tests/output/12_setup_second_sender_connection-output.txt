@@ -5,59 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 Account created successfully.
-Welcome, alice!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
---- Create/Edit Profile ---
-Enter First Name:
-Enter Last Name:
-Enter University/College Attended:
-Enter Major:
-Enter Graduation Year (YYYY):
-Enter About Me (optional, max 200 characters, enter blank line to skip):
-Add Experience (optional, max 3 entries. Enter 'DONE' to finish):
-Experience 1 - Title:
-Add Education (Optional, 3 Entries or Enter 'DONE' to finish):
-Education 1 - Degree:
-Profile saved successfully!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
-Exiting the program. Goodbye!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
-Logging out...
-Welcome to InCollege!
-1. Log In
-2. Create New Account
-9. Exit
-Enter username:
-Enter password:
-Account created successfully.
-Welcome, bob!
+Welcome, charlie!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -109,7 +57,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, alice!
+Welcome, bob!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -122,11 +70,11 @@ Welcome, alice!
 9. Logout
 Enter the full name of the person you are looking for:
 --- Found User Profile ---
-Name: Bob Jones
+Name: Charlie Brown
 University: StateU
-Major: Business
-Graduation Year: 2026
-About Me: Biz student
+Major: Engineering
+Graduation Year: 2027
+About Me: Engineering student
 Experience:
 None
 Education:
@@ -151,7 +99,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, bob!
+Welcome, charlie!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -163,73 +111,10 @@ Welcome, bob!
 8. Messages
 9. Logout
 Your Pending Connection Requests:
-001. From: alice
+001. From: bob
 Enter number to accept/reject, or 0 to skip:
 1. Accept  2. Reject
 Connection accepted successfully.
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
---- Messages Menu ---
-1. Send a New Message
-2. View My Messages
-3. Back to Main Menu
-Enter recipient's username (must be a connection):
-Enter your message (max 200 chars):
-Message sent to alice successfully!
---- Messages Menu ---
-1. Send a New Message
-2. View My Messages
-3. Back to Main Menu
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
-Logging out...
-Welcome to InCollege!
-1. Log In
-2. Create New Account
-9. Exit
-Enter username:
-Enter password:
-You have successfully logged in.
-Welcome, alice!
--------------------------
-1. Create/Edit My Profile
-2. View My Profile
-3. Search for a job
-4. Find someone you know
-5. Learn a new skill
-6. View My Pending Connection Requests
-7. View My Network
-8. Messages
-9. Logout
---- Messages Menu ---
-1. Send a New Message
-2. View My Messages
-3. Back to Main Menu
---- My Messages ---
-Message 001:
-From: bob
-Hi Alice, glad we connected.
--------------------
---- Messages Menu ---
-1. Send a New Message
-2. View My Messages
-3. Back to Main Menu
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
