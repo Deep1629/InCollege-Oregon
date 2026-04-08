@@ -202,7 +202,7 @@ Welcome, alice!
 --- My Messages ---
 Message 001:
 From: bob
-Sent: 2026-04-07 08:04
+Sent: 2026-04-08 18:30
 Hi Alice, glad we connected.
 -------------------
 --- Messages Menu ---
