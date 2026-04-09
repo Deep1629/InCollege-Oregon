@@ -23,13 +23,8 @@ Welcome, bob!
 --- My Messages ---
 Message 001:
 From: alice
-Sent: 2026-04-07 08:04
+Sent: 2026-04-09 07:02
 Hello Bob, how are you?
--------------------
-Message 002:
-From: alice
-Sent: 2026-04-07 08:04
-hi
 -------------------
 --- Messages Menu ---
 1. Send a New Message

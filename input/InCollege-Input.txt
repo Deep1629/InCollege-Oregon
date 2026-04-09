@@ -1,53 +1,22 @@
-2
-alice
-Pass123!
-1
-Alice
-Smith
-StateU
-CompSci
-2026
-CS student
-DONE
-DONE
-9
-2
-bob
-Pass456!
-1
-Bob
-Jones
-StateU
-Business
-2026
-Biz student
-DONE
-DONE
-9
 1
 alice
 Pass123!
-4
-Bob Jones
-Y
-9
-1
-bob
-Pass456!
-6
-1
-1
 8
 1
-alice
-Hi Alice, glad we connected.
+bob
+Hello Bob, how are you?
 3
 9
 1
-alice
-Pass123!
+bob
+Pass456!
 8
-2
+1
+mia
+Hi Mia, How are you?
+1
+mia
+Remember me, Bob?
 3
 9
 9
