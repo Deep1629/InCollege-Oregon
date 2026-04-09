@@ -5,7 +5,7 @@ Welcome to InCollege!
 Enter username:
 Enter password:
 You have successfully logged in.
-Welcome, bob!
+Welcome, alice!
 -------------------------
 1. Create/Edit My Profile
 2. View My Profile
@@ -20,12 +20,8 @@ Welcome, bob!
 1. Send a New Message
 2. View My Messages
 3. Back to Main Menu
---- My Messages ---
-Message 001:
-From: alice
-Sent: 2026-04-09 07:28
-Hello Bob, how are you?
--------------------
+Enter recipient's username (must be a connection):
+User not found in your network.
 --- Messages Menu ---
 1. Send a New Message
 2. View My Messages
